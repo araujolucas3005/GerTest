@@ -87,12 +87,10 @@ public class DisciplinaVO {
 		int numeroGerado = gerador.nextInt(10000);
 		String numeroGeradoString;
 		if (numeroGerado < 10) {
-			numeroGeradoString = "0000" + String.valueOf(numeroGerado);
-		} else if (numeroGerado < 100) {
 			numeroGeradoString = "000" + String.valueOf(numeroGerado);
-		} else if (numeroGerado < 1000) {
+		} else if (numeroGerado < 100) {
 			numeroGeradoString = "00" + String.valueOf(numeroGerado);
-		} else if (numeroGerado < 10000) {
+		} else if (numeroGerado < 1000) {
 			numeroGeradoString = "0" + String.valueOf(numeroGerado);
 		} else {
 			numeroGeradoString = String.valueOf(numeroGerado);
@@ -113,7 +111,7 @@ public class DisciplinaVO {
 		modeloString = "----Disciplina----" 
 					 + "\nNome: " + this.nome
 					 + "\nCodigo: " + this.codigo
-					 + "\n----Assuntos----";
+					 + "\n----Assuntos----\n";
 		
 		for (int i = 0; i < this.assuntos.length; i++) {
 			modeloString += String.valueOf(i) + ". " + this.assuntos[i] + "\n";
