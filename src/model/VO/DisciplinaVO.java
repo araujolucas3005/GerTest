@@ -114,7 +114,7 @@ public class DisciplinaVO {
 					 + "\n----Assuntos----\n";
 		
 		for (int i = 0; i < this.assuntos.length; i++) {
-			modeloString += String.valueOf(i) + ". " + this.assuntos[i] + "\n";
+			modeloString += String.valueOf(i+1) + ". " + this.assuntos[i] + "\n";
 		}
 		
 		return modeloString;
