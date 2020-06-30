@@ -12,6 +12,12 @@ public class DisciplinaVO {
 		this.setCodigo(codigo);
 		this.setAssuntos(assuntos);
 	}
+	
+	public DisciplinaVO(String nome, String[] assuntos) {
+		this.setNome(nome);
+		this.setAssuntos(assuntos);
+		this.codigo = gerarCodigoAleatorio();
+	}
 
 	public String getNome() {
 		return nome;
@@ -100,5 +106,19 @@ public class DisciplinaVO {
 		
 		codigoGerado = letrasGeradas[0] + letrasGeradas[1] + letrasGeradas[2] + numeroGeradoString;
 		return codigoGerado;
+	}
+	
+	public String toString() {
+		String modeloString;
+		modeloString = "----Disciplina----" 
+					 + "\nNome: " + this.nome
+					 + "\nCodigo: " + this.codigo
+					 + "\n----Assuntos----";
+		
+		for (int i = 0; i < this.assuntos.length; i++) {
+			modeloString += String.valueOf(i) + ". " + this.assuntos[i] + "\n";
+		}
+		
+		return modeloString;
 	}
 }
