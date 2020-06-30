@@ -39,7 +39,6 @@ public class DisciplinaVO {
 		if (testeCodigoFormatoCorreto(codigo)) {
 			this.codigo = codigo;
 		} else {
-			System.out.println("Formato errado, gerando um codigo aleatório...");
 			this.codigo = gerarCodigoAleatorio();
 		}
 	}
