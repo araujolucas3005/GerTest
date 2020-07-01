@@ -32,7 +32,7 @@ public class DisciplinaVO {
 	}
 
 	public void setNome(String nome) {
-		if (nome.isEmpty() || nome == null) {
+		if (nome == null || nome.isEmpty()) {
 			this.nome = "Disciplina sem nome";
 		} else {
 			this.nome = nome;
