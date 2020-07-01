@@ -7,16 +7,24 @@ public class DisciplinaVO {
 	private String codigo;
 	private String[] assuntos;
 
+	public DisciplinaVO() {
+		this.nome = "Disciplina sem nome";
+		this.codigo = gerarCodigoAleatorio();
+		this.assuntos = new String[1];
+		this.assuntos[0] = "Disciplina sem assunto";
+	}
+
 	public DisciplinaVO(String nome, String codigo, String[] assuntos) {
 		this.setNome(nome);
 		this.setCodigo(codigo);
 		this.setAssuntos(assuntos);
 	}
 	
+	// Quando o usuário não define o código da disciplina
 	public DisciplinaVO(String nome, String[] assuntos) {
 		this.setNome(nome);
-		this.setAssuntos(assuntos);
 		this.codigo = gerarCodigoAleatorio();
+		this.setAssuntos(assuntos);
 	}
 
 	public String getNome() {
@@ -24,7 +32,7 @@ public class DisciplinaVO {
 	}
 
 	public void setNome(String nome) {
-		if (nome.isEmpty()) {
+		if (nome.isEmpty() || nome == null) {
 			this.nome = "Disciplina sem nome";
 		} else {
 			this.nome = nome;
@@ -48,17 +56,22 @@ public class DisciplinaVO {
 	}
 
 	public void setAssuntos(String[] assuntos) {
-		for (int i = 0; i < assuntos.length; i++) {
-			if (assuntos[i].isEmpty()) {
-				assuntos[i] = "Sem assunto";
+		if (assuntos != null) {
+			for (int i = 0; i < assuntos.length; i++) {
+				if (assuntos[i] == null || assuntos[i].isEmpty()) {
+					assuntos[i] = "Sem assunto";
+				}
 			}
+			this.assuntos = assuntos;
+		} else {
+			this.assuntos = new String[1];
+			this.assuntos[0] = "Disciplina sem assunto";
 		}
-		this.assuntos = assuntos;
 	}
 
 	private boolean testeCodigoFormatoCorreto(String codigo) {
 		boolean testeFinal = false;
-		if (codigo.length() == 7) {
+		if (codigo != null && codigo.length() == 7) {
 			boolean[] testes = new boolean[7];
 			for (int i = 0; i < 3; i++) {
 				testes[i] = Character.isUpperCase(codigo.charAt(i)) & Character.isAlphabetic(codigo.charAt(i));
@@ -75,14 +88,15 @@ public class DisciplinaVO {
 				}
 			}
 			return testeFinal;
+		} else {
+			return testeFinal;
 		}
-		return testeFinal;
 	}
-	
+
 	private String gerarCodigoAleatorio() {
 		String codigoGerado;
 		Random gerador = new Random();
-		
+
 		int numeroGerado = gerador.nextInt(10000);
 		String numeroGeradoString;
 		if (numeroGerado < 10) {
@@ -94,28 +108,25 @@ public class DisciplinaVO {
 		} else {
 			numeroGeradoString = String.valueOf(numeroGerado);
 		}
-		
+
 		String[] letrasGeradas = new String[3];
 		for (int i = 0; i < 3; i++) {
-			String letraGerada = String.valueOf((char)(gerador.nextInt(26) + 'A'));
+			String letraGerada = String.valueOf((char) (gerador.nextInt(26) + 'A'));
 			letrasGeradas[i] = letraGerada;
 		}
-		
+
 		codigoGerado = letrasGeradas[0] + letrasGeradas[1] + letrasGeradas[2] + numeroGeradoString;
 		return codigoGerado;
 	}
-	
+
 	public String toString() {
 		String modeloString;
-		modeloString = "----Disciplina----" 
-					 + "\nNome: " + this.nome
-					 + "\nCodigo: " + this.codigo
-					 + "\n----Assuntos----\n";
-		
+		modeloString = "----Disciplina----" + "\nNome: " + this.nome + "\nCodigo: " + this.codigo + "\nAssuntos: \n";
+
 		for (int i = 0; i < this.assuntos.length; i++) {
-			modeloString += String.valueOf(i+1) + ". " + this.assuntos[i] + "\n";
+			modeloString += String.valueOf(i + 1) + ". " + this.assuntos[i] + "\n";
 		}
-		
+
 		return modeloString;
 	}
 }
