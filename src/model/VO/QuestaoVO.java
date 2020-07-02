@@ -57,11 +57,16 @@ public class QuestaoVO {
 			return tipo;
 		}
 		public void setTipo(String tipo) {
-			if (tipo == null || tipo.isEmpty())
+			if (tipo == null || tipo.isEmpty()) 
 				this.tipo = "Questao sem tipo";
-			else
-				this.tipo = tipo;
+			else {
+				if (tipo != "Discursiva" || tipo != "Objetiva")
+					this.tipo = "Tipo inválido";
+				else
+					this.tipo = tipo;		
+			}
 		}
+		
 		public String getEnunciado() {
 			return enunciado;
 		}
