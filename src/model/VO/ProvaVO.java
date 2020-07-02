@@ -36,7 +36,7 @@ public class ProvaVO {
 		}
 
 		public void setDisciplina(String disciplina) {
-			if (disciplina.isEmpty())
+			if (disciplina == null || disciplina.isEmpty())
 				this.disciplina = "Prova sem disciplina";
 			else
 				this.disciplina = disciplina;
@@ -101,5 +101,19 @@ public class ProvaVO {
 			
 		return prova_gerada;
 	}
+	
+	public String toString() {
+		String modeloString;
+		modeloString = "----Prova----" 
+					 + "\nID: " + this.id
+					 + "\nDisciplina: " + this.disciplina
+					 + "\n----Questoes----\n";
+		
+		for (int i = 0; i < this.questoes.length; i++) {
+			modeloString += String.valueOf(i) + ". " + this.questoes[i] + "\n";
+		}
+		
+		return modeloString;
 		
 	}
+}
