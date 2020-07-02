@@ -1,5 +1,4 @@
 package model.VO;
-
 import java.util.Random;
 
 public class DisciplinaVO {
@@ -73,7 +72,7 @@ public class DisciplinaVO {
 		if (codigo != null && codigo.length() == 7) {
 			boolean testeFinal = true;
 			int i = 0;
-			while(testeFinal && i<7) {
+			while (testeFinal && i<7) {
 				boolean testeLetra = Character.isUpperCase(codigo.charAt(i));
 				boolean testeNumero = Character.isDigit(codigo.charAt(i));
 				if ((i < 3 && testeLetra == false) || (i > 3 && testeNumero == false)) {
@@ -96,7 +95,7 @@ public class DisciplinaVO {
 			codigoGerado += letraGerada;
 		}
 		
-		// Gera aleatoriamente o número após a 3 letras do código
+		// Gera aleatoriamente o número após as 3 letras do código
 		int numeroGerado = gerador.nextInt(10000);
 		String numeroGeradoString;
 		if (numeroGerado < 10) {
