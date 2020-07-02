@@ -16,14 +16,14 @@ public class QuestaoVO {
 		}
 		
 		public QuestaoVO(DisciplinaVO discip, int nivel, String codigo, String tipo, String enunciado, String gabarito, String[] assunto, String[] opcoes) {
-			this.setDiscip(discip);
-			this.setNivel(nivel);
-			this.setAssunto(assunto);
-			this.setCodigo(codigo);
-			this.setEnunciado(enunciado);
-			this.setGabarito(gabarito);
-			this.setTipo(tipo);
-			this.setOpcoes(opcoes);
+			setDiscip(discip);
+			setNivel(nivel);
+			setAssunto(assunto);
+			setCodigo(codigo);
+			setEnunciado(enunciado);
+			setGabarito(gabarito);
+			setTipo(tipo);
+			setOpcoes(opcoes);
 		}
 		
 		public DisciplinaVO getDiscip() {
@@ -57,7 +57,7 @@ public class QuestaoVO {
 			return tipo;
 		}
 		public void setTipo(String tipo) {
-			if (tipo.isEmpty())
+			if (tipo == null || tipo.isEmpty())
 				this.tipo = "Questao sem tipo";
 			else
 				this.tipo = tipo;
@@ -66,7 +66,7 @@ public class QuestaoVO {
 			return enunciado;
 		}
 		public void setEnunciado(String enunciado) {
-			if (enunciado.isEmpty())
+			if (enunciado == null || enunciado.isEmpty())
 				this.enunciado = "Questao sem enunciado";
 			else
 				this.enunciado = enunciado;
@@ -75,7 +75,7 @@ public class QuestaoVO {
 			return gabarito;
 		}
 		public void setGabarito(String gabarito) {
-			if (gabarito.isEmpty())
+			if (gabarito == null || gabarito.isEmpty())
 				this.gabarito = "Questao sem gabarito";
 			else
 				this.gabarito = gabarito;
@@ -99,7 +99,7 @@ public class QuestaoVO {
 		}
 		public void setOpcoes(String[] opcoes) {
 			for (int i = 0; i < opcoes.length; i++) {
-				if (opcoes[i].isEmpty()) {
+				if (opcoes[i] == null || opcoes[i].isEmpty()) {
 					opcoes[i] = "Questao sem opcoes";
 				}
 				else
