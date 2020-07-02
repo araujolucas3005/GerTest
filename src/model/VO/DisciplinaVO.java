@@ -94,9 +94,16 @@ public class DisciplinaVO {
 	}
 
 	private String gerarCodigoAleatorio() {
-		String codigoGerado;
+		String codigoGerado = new String();
 		Random gerador = new Random();
 
+		// Gera aleatoriamente as primeiras 3 letras do código
+		for (int i = 0; i < 3; i++) {
+			String letraGerada = String.valueOf((char) (gerador.nextInt(26) + 'A'));
+			codigoGerado += letraGerada;
+		}
+		
+		// Gera aleatoriamente o número após a 3 letras do código
 		int numeroGerado = gerador.nextInt(10000);
 		String numeroGeradoString;
 		if (numeroGerado < 10) {
@@ -108,14 +115,8 @@ public class DisciplinaVO {
 		} else {
 			numeroGeradoString = String.valueOf(numeroGerado);
 		}
-
-		String[] letrasGeradas = new String[3];
-		for (int i = 0; i < 3; i++) {
-			String letraGerada = String.valueOf((char) (gerador.nextInt(26) + 'A'));
-			letrasGeradas[i] = letraGerada;
-		}
-
-		codigoGerado = letrasGeradas[0] + letrasGeradas[1] + letrasGeradas[2] + numeroGeradoString;
+		
+		codigoGerado += numeroGeradoString;
 		return codigoGerado;
 	}
 
