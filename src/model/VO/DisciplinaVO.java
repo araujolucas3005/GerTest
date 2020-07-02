@@ -5,7 +5,7 @@ import java.util.Random;
 public class DisciplinaVO {
 	private String nome;
 	private String codigo;
-	private String[] assuntos;
+	String[] assuntos;
 
 	public DisciplinaVO(String nome, String codigo, String[] assuntos) {
 		this.setNome(nome);

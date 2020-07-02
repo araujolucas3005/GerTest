@@ -2,20 +2,20 @@ package model.VO;
 import java.util.Random;
 
 public class QuestaoVO {
-		private String discip;
+		private DisciplinaVO discip;
 		private int nivel;
 		private String codigo;
 		private String tipo;
 		private String enunciado;
 		private String gabarito;
-		private String assunto;
+		private String[] assunto;
 		private String[] opcoes;
 
 		public QuestaoVO() {
 			
 		}
 		
-		public QuestaoVO(String discip, int nivel, String codigo, String tipo, String enunciado, String gabarito, String assunto, String[] opcoes) {
+		public QuestaoVO(DisciplinaVO discip, int nivel, String codigo, String tipo, String enunciado, String gabarito, String[] assunto, String[] opcoes) {
 			this.setDiscip(discip);
 			this.setNivel(nivel);
 			this.setAssunto(assunto);
@@ -26,13 +26,12 @@ public class QuestaoVO {
 			this.setOpcoes(opcoes);
 		}
 		
-		public String getDiscip() {
+		public DisciplinaVO getDiscip() {
 			return discip;
 		}
-		public void setDiscip(String discip) {
-			if ((discip.isEmpty()))
-				this.discip = "Quest�o sem disciplina";
-			else
+		
+		// Sera verificado no banco de dados;
+		public void setDiscip(DisciplinaVO discip) {
 				this.discip = discip;
 		}
 		public int getNivel() {
@@ -59,7 +58,7 @@ public class QuestaoVO {
 		}
 		public void setTipo(String tipo) {
 			if (tipo.isEmpty())
-				this.tipo = "Quest�o sem tipo";
+				this.tipo = "Questao sem tipo";
 			else
 				this.tipo = tipo;
 		}
@@ -68,7 +67,7 @@ public class QuestaoVO {
 		}
 		public void setEnunciado(String enunciado) {
 			if (enunciado.isEmpty())
-				this.enunciado = "Quest�o sem enunciado";
+				this.enunciado = "Questao sem enunciado";
 			else
 				this.enunciado = enunciado;
 		}
@@ -77,26 +76,31 @@ public class QuestaoVO {
 		}
 		public void setGabarito(String gabarito) {
 			if (gabarito.isEmpty())
-				this.gabarito = "Quest�o sem gabarito";
+				this.gabarito = "Questao sem gabarito";
 			else
 				this.gabarito = gabarito;
 		}
-		public String getAssunto() {
+		public String[] getAssunto() {
 			return assunto;
 		}
-		public void setAssunto(String assunto) {
-			if (assunto.isEmpty())
-				this.assunto = "Quest�o sem assunto";
+		public void setAssunto(String assunto[]) {
+		String[] vet_assuntos = discip.getAssuntos();
+		for (int i = 0; i < vet_assuntos.length; i++) {
+			if (assunto[i].equals(vet_assuntos[i]))
+				this.assunto[i] = assunto[i];
 			else 
-				this.assunto = assunto;
+				this.assunto[i] = "Questao sem assunto";
 		}
+			
+		}
+		
 		public String[] getOpcoes() {
 			return opcoes;
 		}
 		public void setOpcoes(String[] opcoes) {
 			for (int i = 0; i < opcoes.length; i++) {
 				if (opcoes[i].isEmpty()) {
-					opcoes[i] = "Sem op��o";
+					opcoes[i] = "Questao sem opcoes";
 				}
 				else
 					this.opcoes[i] = opcoes[i];
@@ -144,14 +148,14 @@ public class QuestaoVO {
 		
 		public String toString() {
 			String modeloString;
-			modeloString = "----Quest�o----" 
+			modeloString = "----Questao----" 
 						 + "\nDisciplina: " + this.discip
 						 + "\nCodigo: " + this.codigo
 						 + "\nNivel: " + this.nivel
 						 + "\nAssunto: " + this.assunto
 						 + "\nEnunciado: " + this.enunciado
 						 + "\nGabarito: " + this.gabarito
-						 + "\n----Op��es----\n";
+						 + "\n----Opcoes----\n";
 			
 			for (int i = 0; i < this.opcoes.length; i++) {
 				modeloString += String.valueOf(i) + ". " + this.opcoes[i] + "\n";
