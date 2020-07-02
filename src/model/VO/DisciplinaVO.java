@@ -1,5 +1,4 @@
 package model.VO;
-
 import java.util.Random;
 
 public class DisciplinaVO {
@@ -7,16 +6,24 @@ public class DisciplinaVO {
 	private String codigo;
 	private String[] assuntos;
 
+	public DisciplinaVO() {
+		this.nome = "Disciplina sem nome";
+		this.codigo = gerarCodigoAleatorio();
+		this.assuntos = new String[1];
+		this.assuntos[0] = "Disciplina sem assunto";
+	}
+
 	public DisciplinaVO(String nome, String codigo, String[] assuntos) {
 		this.setNome(nome);
 		this.setCodigo(codigo);
 		this.setAssuntos(assuntos);
 	}
 	
+	// Quando o usuário não define o código da disciplina
 	public DisciplinaVO(String nome, String[] assuntos) {
 		this.setNome(nome);
-		this.setAssuntos(assuntos);
 		this.codigo = gerarCodigoAleatorio();
+		this.setAssuntos(assuntos);
 	}
 
 	public String getNome() {
@@ -24,7 +31,7 @@ public class DisciplinaVO {
 	}
 
 	public void setNome(String nome) {
-		if (nome.isEmpty()) {
+		if (nome == null || nome.isEmpty()) {
 			this.nome = "Disciplina sem nome";
 		} else {
 			this.nome = nome;
@@ -39,7 +46,6 @@ public class DisciplinaVO {
 		if (testeCodigoFormatoCorreto(codigo)) {
 			this.codigo = codigo;
 		} else {
-			System.out.println("Formato errado, gerando um codigo aleatório...");
 			this.codigo = gerarCodigoAleatorio();
 		}
 	}
@@ -49,41 +55,47 @@ public class DisciplinaVO {
 	}
 
 	public void setAssuntos(String[] assuntos) {
-		for (int i = 0; i < assuntos.length; i++) {
-			if (assuntos[i].isEmpty()) {
-				assuntos[i] = "Sem assunto";
+		if (assuntos != null) {
+			for (int i = 0; i < assuntos.length; i++) {
+				if (assuntos[i] == null || assuntos[i].isEmpty()) {
+					assuntos[i] = "Sem assunto";
+				}
 			}
+			this.assuntos = assuntos;
+		} else {
+			this.assuntos = new String[1];
+			this.assuntos[0] = "Disciplina sem assunto";
 		}
-		this.assuntos = assuntos;
 	}
 
 	private boolean testeCodigoFormatoCorreto(String codigo) {
-		boolean testeFinal = false;
-		if (codigo.length() == 7) {
-			boolean[] testes = new boolean[7];
-			for (int i = 0; i < 3; i++) {
-				testes[i] = Character.isUpperCase(codigo.charAt(i)) & Character.isAlphabetic(codigo.charAt(i));
-			}
-			for (int i = 3; i < 7; i++) {
-				testes[i] = Character.isDigit(codigo.charAt(i));
-			}
-			for (int i = 0; i < 7; i++) {
-				if (testes[i] == false) {
+		if (codigo != null && codigo.length() == 7) {
+			boolean testeFinal = true;
+			int i = 0;
+			while (testeFinal && i<7) {
+				boolean testeLetra = Character.isUpperCase(codigo.charAt(i));
+				boolean testeNumero = Character.isDigit(codigo.charAt(i));
+				if ((i < 3 && testeLetra == false) || (i > 3 && testeNumero == false)) {
 					testeFinal = false;
-					break;
-				} else {
-					testeFinal = true;
 				}
+				++i;
 			}
 			return testeFinal;
 		}
-		return testeFinal;
+		return false;
 	}
-	
+
 	private String gerarCodigoAleatorio() {
-		String codigoGerado;
+		String codigoGerado = new String();
 		Random gerador = new Random();
+
+		// Gera aleatoriamente as primeiras 3 letras do código
+		for (int i = 0; i < 3; i++) {
+			String letraGerada = String.valueOf((char) (gerador.nextInt(26) + 'A'));
+			codigoGerado += letraGerada;
+		}
 		
+		// Gera aleatoriamente o número após as 3 letras do código
 		int numeroGerado = gerador.nextInt(10000);
 		String numeroGeradoString;
 		if (numeroGerado < 10) {
@@ -96,27 +108,18 @@ public class DisciplinaVO {
 			numeroGeradoString = String.valueOf(numeroGerado);
 		}
 		
-		String[] letrasGeradas = new String[3];
-		for (int i = 0; i < 3; i++) {
-			String letraGerada = String.valueOf((char)(gerador.nextInt(26) + 'A'));
-			letrasGeradas[i] = letraGerada;
-		}
-		
-		codigoGerado = letrasGeradas[0] + letrasGeradas[1] + letrasGeradas[2] + numeroGeradoString;
+		codigoGerado += numeroGeradoString;
 		return codigoGerado;
 	}
-	
+
 	public String toString() {
 		String modeloString;
-		modeloString = "----Disciplina----" 
-					 + "\nNome: " + this.nome
-					 + "\nCodigo: " + this.codigo
-					 + "\n----Assuntos----\n";
-		
+		modeloString = "----Disciplina----" + "\nNome: " + this.nome + "\nCodigo: " + this.codigo + "\nAssuntos: \n";
+
 		for (int i = 0; i < this.assuntos.length; i++) {
-			modeloString += String.valueOf(i) + ". " + this.assuntos[i] + "\n";
+			modeloString += String.valueOf(i + 1) + ". " + this.assuntos[i] + "\n";
 		}
-		
+
 		return modeloString;
 	}
 }
