@@ -70,27 +70,20 @@ public class DisciplinaVO {
 	}
 
 	private boolean testeCodigoFormatoCorreto(String codigo) {
-		boolean testeFinal = false;
 		if (codigo != null && codigo.length() == 7) {
-			boolean[] testes = new boolean[7];
-			for (int i = 0; i < 3; i++) {
-				testes[i] = Character.isUpperCase(codigo.charAt(i)) & Character.isAlphabetic(codigo.charAt(i));
-			}
-			for (int i = 3; i < 7; i++) {
-				testes[i] = Character.isDigit(codigo.charAt(i));
-			}
-			for (int i = 0; i < 7; i++) {
-				if (testes[i] == false) {
+			boolean testeFinal = true;
+			int i = 0;
+			while(testeFinal && i<7) {
+				boolean testeLetra = Character.isUpperCase(codigo.charAt(i));
+				boolean testeNumero = Character.isDigit(codigo.charAt(i));
+				if ((i < 3 && testeLetra == false) || (i > 3 && testeNumero == false)) {
 					testeFinal = false;
-					break;
-				} else {
-					testeFinal = true;
 				}
+				++i;
 			}
-			return testeFinal;
-		} else {
 			return testeFinal;
 		}
+		return false;
 	}
 
 	private String gerarCodigoAleatorio() {
