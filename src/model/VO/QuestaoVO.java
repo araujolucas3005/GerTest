@@ -1,4 +1,5 @@
 package model.VO;
+import java.util.Random;
 
 public class QuestaoVO {
 		private String discip;
@@ -30,7 +31,7 @@ public class QuestaoVO {
 		}
 		public void setDiscip(String discip) {
 			if ((discip.isEmpty()))
-				this.discip = "Questão sem disciplina";
+				this.discip = "Questï¿½o sem disciplina";
 			else
 				this.discip = discip;
 		}
@@ -47,14 +48,18 @@ public class QuestaoVO {
 			return codigo;
 		}
 		public void setCodigo(String codigo) {
-			this.codigo = codigo;
+			if (testeCodigoFormatoCorreto(codigo)) {
+				this.codigo = codigo;
+			} else {
+				this.codigo = gerarCodigoAleatorio();
+			}
 		}
 		public String getTipo() {
 			return tipo;
 		}
 		public void setTipo(String tipo) {
 			if (tipo.isEmpty())
-				this.tipo = "Questão sem tipo";
+				this.tipo = "Questï¿½o sem tipo";
 			else
 				this.tipo = tipo;
 		}
@@ -63,7 +68,7 @@ public class QuestaoVO {
 		}
 		public void setEnunciado(String enunciado) {
 			if (enunciado.isEmpty())
-				this.enunciado = "Questão sem enunciado";
+				this.enunciado = "Questï¿½o sem enunciado";
 			else
 				this.enunciado = enunciado;
 		}
@@ -72,7 +77,7 @@ public class QuestaoVO {
 		}
 		public void setGabarito(String gabarito) {
 			if (gabarito.isEmpty())
-				this.gabarito = "Questão sem gabarito";
+				this.gabarito = "Questï¿½o sem gabarito";
 			else
 				this.gabarito = gabarito;
 		}
@@ -81,7 +86,7 @@ public class QuestaoVO {
 		}
 		public void setAssunto(String assunto) {
 			if (assunto.isEmpty())
-				this.assunto = "Questão sem assunto";
+				this.assunto = "Questï¿½o sem assunto";
 			else 
 				this.assunto = assunto;
 		}
@@ -91,23 +96,62 @@ public class QuestaoVO {
 		public void setOpcoes(String[] opcoes) {
 			for (int i = 0; i < opcoes.length; i++) {
 				if (opcoes[i].isEmpty()) {
-					opcoes[i] = "Sem opção";
+					opcoes[i] = "Sem opï¿½ï¿½o";
 				}
 				else
 					this.opcoes[i] = opcoes[i];
 			}
 		}
 		
+		private boolean testeCodigoFormatoCorreto(String codigo) {
+			if (codigo != null && codigo.length() == 5) {
+				boolean testeFinal = true;
+				boolean testeLetra = codigo.charAt(0) == 'Q';
+				if (testeLetra) {
+					int i = 1;
+					while (testeFinal && i < 5) {
+						boolean testeNumero = Character.isDigit(codigo.charAt(i));
+						if (testeNumero == false) {
+							testeFinal = false;
+						}
+						++i;
+					}
+					return testeFinal;
+				}
+			}
+			return false;
+		}
+		
+		private String gerarCodigoAleatorio() {
+			String codigoGerado = "Q";
+			Random gerador = new Random();
+			
+			int numeroGerado = gerador.nextInt(10000);
+			String numeroGeradoString;
+			if (numeroGerado < 10) {
+				numeroGeradoString = "000" + String.valueOf(numeroGerado);
+			} else if (numeroGerado < 100) {
+				numeroGeradoString = "00" + String.valueOf(numeroGerado);
+			} else if (numeroGerado < 1000) {
+				numeroGeradoString = "0" + String.valueOf(numeroGerado);
+			} else {
+				numeroGeradoString = String.valueOf(numeroGerado);
+			}
+			
+			codigoGerado += numeroGeradoString;
+			return codigoGerado;
+		}
+		
 		public String toString() {
 			String modeloString;
-			modeloString = "----Questão----" 
+			modeloString = "----Questï¿½o----" 
 						 + "\nDisciplina: " + this.discip
 						 + "\nCodigo: " + this.codigo
 						 + "\nNivel: " + this.nivel
 						 + "\nAssunto: " + this.assunto
 						 + "\nEnunciado: " + this.enunciado
 						 + "\nGabarito: " + this.gabarito
-						 + "\n----Opções----\n";
+						 + "\n----Opï¿½ï¿½es----\n";
 			
 			for (int i = 0; i < this.opcoes.length; i++) {
 				modeloString += String.valueOf(i) + ". " + this.opcoes[i] + "\n";
