@@ -16,7 +16,7 @@ public class QuestaoVO {
 	private String[] opcoes;
 
 	public QuestaoVO() {
-
+		
 	}
 
 	public QuestaoVO(DisciplinaVO disciplina, int nivel, String codigo, String tipo, String enunciado, String gabarito, String assunto, String[] opcoes) {
@@ -48,10 +48,11 @@ public class QuestaoVO {
 
 	// Nivel vai apenas de 1 a 4
 	public void setNivel(int nivel) {
-		if (nivel < 0 && nivel >= 5)
-			this.nivel = 0;
-		else
+		if (nivel > 0 && nivel < 5) {
 			this.nivel = nivel;
+		} else {
+			this.nivel = 0;
+		}
 	}
 
 	public String getCodigo() {
@@ -74,10 +75,10 @@ public class QuestaoVO {
 		if (tipo == null || tipo.isEmpty())
 			this.tipo = "Questao sem tipo";
 		else {
-			if (tipo != "Discursiva" || tipo != "Objetiva")
-				this.tipo = "Tipo invalido";
-			else
+			if (tipo.equals("Discursiva") || tipo.equals("Objetiva"))
 				this.tipo = tipo;
+			else
+				this.tipo = "Tipo invalido!";
 		}
 	}
 
@@ -98,7 +99,7 @@ public class QuestaoVO {
 
 	public void setGabarito(String gabarito) {
 		if (gabarito != null && !gabarito.isEmpty()) {
-			if (tipo == "Objetiva") {
+			if (tipo.equals("Objetiva")) {
 				if (this.testeGabaritoValido(gabarito)) {
 					this.gabarito = gabarito;
 				} else {
@@ -129,7 +130,7 @@ public class QuestaoVO {
 	}
 
 	public void setOpcoes(String[] opcoesRecebidas) {
-		if (tipo == "Objetiva") {
+		if (tipo.equals("Objetiva")) {
 			if (opcoesRecebidas != null) {
 				this.opcoes = new String[opcoesRecebidas.length];
 				char alternativa = 'a';
@@ -159,7 +160,7 @@ public class QuestaoVO {
 		if (codigo != null && codigo.length() == 5) {
 			boolean testeFinal = true;
 			boolean testeLetra;
-			if (tipo == "Objetiva") {
+			if (tipo.equals("Objetiva")) {
 				testeLetra = codigo.charAt(0) == 'O';
 			} else {
 				testeLetra = codigo.charAt(0) == 'D';
@@ -181,10 +182,12 @@ public class QuestaoVO {
 
 	private String gerarCodigoAleatorio() {
 		String codigoGerado;
-		if (tipo == "Objetiva") {
+		if (tipo.equals("Objetiva")) {
 			codigoGerado = "O";
-		} else {
+		} else if (tipo.equals("Discursiva")) {
 			codigoGerado = "D";
+		} else {
+			codigoGerado = "TIPO_NAO_DECLARADO_OU_INVALIDO";
 		}
 		Random gerador = new Random();
 
@@ -226,16 +229,17 @@ public class QuestaoVO {
 		modeloString = "----Questao----";
 		modeloString += "\nDisciplina: " + this.disciplina;
 		modeloString += "\nCodigo: " + this.codigo;
+		modeloString += "\nTipo: " + this.tipo;
 		modeloString += "\nNivel: " + this.nivel;
 		modeloString += "\nAssunto: " + this.assunto;
 		modeloString += "\nEnunciado: " + this.enunciado;
 		modeloString += "\nGabarito: " + this.gabarito;
 
-		if (tipo == "Objetiva") {
-			modeloString = "\nOpcoes:\n";
+		if (this.opcoes != null && tipo.equals("Objetiva")) {
+			modeloString += "\nOpcoes:\n";
 
 			for (int i = 0; i < this.opcoes.length; i++) {
-				modeloString += String.valueOf(i) + ". " + this.opcoes[i] + "\n";
+				modeloString += this.opcoes[i] + "\n";
 			}
 		}
 
