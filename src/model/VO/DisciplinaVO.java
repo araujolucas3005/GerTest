@@ -4,7 +4,7 @@ import java.util.Random;
 public class DisciplinaVO {
 	private String nome;
 	private String codigo;
-	String[] assuntos;
+	private String[] assuntos;
 
 	public DisciplinaVO() {
 		this.nome = "Disciplina sem nome";
@@ -114,7 +114,10 @@ public class DisciplinaVO {
 
 	public String toString() {
 		String modeloString;
-		modeloString = "----Disciplina----" + "\nNome: " + this.nome + "\nCodigo: " + this.codigo + "\nAssuntos: \n";
+		modeloString = "----Disciplina----";
+		modeloString = "\nNome: " + this.nome;
+		modeloString = "\nCodigo: "+ this.codigo;
+		modeloString = "\nAssuntos: \n";
 
 		for (int i = 0; i < this.assuntos.length; i++) {
 			modeloString += String.valueOf(i + 1) + ". " + this.assuntos[i] + "\n";
