@@ -1,6 +1,9 @@
 package model.VO;
-
 import java.util.Random;
+
+/* Ainda nao foi utilizada herança para criar as possíveis subclasses DiscursivaVO e ObjetivaVO. 
+ * Logo, uma questao discursiva, por enquanto, possui o metodo setOpcao() e getOpcao() e as variavel opcao.
+ * Aguardando o andamento da disciplina para refatorar... */
 
 public class QuestaoVO {
 	private DisciplinaVO disciplina;
@@ -16,16 +19,15 @@ public class QuestaoVO {
 
 	}
 
-	public QuestaoVO(DisciplinaVO disciplina, int nivel, String codigo, String tipo, String enunciado, String gabarito,
-			String assunto, String[] opcoes) {
-		setDiscip(disciplina);
-		setNivel(nivel);
-		setAssunto(assunto);
-		setCodigo(codigo);
-		setEnunciado(enunciado);
-		setGabarito(gabarito);
-		setTipo(tipo);
-		setOpcoes(opcoes);
+	public QuestaoVO(DisciplinaVO disciplina, int nivel, String codigo, String tipo, String enunciado, String gabarito, String assunto, String[] opcoes) {
+		this.setDiscip(disciplina);
+		this.setNivel(nivel);
+		this.setAssunto(assunto);
+		this.setCodigo(codigo);
+		this.setEnunciado(enunciado);
+		this.setGabarito(gabarito);
+		this.setTipo(tipo);
+		this.setOpcoes(opcoes);
 	}
 
 	public DisciplinaVO getDiscip() {
@@ -44,6 +46,7 @@ public class QuestaoVO {
 		return nivel;
 	}
 
+	// Nivel vai apenas de 1 a 4
 	public void setNivel(int nivel) {
 		if (nivel < 0 && nivel >= 5)
 			this.nivel = 0;
@@ -54,7 +57,7 @@ public class QuestaoVO {
 	public String getCodigo() {
 		return codigo;
 	}
-
+	
 	public void setCodigo(String codigo) {
 		if (testeCodigoFormatoCorreto(codigo)) {
 			this.codigo = codigo;
@@ -150,6 +153,8 @@ public class QuestaoVO {
 		}
 	}
 
+	/* Eh preciso testar se o codigo de uma discursiva começa com D e de uma objetiva comeca com O
+	 * e se sao numeros os elementos após */
 	private boolean testeCodigoFormatoCorreto(String codigo) {
 		if (codigo != null && codigo.length() == 5) {
 			boolean testeFinal = true;
@@ -202,14 +207,13 @@ public class QuestaoVO {
 	private boolean testeGabaritoValido(String gabarito) {
 		boolean teste = false;
 		int i = 0;
-		while (teste == false && i < opcoes.length) {
+		while (teste == false && i < this.opcoes.length) {
 
-			/*
-			 * se o gabarito for igual a uma letra minuscula presente na primeira posicao de
+			/* Se o gabarito for igual a uma letra minuscula presente na primeira posicao de
 			 * uma String opcao do array de opcoes o teste eh verdadeiro, logo o gabarito
-			 * esta correto
-			 */
-			if (gabarito.equals(String.valueOf(opcoes[i].charAt(0)))) {
+			 * esta correto */
+			
+			if (gabarito.equals(String.valueOf(this.opcoes[i].charAt(0)))) {
 				teste = true;
 			}
 			i++;
