@@ -16,7 +16,8 @@ public class QuestaoVO {
 
 	}
 
-	public QuestaoVO(DisciplinaVO disciplina, int nivel, String codigo, String tipo, String enunciado, String gabarito, String assunto, String[] opcoes) {
+	public QuestaoVO(DisciplinaVO disciplina, int nivel, String codigo, String tipo, String enunciado, String gabarito,
+			String assunto, String[] opcoes) {
 		setDiscip(disciplina);
 		setNivel(nivel);
 		setAssunto(assunto);
@@ -93,10 +94,15 @@ public class QuestaoVO {
 	}
 
 	public void setGabarito(String gabarito) {
-		if (gabarito == null || gabarito.isEmpty())
-			this.gabarito = "Questao sem gabarito";
-		else
-			this.gabarito = gabarito;
+		if (gabarito != null && !gabarito.isEmpty()) {
+			if (tipo == "Objetiva") {
+				this.testeGabaritoValido(gabarito);
+			} else {
+				this.gabarito = gabarito;
+			}
+		} else {
+			this.gabarito = "Questao sem gabarito!";
+		}
 	}
 
 	public String getAssunto() {
@@ -116,23 +122,11 @@ public class QuestaoVO {
 	}
 
 	public void setOpcoes(String[] opcoes) {
-		if (tipo == "Objetiva") {
-			if (opcoes == null) {
-				this.opcoes = new String[1];
-				this.opcoes[0] = "Questao sem opcoes!";
-			} else {
-				for (int i = 0; i < opcoes.length; i++) {
-					if (opcoes[i] == null || opcoes[i].isEmpty()) {
-						opcoes[i] = "Opcao nula";
-					} else {
-						this.opcoes[i] = opcoes[i];
-					}
-				}
-			}
+		if (tipo == "Objetiva" && opcoes != null) {
+			this.testeOpcaoValida(opcoes);
 		} else {
-			// por enquanto sera tratado desta maneira
 			this.opcoes = new String[1];
-			this.opcoes[0] = "Essa questao eh subjetiva!";
+			this.opcoes[0] = "Opcao nula";
 		}
 	}
 
@@ -185,6 +179,40 @@ public class QuestaoVO {
 		return codigoGerado;
 	}
 
+	private void testeOpcaoValida(String[] opcoesRecebidas) {
+		this.opcoes = new String[opcoesRecebidas.length];
+		char alternativa = 'a';
+
+		// todas as opcoes sao do formato "letra) enunciado"
+		for (int i = 0; i < opcoesRecebidas.length && alternativa <= 'z'; i++) {
+			if (opcoesRecebidas[i] == null || opcoesRecebidas[i].isEmpty()) {
+				this.opcoes[i] = "Opcao invalida!";
+			} else {
+				this.opcoes[i] = String.valueOf(alternativa) + ") " + opcoesRecebidas[i];
+				alternativa++;
+			}
+		}
+	}
+	
+	private void testeGabaritoValido(String gabarito) {
+		boolean teste = false;
+		int i = 0;
+		while (teste == false && i < opcoes.length) {
+
+			/*se o gabarito for igual a uma letra minuscula presente na primeira posicao de
+			 uma String opcao do array de opcoes o teste eh verdadeiro, logo o gabarito
+			 esta correto*/
+			if (gabarito.equals(String.valueOf(opcoes[i].charAt(0)))) {
+				this.gabarito = gabarito;
+				teste = true;
+			}
+			i++;
+		}
+		if (teste == false) {
+			this.gabarito = "Questao sem gabarito!";
+		}
+	}
+
 	public String toString() {
 		String modeloString;
 		modeloString = "----Questao----";
@@ -194,10 +222,13 @@ public class QuestaoVO {
 		modeloString = "\nAssunto: " + this.assunto;
 		modeloString = "\nEnunciado: " + this.enunciado;
 		modeloString = "\nGabarito: " + this.gabarito;
-		modeloString = "\nOpcoes:\n";
+		
+		if (tipo == "Objetiva") {
+			modeloString = "\nOpcoes:\n";
 
-		for (int i = 0; i < this.opcoes.length; i++) {
-			modeloString += String.valueOf(i) + ". " + this.opcoes[i] + "\n";
+			for (int i = 0; i < this.opcoes.length; i++) {
+				modeloString += String.valueOf(i) + ". " + this.opcoes[i] + "\n";
+			}
 		}
 
 		return modeloString;
