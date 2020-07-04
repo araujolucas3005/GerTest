@@ -2,7 +2,7 @@ package model.VO;
 import java.util.Random;
 
 /* Ainda nao foi utilizada herança para criar as possíveis subclasses DiscursivaVO e ObjetivaVO. 
- * Logo, uma questao discursiva, por enquanto, possui o metodo setOpcao() e getOpcao() e as variavel opcao.
+ * Logo, uma questao discursiva, por enquanto, possui o metodo setOpcao() e getOpcao() e a variavel opcao.
  * Aguardando o andamento da disciplina para refatorar... */
 
 public class QuestaoVO {
