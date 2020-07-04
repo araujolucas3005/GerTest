@@ -104,6 +104,8 @@ public class QuestaoVO {
 			} else {
 				this.gabarito = gabarito;
 			}
+		} else {
+			this.gabarito = "Questao sem gabarito!";
 		}
 	}
 
