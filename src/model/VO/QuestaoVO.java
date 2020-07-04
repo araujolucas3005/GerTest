@@ -227,7 +227,7 @@ public class QuestaoVO {
 	public String toString() {
 		String modeloString;
 		modeloString = "----Questao----";
-		modeloString += "\nDisciplina: " + this.disciplina;
+		modeloString += "\nDisciplina: " + this.disciplina.getNome();
 		modeloString += "\nCodigo: " + this.codigo;
 		modeloString += "\nTipo: " + this.tipo;
 		modeloString += "\nNivel: " + this.nivel;
