@@ -224,12 +224,12 @@ public class QuestaoVO {
 	public String toString() {
 		String modeloString;
 		modeloString = "----Questao----";
-		modeloString = "\nDisciplina: " + this.disciplina;
-		modeloString = "\nCodigo: " + this.codigo;
-		modeloString = "\nNivel: " + this.nivel;
-		modeloString = "\nAssunto: " + this.assunto;
-		modeloString = "\nEnunciado: " + this.enunciado;
-		modeloString = "\nGabarito: " + this.gabarito;
+		modeloString += "\nDisciplina: " + this.disciplina;
+		modeloString += "\nCodigo: " + this.codigo;
+		modeloString += "\nNivel: " + this.nivel;
+		modeloString += "\nAssunto: " + this.assunto;
+		modeloString += "\nEnunciado: " + this.enunciado;
+		modeloString += "\nGabarito: " + this.gabarito;
 
 		if (tipo == "Objetiva") {
 			modeloString = "\nOpcoes:\n";

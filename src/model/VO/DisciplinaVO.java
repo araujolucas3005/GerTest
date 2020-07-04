@@ -115,9 +115,9 @@ public class DisciplinaVO {
 	public String toString() {
 		String modeloString;
 		modeloString = "----Disciplina----";
-		modeloString = "\nNome: " + this.nome;
-		modeloString = "\nCodigo: "+ this.codigo;
-		modeloString = "\nAssuntos: \n";
+		modeloString += "\nNome: " + this.nome;
+		modeloString += "\nCodigo: "+ this.codigo;
+		modeloString += "\nAssuntos: \n";
 
 		for (int i = 0; i < this.assuntos.length; i++) {
 			modeloString += String.valueOf(i + 1) + ". " + this.assuntos[i] + "\n";
