@@ -1,4 +1,5 @@
 package model.VO;
+
 import java.util.Random;
 
 /* Ainda nao foi utilizada herança para criar as possíveis subclasses DiscursivaVO e ObjetivaVO. 
@@ -22,7 +23,8 @@ public class QuestaoVO {
 		this.setGabarito(null);
 	}
 
-	public QuestaoVO(DisciplinaVO disciplina, int nivel, String codigo, String tipo, String enunciado, String gabarito, String assunto, String[] opcoes) {
+	public QuestaoVO(DisciplinaVO disciplina, int nivel, String codigo, String tipo, String enunciado, String gabarito,
+			String assunto, String[] opcoes) {
 		this.setDiscip(disciplina);
 		this.setNivel(nivel);
 		this.setAssunto(assunto);
@@ -59,7 +61,7 @@ public class QuestaoVO {
 	public String getCodigo() {
 		return codigo;
 	}
-	
+
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
@@ -95,8 +97,10 @@ public class QuestaoVO {
 		}
 	}
 
-	/* Eh preciso testar se o codigo de uma discursiva começa com D e de uma objetiva comeca com O
-	 * e se sao numeros os elementos após */
+	/*
+	 * Eh preciso testar se o codigo de uma discursiva começa com D e de uma
+	 * objetiva comeca com O e se sao numeros os elementos após
+	 */
 	protected boolean testeCodigoFormatoCorreto(String codigo, char letraTipoQuestao) {
 		if (codigo != null && codigo.length() == 5) {
 			boolean testeFinal = true;
@@ -136,18 +140,16 @@ public class QuestaoVO {
 		codigoGerado += numeroGeradoString;
 		return codigoGerado;
 	}
-	
-	private boolean testeDisciplinaContemAssunto (String assunto) {
+
+	private boolean testeDisciplinaContemAssunto(String assunto) {
 		boolean teste = false;
 		int i = 0;
 		String[] assuntosDisciplina = this.disciplina.getAssuntos();
 		while (teste == false && i < assuntosDisciplina.length) {
-			if (teste && i < assuntosDisciplina.length) {
-				if (assunto.equals(assuntosDisciplina[i])) {
-					teste = true;
-					i++;
-				}
+			if (assunto.equals(assuntosDisciplina[i])) {
+				teste = true;
 			}
+			i++;
 		}
 		return teste;
 	}
