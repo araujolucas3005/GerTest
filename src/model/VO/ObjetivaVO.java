@@ -4,14 +4,14 @@ public class ObjetivaVO extends QuestaoVO {
 	String[] opcoes;
 	
 	public ObjetivaVO() {
-		setOpcao(null);
+		setOpcoes(null);
 	}
 
 	public String[] getOpcoes() {
 		return opcoes;
 	}
 
-	public void setOpcao(String[] opcoesRecebidas) {
+	public void setOpcoes(String[] opcoesRecebidas) {
 		if (opcoesRecebidas != null) {
 			this.opcoes = new String[opcoesRecebidas.length];
 			char alternativa = 'a';
@@ -19,7 +19,7 @@ public class ObjetivaVO extends QuestaoVO {
 			// todas as opcoes sao do formato "letra) enunciado"
 			for (int i = 0; i < opcoesRecebidas.length && alternativa <= 'z'; i++) {
 				if (opcoesRecebidas[i] == null || opcoesRecebidas[i].isEmpty()) {
-					this.opcoes[i] = "Opcao invalida!";
+					this.opcoes[i] = "*Opcao invalida!*";
 				} else {
 					this.opcoes[i] = String.valueOf(alternativa) + ") " + opcoesRecebidas[i];
 					alternativa++;
