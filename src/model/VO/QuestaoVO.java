@@ -145,6 +145,7 @@ public class QuestaoVO {
 			if (teste && i < assuntosDisciplina.length) {
 				if (assunto.equals(assuntosDisciplina[i])) {
 					teste = true;
+					i++;
 				}
 			}
 		}
