@@ -88,7 +88,7 @@ public class QuestaoVO {
 	}
 
 	public void setAssunto(String assunto) {
-		if (assunto != null && !assunto.isEmpty()) {
+		if (assunto != null && !assunto.isEmpty() && testeDisciplinaContemAssunto(assunto)) {
 			this.assunto = assunto;
 		} else {
 			this.assunto = "Questao sem assunto!";
@@ -135,6 +135,20 @@ public class QuestaoVO {
 
 		codigoGerado += numeroGeradoString;
 		return codigoGerado;
+	}
+	
+	private boolean testeDisciplinaContemAssunto (String assunto) {
+		boolean teste = false;
+		int i = 0;
+		String[] assuntosDisciplina = this.disciplina.getAssuntos();
+		while (teste == false && i < assuntosDisciplina.length) {
+			if (teste && i < assuntosDisciplina.length) {
+				if (assunto.equals(assuntosDisciplina[i])) {
+					teste = true;
+				}
+			}
+		}
+		return teste;
 	}
 
 	public String toString() {
