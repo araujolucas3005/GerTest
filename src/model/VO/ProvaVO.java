@@ -94,13 +94,6 @@ public class ProvaVO {
 			else
 				this.nivel4 = nivel4;
 		}
-
-		// metodo para gerar provas
-	public ProvaVO gerarProva() {
-		ProvaVO prova_gerada = new ProvaVO(disciplina, nivel1, nivel2, nivel3, nivel4);
-			
-		return prova_gerada;
-	}
 	
 	public String toString() {
 		String modeloString;
