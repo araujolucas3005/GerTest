@@ -1,28 +1,21 @@
 package model.VO;
+
 import java.util.Random;
 
-public class DisciplinaVO {
+public abstract class DisciplinaVO {
 	private String nome;
 	private String codigo;
 	private String[] assuntos;
 
 	public DisciplinaVO() {
-		this.nome = "Disciplina sem nome";
-		this.codigo = gerarCodigoAleatorio();
-		this.assuntos = new String[1];
-		this.assuntos[0] = "Disciplina sem assunto";
+		this.setNome(null);
+		this.setCodigo(null);
+		this.setAssuntos(null);
 	}
 
 	public DisciplinaVO(String nome, String codigo, String[] assuntos) {
 		this.setNome(nome);
 		this.setCodigo(codigo);
-		this.setAssuntos(assuntos);
-	}
-	
-	// Quando o usuário não define o código da disciplina
-	public DisciplinaVO(String nome, String[] assuntos) {
-		this.setNome(nome);
-		this.codigo = gerarCodigoAleatorio();
 		this.setAssuntos(assuntos);
 	}
 
@@ -43,11 +36,7 @@ public class DisciplinaVO {
 	}
 
 	public void setCodigo(String codigo) {
-		if (testeCodigoFormatoCorreto(codigo)) {
-			this.codigo = codigo;
-		} else {
-			this.codigo = gerarCodigoAleatorio();
-		}
+		this.codigo = codigo;
 	}
 
 	public String[] getAssuntos() {
@@ -68,33 +57,28 @@ public class DisciplinaVO {
 		}
 	}
 
-	private boolean testeCodigoFormatoCorreto(String codigo) {
+	protected boolean testeCodigoFormatoCorreto(String codigo, String codigoInicialTipo) {
 		if (codigo != null && codigo.length() == 7) {
-			boolean testeFinal = true;
-			int i = 0;
-			while (testeFinal && i<7) {
-				boolean testeLetra = Character.isUpperCase(codigo.charAt(i));
-				boolean testeNumero = Character.isDigit(codigo.charAt(i));
-				if ((i < 3 && testeLetra == false) || (i > 3 && testeNumero == false)) {
-					testeFinal = false;
+			String codigoInicial = codigo.substring(0, 3);
+			if (codigoInicial.equals(codigoInicialTipo)) {
+				boolean testeFinal = true;
+				int i = 3;
+				while (testeFinal && i < 7) {
+					boolean testeNumero = Character.isDigit(codigo.charAt(i));
+					if (testeNumero == false) {
+						testeFinal = false;
+					}
+					++i;
 				}
-				++i;
+				return testeFinal;
 			}
-			return testeFinal;
 		}
 		return false;
 	}
 
-	private String gerarCodigoAleatorio() {
-		String codigoGerado = new String();
+	protected String gerarCodigoAleatorio(String codigoInicialTipo) {
+		String codigoGerado = codigoInicialTipo;
 		Random gerador = new Random();
-
-		// Gera aleatoriamente as primeiras 3 letras do código
-		for (int i = 0; i < 3; i++) {
-			String letraGerada = String.valueOf((char) (gerador.nextInt(26) + 'A'));
-			codigoGerado += letraGerada;
-		}
-		
 		// Gera aleatoriamente o número após as 3 letras do código
 		int numeroGerado = gerador.nextInt(10000);
 		String numeroGeradoString;
@@ -107,7 +91,7 @@ public class DisciplinaVO {
 		} else {
 			numeroGeradoString = String.valueOf(numeroGerado);
 		}
-		
+
 		codigoGerado += numeroGeradoString;
 		return codigoGerado;
 	}
@@ -116,11 +100,11 @@ public class DisciplinaVO {
 		String modeloString;
 		modeloString = "----Disciplina----";
 		modeloString += "\nNome: " + this.nome;
-		modeloString += "\nCodigo: "+ this.codigo;
+		modeloString += "\nCodigo: " + this.codigo;
 		modeloString += "\nAssuntos: \n";
 
 		for (int i = 0; i < this.assuntos.length; i++) {
-			modeloString += String.valueOf(i + 1) + ". " + this.assuntos[i] + "\n";
+			modeloString += String.valueOf(i + 1) + ". " + this.assuntos[i];
 		}
 
 		return modeloString;
