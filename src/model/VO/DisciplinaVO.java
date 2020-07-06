@@ -7,6 +7,10 @@ public class DisciplinaVO {
 	private String codigo;
 	private String[] assuntos;
 
+	public DisciplinaVO() {
+		
+	}
+	
 	public DisciplinaVO(String nome, String codigo, String[] assuntos) {
 		this.setNome(nome);
 		this.setCodigo(codigo);
@@ -20,7 +24,7 @@ public class DisciplinaVO {
 	}
 
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	public void setNome(String nome) {
