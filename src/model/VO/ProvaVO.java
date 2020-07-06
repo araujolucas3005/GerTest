@@ -48,15 +48,15 @@ public class ProvaVO {
 		}
 
 		public void setQuestoes(QuestaoVO[] questoes) {
-			int quantidade_Questoes = nivel1 + nivel2 + nivel3 + nivel4;
-			for (int i = 0; i < quantidade_Questoes; i++)
+			int quantidadeQuestoes = nivel1 + nivel2 + nivel3 + nivel4;
+			for (int i = 0; i < quantidadeQuestoes; i++)
 			{
 				if (questoes[i] != null && questoes[i].getDiscip().getNome() == getDisciplina()) {
 					this.questoes[i] = questoes[i];
 				}
 				else 
 				{
-						for (int j = 0; j < quantidade_Questoes; j++)
+						for (int j = 0; j < quantidadeQuestoes; j++)
 						{
 							questoes[j] = null;
 						}
