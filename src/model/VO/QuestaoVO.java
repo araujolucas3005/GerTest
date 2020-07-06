@@ -6,7 +6,7 @@ import java.util.Random;
  * Logo, uma questao discursiva, por enquanto, possui o metodo setOpcao() e getOpcao() e a variavel opcao.
  * Aguardando o andamento da disciplina para refatorar... */
 
-public class QuestaoVO {
+public abstract class QuestaoVO {
 	private DisciplinaVO disciplina;
 	private int nivel;
 	private String codigo;
