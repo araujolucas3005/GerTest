@@ -2,11 +2,16 @@ package model.VO;
 
 import java.util.Random;
 
+/* Ainda nao foi utilizada herança para criar as possíveis subclasses DiscursivaVO e ObjetivaVO. 
+ * Logo, uma questao discursiva, por enquanto, possui o metodo setOpcao() e getOpcao() e a variavel opcao.
+ * Aguardando o andamento da disciplina para refatorar... */
+
 public class QuestaoVO {
+	
 	private DisciplinaVO disciplina;
 	private int nivel;
-	private String codigo;
 	private String tipo;
+	private String codigo;
 	private String enunciado;
 	private String gabarito;
 	private String assunto;
@@ -18,14 +23,14 @@ public class QuestaoVO {
 
 	public QuestaoVO(DisciplinaVO disciplina, int nivel, String codigo, String tipo, String enunciado, String gabarito,
 			String assunto, String[] opcoes) {
-		setDiscip(disciplina);
-		setNivel(nivel);
-		setAssunto(assunto);
-		setCodigo(codigo);
-		setEnunciado(enunciado);
-		setGabarito(gabarito);
-		setTipo(tipo);
-		setOpcoes(opcoes);
+		this.setDiscip(disciplina);
+		this.setNivel(nivel);
+		this.setAssunto(assunto);
+		this.setCodigo(codigo);
+		this.setEnunciado(enunciado);
+		this.setGabarito(gabarito);
+		this.setTipo(tipo);
+		this.setOpcoes(opcoes);
 	}
 
 	public DisciplinaVO getDiscip() {
@@ -37,6 +42,7 @@ public class QuestaoVO {
 			this.disciplina = disciplina;
 		} else {
 			this.disciplina = new DisciplinaVO();
+			this.disciplina.setNome("Questao sem disciplina!");
 		}
 	}
 
@@ -44,22 +50,12 @@ public class QuestaoVO {
 		return nivel;
 	}
 
+	// Nivel vai apenas de 1 a 4
 	public void setNivel(int nivel) {
-		if (nivel < 0 && nivel >= 5)
-			this.nivel = 0;
-		else
+		if (nivel > 0 && nivel < 5) {
 			this.nivel = nivel;
-	}
-
-	public String getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(String codigo) {
-		if (testeCodigoFormatoCorreto(codigo)) {
-			this.codigo = codigo;
 		} else {
-			this.codigo = gerarCodigoAleatorio();
+			this.nivel = 0;
 		}
 	}
 
@@ -68,13 +64,22 @@ public class QuestaoVO {
 	}
 
 	public void setTipo(String tipo) {
-		if (tipo == null || tipo.isEmpty())
-			this.tipo = "Questao sem tipo";
-		else {
-			if (tipo != "Discursiva" || tipo != "Objetiva")
-				this.tipo = "Tipo invalido";
-			else
-				this.tipo = tipo;
+		if (tipo != null && !tipo.isEmpty() && (tipo.equals("Objetiva") || tipo.equals("Discursiva"))) {
+			this.tipo = tipo;
+		} else {
+			this.tipo = "Questao sem tipo!";
+		}
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		if (codigo != null && !codigo.isEmpty() && testeCodigoFormatoCorreto(codigo)) {
+			this.codigo = codigo;
+		} else {
+			this.codigo = this.gerarCodigoAleatorio();
 		}
 	}
 
@@ -95,7 +100,7 @@ public class QuestaoVO {
 
 	public void setGabarito(String gabarito) {
 		if (gabarito != null && !gabarito.isEmpty()) {
-			if (tipo == "Objetiva") {
+			if (this.tipo.equals("Objetiva")) {
 				if (this.testeGabaritoValido(gabarito)) {
 					this.gabarito = gabarito;
 				} else {
@@ -126,7 +131,7 @@ public class QuestaoVO {
 	}
 
 	public void setOpcoes(String[] opcoesRecebidas) {
-		if (tipo == "Objetiva") {
+		if (this.tipo.equals("Objetiva")) {
 			if (opcoesRecebidas != null) {
 				this.opcoes = new String[opcoesRecebidas.length];
 				char alternativa = 'a';
@@ -150,11 +155,15 @@ public class QuestaoVO {
 		}
 	}
 
+	/*
+	 * Eh preciso testar se o codigo de uma discursiva começa com D e de uma
+	 * objetiva comeca com O e se sao numeros os elementos após
+	 */
 	private boolean testeCodigoFormatoCorreto(String codigo) {
-		if (codigo != null && codigo.length() == 5) {
+		if (codigo.length() == 5) {
 			boolean testeFinal = true;
 			boolean testeLetra;
-			if (tipo == "Objetiva") {
+			if (this.tipo.equals("Objetiva")) {
 				testeLetra = codigo.charAt(0) == 'O';
 			} else {
 				testeLetra = codigo.charAt(0) == 'D';
@@ -176,10 +185,13 @@ public class QuestaoVO {
 
 	private String gerarCodigoAleatorio() {
 		String codigoGerado;
-		if (tipo == "Objetiva") {
+		if (this.tipo.equals("Objetiva")) {
 			codigoGerado = "O";
-		} else {
+		} else if (this.tipo.equals("Discursiva")) {
 			codigoGerado = "D";
+		} else {
+			codigoGerado = "TIPO_NAO_DECLARADO_OU_INVALIDO";
+			return codigoGerado;
 		}
 		Random gerador = new Random();
 
@@ -202,14 +214,15 @@ public class QuestaoVO {
 	private boolean testeGabaritoValido(String gabarito) {
 		boolean teste = false;
 		int i = 0;
-		while (teste == false && i < opcoes.length) {
+		while (teste == false && i < this.opcoes.length) {
 
 			/*
-			 * se o gabarito for igual a uma letra minuscula presente na primeira posicao de
+			 * Se o gabarito for igual a uma letra minuscula presente na primeira posicao de
 			 * uma String opcao do array de opcoes o teste eh verdadeiro, logo o gabarito
 			 * esta correto
 			 */
-			if (gabarito.equals(String.valueOf(opcoes[i].charAt(0)))) {
+
+			if (gabarito.equals(String.valueOf(this.opcoes[i].charAt(0)))) {
 				teste = true;
 			}
 			i++;
@@ -220,18 +233,19 @@ public class QuestaoVO {
 	public String toString() {
 		String modeloString;
 		modeloString = "----Questao----";
-		modeloString = "\nDisciplina: " + this.disciplina;
-		modeloString = "\nCodigo: " + this.codigo;
-		modeloString = "\nNivel: " + this.nivel;
-		modeloString = "\nAssunto: " + this.assunto;
-		modeloString = "\nEnunciado: " + this.enunciado;
-		modeloString = "\nGabarito: " + this.gabarito;
+		modeloString += "\nDisciplina: " + this.disciplina.getNome();
+		modeloString += "\nCodigo: " + this.codigo;
+		modeloString += "\nTipo: " + this.tipo;
+		modeloString += "\nNivel: " + this.nivel;
+		modeloString += "\nAssunto: " + this.assunto;
+		modeloString += "\nEnunciado: " + this.enunciado;
+		modeloString += "\nGabarito: " + this.gabarito;
 
-		if (tipo == "Objetiva") {
-			modeloString = "\nOpcoes:\n";
+		if (this.opcoes != null && tipo.equals("Objetiva")) {
+			modeloString += "\nOpcoes:\n";
 
 			for (int i = 0; i < this.opcoes.length; i++) {
-				modeloString += String.valueOf(i) + ". " + this.opcoes[i] + "\n";
+				modeloString += this.opcoes[i] + "\n";
 			}
 		}
 
