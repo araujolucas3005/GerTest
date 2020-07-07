@@ -4,7 +4,9 @@ public class ObjetivaVO extends QuestaoVO {
 	String[] opcoes;
 	
 	public ObjetivaVO() {
-		setOpcoes(null);
+		super();
+		this.setCodigo(null);
+		this.setOpcoes(null);
 	}
 
 	public String[] getOpcoes() {
@@ -44,11 +46,7 @@ public class ObjetivaVO extends QuestaoVO {
 	}
 	
 	public void setCodigo(String codigo) {
-		if (codigo != null && !codigo.isEmpty() && super.testeCodigoFormatoCorreto(codigo, 'O')) {
-			super.setCodigo(codigo);
-		} else {
-			super.setCodigo(super.gerarCodigoAleatorio('O'));
-		}
+		super.setCodigo(codigo, 'O');
 	}
 
 	private boolean testeGabaritoValido(String gabarito) {

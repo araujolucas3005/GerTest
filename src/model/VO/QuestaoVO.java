@@ -18,7 +18,6 @@ public abstract class QuestaoVO {
 		this.setDiscip(null);
 		this.setNivel(0);
 		this.setAssunto(null);
-		this.setCodigo(null);
 		this.setEnunciado(null);
 		this.setGabarito(null);
 	}
@@ -28,7 +27,6 @@ public abstract class QuestaoVO {
 		this.setDiscip(disciplina);
 		this.setNivel(nivel);
 		this.setAssunto(assunto);
-		this.setCodigo(codigo);
 		this.setEnunciado(enunciado);
 		this.setGabarito(gabarito);
 	}
@@ -62,8 +60,12 @@ public abstract class QuestaoVO {
 		return codigo;
 	}
 
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+	public void setCodigo(String codigo, char letraTipo) {
+		if (codigo != null && !codigo.isEmpty() && this.testeCodigoFormatoCorreto(codigo, letraTipo)) {
+			this.codigo = codigo;
+		} else {
+			this.codigo = this.gerarCodigoAleatorio(letraTipo);
+		}
 	}
 
 	public String getEnunciado() {
@@ -101,7 +103,7 @@ public abstract class QuestaoVO {
 	 * Eh preciso testar se o codigo de uma discursiva começa com D e de uma
 	 * objetiva comeca com O e se sao numeros os elementos após
 	 */
-	protected boolean testeCodigoFormatoCorreto(String codigo, char letraTipoQuestao) {
+	private boolean testeCodigoFormatoCorreto(String codigo, char letraTipoQuestao) {
 		if (codigo != null && codigo.length() == 5) {
 			boolean testeFinal = true;
 			boolean testeLetra = codigo.charAt(0) == letraTipoQuestao;
@@ -120,7 +122,7 @@ public abstract class QuestaoVO {
 		return false;
 	}
 
-	protected String gerarCodigoAleatorio(char letraQuestao) {
+	private String gerarCodigoAleatorio(char letraQuestao) {
 		String codigoGerado;
 		codigoGerado = String.valueOf(letraQuestao);
 		Random gerador = new Random();
