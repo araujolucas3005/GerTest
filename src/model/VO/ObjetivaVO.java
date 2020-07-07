@@ -1,7 +1,7 @@
 package model.VO;
 
 public class ObjetivaVO extends QuestaoVO {
-	String[] opcoes;
+	private String[] opcoes;
 	
 	public ObjetivaVO() {
 		super();
