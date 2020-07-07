@@ -1,4 +1,5 @@
 package model.VO;
+
 import java.util.Random;
 
 /* Ainda nao foi utilizada herança para criar as possíveis subclasses DiscursivaVO e ObjetivaVO. 
@@ -6,20 +7,22 @@ import java.util.Random;
  * Aguardando o andamento da disciplina para refatorar... */
 
 public class QuestaoVO {
+	
 	private DisciplinaVO disciplina;
 	private int nivel;
-	private String codigo;
 	private String tipo;
+	private String codigo;
 	private String enunciado;
 	private String gabarito;
 	private String assunto;
 	private String[] opcoes;
 
 	public QuestaoVO() {
-		
+
 	}
 
-	public QuestaoVO(DisciplinaVO disciplina, int nivel, String codigo, String tipo, String enunciado, String gabarito, String assunto, String[] opcoes) {
+	public QuestaoVO(DisciplinaVO disciplina, int nivel, String codigo, String tipo, String enunciado, String gabarito,
+			String assunto, String[] opcoes) {
 		this.setDiscip(disciplina);
 		this.setNivel(nivel);
 		this.setAssunto(assunto);
@@ -39,6 +42,7 @@ public class QuestaoVO {
 			this.disciplina = disciplina;
 		} else {
 			this.disciplina = new DisciplinaVO();
+			this.disciplina.setNome("Questao sem disciplina!");
 		}
 	}
 
@@ -55,30 +59,27 @@ public class QuestaoVO {
 		}
 	}
 
-	public String getCodigo() {
-		return codigo;
-	}
-	
-	public void setCodigo(String codigo) {
-		if (testeCodigoFormatoCorreto(codigo)) {
-			this.codigo = codigo;
-		} else {
-			this.codigo = gerarCodigoAleatorio();
-		}
-	}
-
 	public String getTipo() {
 		return tipo;
 	}
 
 	public void setTipo(String tipo) {
-		if (tipo == null || tipo.isEmpty())
-			this.tipo = "Questao sem tipo";
-		else {
-			if (tipo.equals("Discursiva") || tipo.equals("Objetiva"))
-				this.tipo = tipo;
-			else
-				this.tipo = "Tipo invalido!";
+		if (tipo != null && !tipo.isEmpty() && (tipo.equals("Objetiva") || tipo.equals("Discursiva"))) {
+			this.tipo = tipo;
+		} else {
+			this.tipo = "Questao sem tipo!";
+		}
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		if (codigo != null && !codigo.isEmpty() && testeCodigoFormatoCorreto(codigo)) {
+			this.codigo = codigo;
+		} else {
+			this.codigo = this.gerarCodigoAleatorio();
 		}
 	}
 
@@ -99,7 +100,7 @@ public class QuestaoVO {
 
 	public void setGabarito(String gabarito) {
 		if (gabarito != null && !gabarito.isEmpty()) {
-			if (tipo.equals("Objetiva")) {
+			if (this.tipo.equals("Objetiva")) {
 				if (this.testeGabaritoValido(gabarito)) {
 					this.gabarito = gabarito;
 				} else {
@@ -130,7 +131,7 @@ public class QuestaoVO {
 	}
 
 	public void setOpcoes(String[] opcoesRecebidas) {
-		if (tipo.equals("Objetiva")) {
+		if (this.tipo.equals("Objetiva")) {
 			if (opcoesRecebidas != null) {
 				this.opcoes = new String[opcoesRecebidas.length];
 				char alternativa = 'a';
@@ -154,13 +155,15 @@ public class QuestaoVO {
 		}
 	}
 
-	/* Eh preciso testar se o codigo de uma discursiva começa com D e de uma objetiva comeca com O
-	 * e se sao numeros os elementos após */
+	/*
+	 * Eh preciso testar se o codigo de uma discursiva começa com D e de uma
+	 * objetiva comeca com O e se sao numeros os elementos após
+	 */
 	private boolean testeCodigoFormatoCorreto(String codigo) {
-		if (codigo != null && codigo.length() == 5) {
+		if (codigo.length() == 5) {
 			boolean testeFinal = true;
 			boolean testeLetra;
-			if (tipo.equals("Objetiva")) {
+			if (this.tipo.equals("Objetiva")) {
 				testeLetra = codigo.charAt(0) == 'O';
 			} else {
 				testeLetra = codigo.charAt(0) == 'D';
@@ -182,12 +185,13 @@ public class QuestaoVO {
 
 	private String gerarCodigoAleatorio() {
 		String codigoGerado;
-		if (tipo.equals("Objetiva")) {
+		if (this.tipo.equals("Objetiva")) {
 			codigoGerado = "O";
-		} else if (tipo.equals("Discursiva")) {
+		} else if (this.tipo.equals("Discursiva")) {
 			codigoGerado = "D";
 		} else {
 			codigoGerado = "TIPO_NAO_DECLARADO_OU_INVALIDO";
+			return codigoGerado;
 		}
 		Random gerador = new Random();
 
@@ -212,10 +216,12 @@ public class QuestaoVO {
 		int i = 0;
 		while (teste == false && i < this.opcoes.length) {
 
-			/* Se o gabarito for igual a uma letra minuscula presente na primeira posicao de
+			/*
+			 * Se o gabarito for igual a uma letra minuscula presente na primeira posicao de
 			 * uma String opcao do array de opcoes o teste eh verdadeiro, logo o gabarito
-			 * esta correto */
-			
+			 * esta correto
+			 */
+
 			if (gabarito.equals(String.valueOf(this.opcoes[i].charAt(0)))) {
 				teste = true;
 			}
