@@ -7,22 +7,14 @@ public class DisciplinaVO {
 	private String[] assuntos;
 
 	public DisciplinaVO() {
-		this.nome = "Disciplina sem nome";
-		this.codigo = gerarCodigoAleatorio();
-		this.assuntos = new String[1];
-		this.assuntos[0] = "Disciplina sem assunto";
+		this.setNome(null);
+		this.setCodigo(null);
+		this.setAssuntos(null);
 	}
 
 	public DisciplinaVO(String nome, String codigo, String[] assuntos) {
 		this.setNome(nome);
 		this.setCodigo(codigo);
-		this.setAssuntos(assuntos);
-	}
-	
-	// Quando o usuário não define o código da disciplina
-	public DisciplinaVO(String nome, String[] assuntos) {
-		this.setNome(nome);
-		this.codigo = gerarCodigoAleatorio();
 		this.setAssuntos(assuntos);
 	}
 
