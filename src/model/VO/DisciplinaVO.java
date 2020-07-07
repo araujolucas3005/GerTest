@@ -9,13 +9,11 @@ public abstract class DisciplinaVO {
 
 	public DisciplinaVO() {
 		this.setNome(null);
-		this.setCodigo(null);
 		this.setAssuntos(null);
 	}
 
 	public DisciplinaVO(String nome, String codigo, String[] assuntos) {
 		this.setNome(nome);
-		this.setCodigo(codigo);
 		this.setAssuntos(assuntos);
 	}
 
@@ -35,8 +33,16 @@ public abstract class DisciplinaVO {
 		return codigo;
 	}
 
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+	public void setCodigo(String codigo, String incialCodigoTipo) {
+		if (codigo != null && !codigo.isEmpty()) {
+			if (this.testeCodigoFormatoCorreto(codigo, incialCodigoTipo)) {
+				this.codigo = codigo;
+			} else {
+				this.codigo = this.gerarCodigoAleatorio(incialCodigoTipo);
+			}
+		} else {
+			this.codigo = this.gerarCodigoAleatorio(incialCodigoTipo);
+		}
 	}
 
 	public String[] getAssuntos() {
@@ -57,7 +63,7 @@ public abstract class DisciplinaVO {
 		}
 	}
 
-	protected boolean testeCodigoFormatoCorreto(String codigo, String codigoInicialTipo) {
+	private boolean testeCodigoFormatoCorreto(String codigo, String codigoInicialTipo) {
 		if (codigo != null && codigo.length() == 7) {
 			String codigoInicial = codigo.substring(0, 3);
 			if (codigoInicial.equals(codigoInicialTipo)) {
@@ -76,7 +82,7 @@ public abstract class DisciplinaVO {
 		return false;
 	}
 
-	protected String gerarCodigoAleatorio(String codigoInicialTipo) {
+	private String gerarCodigoAleatorio(String codigoInicialTipo) {
 		String codigoGerado = codigoInicialTipo;
 		Random gerador = new Random();
 		// Gera aleatoriamente o número após as 3 letras do código
