@@ -1,7 +1,5 @@
 package model.VO;
 
-import java.util.Random;
-
 public abstract class QuestaoVO {
 	
 	private DisciplinaVO disciplina;
@@ -57,13 +55,7 @@ public abstract class QuestaoVO {
 		return codigo;
 	}
 
-	public void setCodigo(String codigo, char letraTipo) {
-		if (codigo != null && !codigo.isEmpty() && this.testeCodigoFormatoCorreto(codigo, letraTipo)) {
-			this.codigo = codigo;
-		} else {
-			this.codigo = this.gerarCodigoAleatorio(letraTipo);
-		}
-	}
+	public abstract void setCodigo(String codigo);
 
 	public String getEnunciado() {
 		return enunciado;
@@ -96,50 +88,6 @@ public abstract class QuestaoVO {
 		}
 	}
 
-	/*
-	 * Eh preciso testar se o codigo de uma discursiva começa com D e de uma
-	 * objetiva comeca com O e se sao numeros os elementos após
-	 */
-	private boolean testeCodigoFormatoCorreto(String codigo, char letraTipoQuestao) {
-		if (codigo != null && codigo.length() == 5) {
-			boolean testeFinal = true;
-			boolean testeLetra = codigo.charAt(0) == letraTipoQuestao;
-			if (testeLetra) {
-				int i = 1;
-				while (testeFinal && i < 5) {
-					boolean testeNumero = Character.isDigit(codigo.charAt(i));
-					if (testeNumero == false) {
-						testeFinal = false;
-					}
-					++i;
-				}
-				return testeFinal;
-			}
-		}
-		return false;
-	}
-
-	private String gerarCodigoAleatorio(char letraQuestao) {
-		String codigoGerado;
-		codigoGerado = String.valueOf(letraQuestao);
-		Random gerador = new Random();
-
-		int numeroGerado = gerador.nextInt(10000);
-		String numeroGeradoString;
-		if (numeroGerado < 10) {
-			numeroGeradoString = "000" + String.valueOf(numeroGerado);
-		} else if (numeroGerado < 100) {
-			numeroGeradoString = "00" + String.valueOf(numeroGerado);
-		} else if (numeroGerado < 1000) {
-			numeroGeradoString = "0" + String.valueOf(numeroGerado);
-		} else {
-			numeroGeradoString = String.valueOf(numeroGerado);
-		}
-
-		codigoGerado += numeroGeradoString;
-		return codigoGerado;
-	}
-
 	private boolean testeDisciplinaContemAssunto(String assunto) {
 		boolean teste = false;
 		int i = 0;
@@ -156,7 +104,6 @@ public abstract class QuestaoVO {
 	public String toString() {
 		String modeloString;
 		modeloString = "\nDisciplina: " + this.disciplina.getNome();
-		modeloString += "\nCodigo: " + this.codigo;
 		modeloString += "\nNivel: " + this.nivel;
 		modeloString += "\nAssunto: " + this.assunto;
 		modeloString += "\nEnunciado: " + this.enunciado;

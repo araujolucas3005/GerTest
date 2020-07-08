@@ -1,6 +1,9 @@
 package model.VO;
 
+import java.util.Random;
+
 public class ObjetivaVO extends QuestaoVO {
+	private String codigoTemp;
 	private String[] opcoes;
 	
 	public ObjetivaVO() {
@@ -46,7 +49,51 @@ public class ObjetivaVO extends QuestaoVO {
 	}
 	
 	public void setCodigo(String codigo) {
-		super.setCodigo(codigo, 'O');
+		if (codigo != null && !codigo.isEmpty() && this.testeCodigoFormatoCorreto(codigo)) {
+			this.codigoTemp = codigo;
+		} else {
+			this.codigoTemp = this.gerarCodigoAleatorio();
+		}
+	}
+	
+	private boolean testeCodigoFormatoCorreto(String codigo) {
+		if (codigo != null && codigo.length() == 5) {
+			boolean testeFinal = true;
+			boolean testeLetra = codigo.charAt(0) == 'O';
+			if (testeLetra) {
+				int i = 1;
+				while (testeFinal && i < 5) {
+					boolean testeNumero = Character.isDigit(codigo.charAt(i));
+					if (testeNumero == false) {
+						testeFinal = false;
+					}
+					++i;
+				}
+				return testeFinal;
+			}
+		}
+		return false;
+	}
+	
+	private String gerarCodigoAleatorio() {
+		String codigoGerado;
+		codigoGerado = "O";
+		Random gerador = new Random();
+
+		int numeroGerado = gerador.nextInt(10000);
+		String numeroGeradoString;
+		if (numeroGerado < 10) {
+			numeroGeradoString = "000" + String.valueOf(numeroGerado);
+		} else if (numeroGerado < 100) {
+			numeroGeradoString = "00" + String.valueOf(numeroGerado);
+		} else if (numeroGerado < 1000) {
+			numeroGeradoString = "0" + String.valueOf(numeroGerado);
+		} else {
+			numeroGeradoString = String.valueOf(numeroGerado);
+		}
+
+		codigoGerado += numeroGeradoString;
+		return codigoGerado;
 	}
 
 	private boolean testeGabaritoValido(String gabarito) {
@@ -70,6 +117,7 @@ public class ObjetivaVO extends QuestaoVO {
 
 	public String toString() {
 		String saida = "----Questao Objetiva----";
+		saida += "\nCodigo: " + this.codigoTemp;
 		saida += super.toString();
 
 		saida += "\nOpcoes:\n";
