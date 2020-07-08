@@ -37,12 +37,10 @@ public class VerdadeiroOuFalsoVO extends ObjetivaVO {
 		if (gabarito.length() == super.getOpcoes().length) {
 			for (int i = 0; i < gabarito.length(); i++) {
 				char letra = gabarito.charAt(i);
-				if (letra != 'V') {
-					if (letra != 'F') {
+				if (letra != 'V' && letra != 'F') {
 						return false;
 					}
 				}
-			}
 			return true;
 		}
 		return false;
