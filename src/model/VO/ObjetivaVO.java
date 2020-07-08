@@ -2,7 +2,7 @@ package model.VO;
 
 import java.util.Random;
 
-public class ObjetivaVO extends QuestaoVO {
+public abstract class ObjetivaVO extends QuestaoVO {
 	private String[] opcoes;
 	
 	public ObjetivaVO() {
@@ -15,35 +15,11 @@ public class ObjetivaVO extends QuestaoVO {
 	}
 
 	public void setOpcoes(String[] opcoesRecebidas) {
-		if (opcoesRecebidas != null) {
-			this.opcoes = new String[opcoesRecebidas.length];
-			char alternativa = 'a';
-
-			// todas as opcoes sao do formato "letra) enunciado"
-			for (int i = 0; i < opcoesRecebidas.length && alternativa <= 'z'; i++) {
-				if (opcoesRecebidas[i] == null || opcoesRecebidas[i].isEmpty()) {
-					this.opcoes[i] = "*Opcao invalida!*";
-				} else {
-					this.opcoes[i] = String.valueOf(alternativa) + ") " + opcoesRecebidas[i];
-					alternativa++;
-				}
-			}
-		} else {
-			this.opcoes = new String[1];
-			this.opcoes[0] = "Questao sem opcao";
-		}
+		this.opcoes = opcoesRecebidas;
 	}
 
 	public void setGabarito(String gabarito) {
-		if (gabarito != null && !gabarito.isEmpty()) {
-			if (this.testeGabaritoValido(gabarito)) {
-				super.setGabarito(gabarito);
-			} else {
-				super.setGabarito("Questao sem gabarito!");
-			}
-		} else {
-			super.setGabarito("Questao sem gabarito!");
-		}
+		super.setGabarito(gabarito);
 	}
 	
 	public void setCodigo(String codigo) {
@@ -54,6 +30,7 @@ public class ObjetivaVO extends QuestaoVO {
 		}
 	}
 	
+	//Todas os codigos das questoes objetivas devem comecar com O
 	private boolean testeCodigoFormatoCorreto(String codigo) {
 		if (codigo != null && codigo.length() == 5) {
 			boolean testeFinal = true;
@@ -73,6 +50,7 @@ public class ObjetivaVO extends QuestaoVO {
 		return false;
 	}
 	
+	//Gera um codigo aleatorio conforme o tipo da disciplina
 	private String gerarCodigoAleatorio() {
 		String codigoGerado;
 		codigoGerado = "O";
@@ -92,25 +70,6 @@ public class ObjetivaVO extends QuestaoVO {
 
 		codigoGerado += numeroGeradoString;
 		return codigoGerado;
-	}
-
-	private boolean testeGabaritoValido(String gabarito) {
-		boolean teste = false;
-		int i = 0;
-		while (teste == false && i < this.opcoes.length) {
-
-			/*
-			 * Se o gabarito for igual a uma letra minuscula presente na primeira posicao de
-			 * uma String opcao do array de opcoes o teste eh verdadeiro, logo o gabarito
-			 * esta correto
-			 */
-
-			if (gabarito.equals(String.valueOf(this.opcoes[i].charAt(0)))) {
-				teste = true;
-			}
-			i++;
-		}
-		return teste;
 	}
 
 	public String toString() {
