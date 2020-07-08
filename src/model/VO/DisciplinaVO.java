@@ -2,6 +2,7 @@ package model.VO;
 
 public abstract class DisciplinaVO {
 	private String nome;
+	private String codigo;
 	private String[] assuntos;
 
 	public DisciplinaVO() {
@@ -26,9 +27,13 @@ public abstract class DisciplinaVO {
 		}
 	}
 
-	public abstract String getCodigo();
+	public String getCodigo() {
+		return this.codigo;
+	}
 
-	public abstract void setCodigo(String codigo);
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
 
 	public String[] getAssuntos() {
 		return assuntos;
@@ -50,7 +55,9 @@ public abstract class DisciplinaVO {
 
 	public String toString() {
 		String modeloString;
-		modeloString = "\nNome: " + this.nome;
+		modeloString = "----Disciplina----";
+		modeloString += "\nNome: " + this.nome;
+		modeloString += "\nCodigo: " + this.codigo;
 		modeloString += "\nAssuntos: \n";
 
 		for (int i = 0; i < this.assuntos.length; i++) {

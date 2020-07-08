@@ -3,26 +3,21 @@ package model.VO;
 import java.util.Random;
 
 public class HumanaVO extends DisciplinaVO {
-	private String codigo;
 	
 	public HumanaVO() {
 		super();
 		this.setCodigo(null);
 	}
 	
-	public String getCodigo() {
-		return this.codigo;
-	}
-	
 	public void setCodigo(String codigo) {
 		if (codigo != null && !codigo.isEmpty()) {
 			if (this.testeCodigoFormatoCorreto(codigo)) {
-				this.codigo = codigo;
+				super.setCodigo(codigo);
 			} else {
-				this.codigo = this.gerarCodigoAleatorio();
+				super.setCodigo(this.gerarCodigoAleatorio());
 			}
 		} else {
-			this.codigo = this.gerarCodigoAleatorio();
+			super.setCodigo(this.gerarCodigoAleatorio());
 		}
 	}
 	
@@ -63,12 +58,5 @@ public class HumanaVO extends DisciplinaVO {
 
 		codigoGerado += numeroGeradoString;
 		return codigoGerado;
-	}
-	
-	public String toString() {
-		String modeloString = "----Disciplina Humana----\n";
-		modeloString += "Codigo: "  + this.codigo;
-		modeloString += super.toString();
-		return modeloString;
 	}
 }
