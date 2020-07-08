@@ -48,6 +48,10 @@ public class ObjetivaVO extends QuestaoVO {
 		}
 	}
 	
+	public String getCodigo() {
+		return this.codigoTemp;
+	}
+	
 	public void setCodigo(String codigo) {
 		if (codigo != null && !codigo.isEmpty() && this.testeCodigoFormatoCorreto(codigo)) {
 			this.codigoTemp = codigo;
@@ -120,9 +124,9 @@ public class ObjetivaVO extends QuestaoVO {
 		saida += "\nCodigo: " + this.codigoTemp;
 		saida += super.toString();
 
-		saida += "\nOpcoes:\n";
+		saida += "\nOpcoes:";
 		for (int i = 0; i < this.opcoes.length; i++) {
-			saida += this.opcoes[i] + "\n";
+			saida += "\n" + this.opcoes[i];
 		}
 
 		return saida;

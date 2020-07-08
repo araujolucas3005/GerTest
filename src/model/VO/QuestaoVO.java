@@ -4,7 +4,6 @@ public abstract class QuestaoVO {
 	
 	private DisciplinaVO disciplina;
 	private int nivel;
-	private String codigo;
 	private String enunciado;
 	private String gabarito;
 	private String assunto;
@@ -51,9 +50,7 @@ public abstract class QuestaoVO {
 		}
 	}
 
-	public String getCodigo() {
-		return codigo;
-	}
+	public abstract String getCodigo();
 
 	public abstract void setCodigo(String codigo);
 

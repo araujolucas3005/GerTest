@@ -18,6 +18,10 @@ public class DiscursivaVO extends QuestaoVO {
 		}
 	}
 	
+	public String getCodigo() {
+		return this.codigoTemp;
+	}
+	
 	public void setCodigo(String codigo) {
 		if (codigo != null && !codigo.isEmpty() && this.testeCodigoFormatoCorreto(codigo)) {
 			this.codigoTemp = codigo;
