@@ -4,12 +4,14 @@ public abstract class QuestaoVO {
 	
 	private DisciplinaVO disciplina;
 	private int nivel;
+	private String codigo;
 	private String enunciado;
 	private String gabarito;
 	private String assunto;
 
 	public QuestaoVO() {
 		this.setDiscip(null);
+		this.setCodigo(null);
 		this.setNivel(0);
 		this.setAssunto(null);
 		this.setEnunciado(null);
@@ -50,9 +52,13 @@ public abstract class QuestaoVO {
 		}
 	}
 
-	public abstract String getCodigo();
+	public String getCodigo() {
+		return this.codigo;
+	}
 
-	public abstract void setCodigo(String codigo);
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
 
 	public String getEnunciado() {
 		return enunciado;
@@ -102,6 +108,7 @@ public abstract class QuestaoVO {
 		String modeloString;
 		modeloString = "\nDisciplina: " + this.disciplina.getNome();
 		modeloString += "\nNivel: " + this.nivel;
+		modeloString += "\nCodigo: " + this.codigo;
 		modeloString += "\nAssunto: " + this.assunto;
 		modeloString += "\nEnunciado: " + this.enunciado;
 		modeloString += "\nGabarito: " + this.gabarito;

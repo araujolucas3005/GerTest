@@ -3,11 +3,9 @@ package model.VO;
 import java.util.Random;
 
 public class DiscursivaVO extends QuestaoVO {
-	private String codigoTemp;
 	
 	public DiscursivaVO() {
 		super();
-		this.setCodigo(null);
 	}
 	
 	public void setGabarito(String gabarito) {
@@ -18,15 +16,11 @@ public class DiscursivaVO extends QuestaoVO {
 		}
 	}
 	
-	public String getCodigo() {
-		return this.codigoTemp;
-	}
-	
 	public void setCodigo(String codigo) {
 		if (codigo != null && !codigo.isEmpty() && this.testeCodigoFormatoCorreto(codigo)) {
-			this.codigoTemp = codigo;
+			super.setCodigo(codigo);
 		} else {
-			this.codigoTemp = this.gerarCodigoAleatorio();
+			super.setCodigo(this.gerarCodigoAleatorio());
 		}
 	}
 	
@@ -73,7 +67,6 @@ public class DiscursivaVO extends QuestaoVO {
 	public String toString() {
 		String saida;
 		saida = "----Questao Discursiva----";
-		saida += "\nCodigo: " + this.codigoTemp;
 		saida += super.toString();
 		return saida;
 	}

@@ -3,12 +3,10 @@ package model.VO;
 import java.util.Random;
 
 public class ObjetivaVO extends QuestaoVO {
-	private String codigoTemp;
 	private String[] opcoes;
 	
 	public ObjetivaVO() {
 		super();
-		this.setCodigo(null);
 		this.setOpcoes(null);
 	}
 
@@ -48,15 +46,11 @@ public class ObjetivaVO extends QuestaoVO {
 		}
 	}
 	
-	public String getCodigo() {
-		return this.codigoTemp;
-	}
-	
 	public void setCodigo(String codigo) {
 		if (codigo != null && !codigo.isEmpty() && this.testeCodigoFormatoCorreto(codigo)) {
-			this.codigoTemp = codigo;
+			super.setCodigo(codigo);
 		} else {
-			this.codigoTemp = this.gerarCodigoAleatorio();
+			super.setCodigo(this.gerarCodigoAleatorio());
 		}
 	}
 	
@@ -121,7 +115,6 @@ public class ObjetivaVO extends QuestaoVO {
 
 	public String toString() {
 		String saida = "----Questao Objetiva----";
-		saida += "\nCodigo: " + this.codigoTemp;
 		saida += super.toString();
 
 		saida += "\nOpcoes:";
