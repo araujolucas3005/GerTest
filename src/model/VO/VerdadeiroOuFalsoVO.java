@@ -7,6 +7,13 @@ public class VerdadeiroOuFalsoVO extends ObjetivaVO {
 			super.addOpcao(opcao);
 		} 
 	}
+	
+	public void removeOpcao(int posicao) {
+		if (posicao > 0) {
+			super.setGabarito("renove o gabarito!");
+			super.removeOpcao(posicao);
+		}
+	}
 
 	// O gabarito deve ser uma String contendo V ou F sem espaços
 	// Exemplo: "VVVFFV"
@@ -14,13 +21,6 @@ public class VerdadeiroOuFalsoVO extends ObjetivaVO {
 		if (gabarito != null && !gabarito.isEmpty()) {
 			if (this.testeGabaritoValido(gabarito)) {
 				super.setGabarito(gabarito);
-				
-				// Gabarito eh posto do lado da opcao quando setGabarito eh chamado
-				for (int i = 0; i < super.getOpcoes().size(); i++) {
-					String opcaoComGabarito = "[" + String.valueOf(gabarito.charAt(i));
-					opcaoComGabarito += "] " + super.getOpcoes().get(i);
-					super.getOpcoes().set(i, opcaoComGabarito);
-				}
 			} else {
 				super.setGabarito("Questao sem gabarito!");
 			}

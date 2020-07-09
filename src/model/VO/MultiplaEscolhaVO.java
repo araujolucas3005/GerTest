@@ -16,7 +16,14 @@ public class MultiplaEscolhaVO extends ObjetivaVO {
 
 	public void removeOpcao(int posicao) {
 		if (posicao < super.getOpcoes().size()) {
-			super.getOpcoes().remove(posicao);
+			
+			// Tem que testar pra ver se a letra da opcao removido eh igual gabarito
+			// caso for, o gabarito se torna invalido
+			if (super.getGabarito().equals(String.valueOf(super.getOpcoes().get(posicao).charAt(0)))) {
+				this.setGabarito(null);
+			}
+			
+			super.removeOpcao(posicao);
 
 			/*
 			 * Eh necessario fazer com que as posicoes que se encontram apos a posicao
