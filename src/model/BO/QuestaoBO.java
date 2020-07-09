@@ -39,16 +39,16 @@ public class QuestaoBO {
 		if (questao != null && codigoEnunciadoAssuntoOuGabarito != null && tipo != null) {
 			switch (tipo) {
 			case "codigo":
-				if (questao.getCodigo() != null)
+				if (questao.getCodigo() == null)
 					questao.setCodigo(codigoEnunciadoAssuntoOuGabarito);
 			case "enunciado":
-				if (questao.getEnunciado() != null)
+				if (questao.getEnunciado() == null)
 					questao.setEnunciado(codigoEnunciadoAssuntoOuGabarito);
 			case "assunto":
-				if (questao.getAssunto() != null)
+				if (questao.getAssunto() == null)
 					questao.setAssunto(codigoEnunciadoAssuntoOuGabarito);
 			case "gabarito":
-				if (questao.getGabarito() != null)
+				if (questao.getGabarito() == null)
 					questao.setGabarito(codigoEnunciadoAssuntoOuGabarito);
 			}
 		}
