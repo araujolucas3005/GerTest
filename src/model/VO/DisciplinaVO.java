@@ -49,7 +49,16 @@ public abstract class DisciplinaVO {
 	}
 	
 	public void removeAssunto(int posicao) {
-		assuntos.remove(posicao);
+		if (posicao >= 0 && posicao < this.assuntos.size()) {
+			assuntos.remove(posicao);
+			
+			for (int i = posicao; i < this.assuntos.size(); i++) {
+				int numeroDaOpcao = Integer.valueOf(this.assuntos.get(i).charAt(0));
+				numeroDaOpcao--;
+				String assuntoSemNumero = this.assuntos.get(i).substring(3);
+				this.assuntos.set(i, numeroDaOpcao + ". " + assuntoSemNumero);
+			}
+		}
 	}
 
 	public String toString() {
