@@ -18,7 +18,11 @@ public class DisciplinaBO {
 	
 	public void remover(DisciplinaVO disciplina) {
 		List<DisciplinaVO> exemplo = new ArrayList<DisciplinaVO>();
-		exemplo.remove(disciplina);	
-	
+		exemplo.remove(disciplina);			
 	}
+	
+	 /*public void listar(lista de disciplinaVO) {
+		disciplina(na posicao da lista).toString();
+		
+	} */
 }
