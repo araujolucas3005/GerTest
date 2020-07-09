@@ -34,9 +34,7 @@ public abstract class QuestaoVO {
 	public void setDiscip(DisciplinaVO disciplina) {
 		if (disciplina != null) {
 			this.disciplina = disciplina;
-		} else {
-			this.disciplina = new DisciplinaVO();
-		}
+		} 
 	}
 
 	public int getNivel() {
@@ -94,9 +92,8 @@ public abstract class QuestaoVO {
 	private boolean testeDisciplinaContemAssunto(String assunto) {
 		boolean teste = false;
 		int i = 0;
-		String[] assuntosDisciplina = this.disciplina.getAssuntos();
-		while (teste == false && i < assuntosDisciplina.length) {
-			if (assunto.equals(assuntosDisciplina[i])) {
+		while (teste == false && i < disciplina.getAssuntos().size()) {
+			if (assunto.equals(disciplina.getAssuntos().get(i))) {
 				teste = true;
 			}
 			i++;
