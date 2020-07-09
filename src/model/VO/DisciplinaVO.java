@@ -1,18 +1,20 @@
 package model.VO;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class DisciplinaVO {
 	private String nome;
 	private String codigo;
-	private String[] assuntos;
+	private List<String> assuntos = new ArrayList<String>();
 
 	public DisciplinaVO() {
 		this.setNome(null);
-		this.setAssuntos(null);
 	}
 
-	public DisciplinaVO(String nome, String codigo, String[] assuntos) {
+	public DisciplinaVO(String nome, String codigo) {
 		this.setNome(nome);
-		this.setAssuntos(assuntos);
+		this.setCodigo(codigo);
 	}
 
 	public String getNome() {
@@ -35,22 +37,19 @@ public abstract class DisciplinaVO {
 		this.codigo = codigo;
 	}
 
-	public String[] getAssuntos() {
+	public List<String> getAssuntos() {
 		return assuntos;
 	}
 
-	public void setAssuntos(String[] assuntos) {
-		if (assuntos != null) {
-			for (int i = 0; i < assuntos.length; i++) {
-				if (assuntos[i] == null || assuntos[i].isEmpty()) {
-					assuntos[i] = "Sem assunto";
-				}
-			}
-			this.assuntos = assuntos;
-		} else {
-			this.assuntos = new String[1];
-			this.assuntos[0] = "Disciplina sem assunto";
+	public void addAssunto(String assunto) {
+		if (assunto != null && !assunto.isEmpty()) {
+			String posicaoMaisAssunto = String.valueOf(assuntos.size() + 1) + ". " + assunto;
+			assuntos.add(posicaoMaisAssunto);
 		}
+	}
+	
+	public void removeAssunto(int posicao) {
+		assuntos.remove(posicao);
 	}
 
 	public String toString() {
@@ -58,10 +57,14 @@ public abstract class DisciplinaVO {
 		modeloString = "----Disciplina----";
 		modeloString += "\nNome: " + this.nome;
 		modeloString += "\nCodigo: " + this.codigo;
-		modeloString += "\nAssuntos: \n";
+		modeloString += "\nAssuntos: ";
 
-		for (int i = 0; i < this.assuntos.length; i++) {
-			modeloString += String.valueOf(i + 1) + ". " + this.assuntos[i];
+		if (assuntos.size() == 0) {
+			modeloString += "Sem assuntos ainda";
+		} else {
+			for (String assunto : assuntos) {
+				modeloString += "\n" + assunto;
+			}
 		}
 
 		return modeloString;

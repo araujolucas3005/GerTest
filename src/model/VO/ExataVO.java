@@ -9,6 +9,10 @@ public class ExataVO extends DisciplinaVO {
 		this.setCodigo(null);
 	}
 	
+	public ExataVO(String nome, String codigo) {
+		super(nome, codigo);
+	}
+	
 	public void setCodigo(String codigo) {
 		if (codigo != null && !codigo.isEmpty()) {
 			if (this.testeCodigoFormatoCorreto(codigo)) {

@@ -9,6 +9,10 @@ public class BiologicaVO extends DisciplinaVO {
 		this.setCodigo(null);
 	}
 	
+	public BiologicaVO(String nome, String codigo) {
+		super(nome, codigo);
+	}
+	
 	public void setCodigo(String codigo) {
 		if (codigo != null && !codigo.isEmpty()) {
 			if (this.testeCodigoFormatoCorreto(codigo)) {
