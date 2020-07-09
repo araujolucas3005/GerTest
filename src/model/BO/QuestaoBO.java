@@ -113,15 +113,17 @@ public class QuestaoBO {
 	}
 	
 	public void remover(QuestaoVO questao, int numeroOpcao) {
-		if (questao != null && numeroOpcao != 0) {
+		if (questao != null && numeroOpcao > 0) {
 			numeroOpcao--;
 			if (questao instanceof VerdadeiroOuFalsoVO) {
 				VerdadeiroOuFalsoVO vf = (VerdadeiroOuFalsoVO) questao;
-				vf.removeOpcao(numeroOpcao);
+				if (numeroOpcao < vf.getOpcoes().size())
+					vf.removeOpcao(numeroOpcao);
 				questao = vf;
 			} else {
 				MultiplaEscolhaVO me = (MultiplaEscolhaVO) questao;
-				me.removeOpcao(numeroOpcao);
+				if (numeroOpcao < me.getOpcoes().size())
+					me.removeOpcao(numeroOpcao);
 				questao = me;
 			}
 		}
