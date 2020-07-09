@@ -43,21 +43,14 @@ public abstract class DisciplinaVO {
 
 	public void addAssunto(String assunto) {
 		if (assunto != null && !assunto.isEmpty()) {
-			String posicaoMaisAssunto = String.valueOf(assuntos.size() + 1) + ". " + assunto;
-			assuntos.add(posicaoMaisAssunto);
+			assuntos.add(assunto);
 		}
 	}
 	
 	public void removeAssunto(int posicao) {
-		if (posicao >= 0 && posicao < this.assuntos.size()) {
+		if (posicao > 0 && posicao < this.assuntos.size()) {
+			posicao--;
 			assuntos.remove(posicao);
-			
-			for (int i = posicao; i < this.assuntos.size(); i++) {
-				int numeroDaOpcao = Integer.valueOf(this.assuntos.get(i).charAt(0));
-				numeroDaOpcao--;
-				String assuntoSemNumero = this.assuntos.get(i).substring(3);
-				this.assuntos.set(i, numeroDaOpcao + ". " + assuntoSemNumero);
-			}
 		}
 	}
 
@@ -71,8 +64,8 @@ public abstract class DisciplinaVO {
 		if (assuntos.size() == 0) {
 			modeloString += "Sem assuntos ainda";
 		} else {
-			for (String assunto : assuntos) {
-				modeloString += "\n" + assunto;
+			for (int i = 0; i < this.assuntos.size(); i++) {
+				modeloString += "\n" + String.valueOf(i+1) + ". "+ assuntos.get(i);
 			}
 		}
 
