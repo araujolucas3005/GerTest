@@ -1,27 +1,32 @@
 package model.VO;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public abstract class ObjetivaVO extends QuestaoVO {
-	private String[] opcoes;
-	
+	private List<String> opcoes = new ArrayList<String>();
+
 	public ObjetivaVO() {
 		super();
-		this.setOpcoes(null);
 	}
 
-	public String[] getOpcoes() {
+	public List<String> getOpcoes() {
 		return opcoes;
 	}
 
-	public void setOpcoes(String[] opcoesRecebidas) {
-		this.opcoes = opcoesRecebidas;
+	public void addOpcao(String opcao) {
+		this.opcoes.add(opcao);
+	}
+
+	public void removeOpcao(int posicao) {
+		this.opcoes.remove(posicao);
 	}
 
 	public void setGabarito(String gabarito) {
 		super.setGabarito(gabarito);
 	}
-	
+
 	public void setCodigo(String codigo) {
 		if (codigo != null && !codigo.isEmpty() && this.testeCodigoFormatoCorreto(codigo)) {
 			super.setCodigo(codigo);
@@ -29,8 +34,8 @@ public abstract class ObjetivaVO extends QuestaoVO {
 			super.setCodigo(this.gerarCodigoAleatorio());
 		}
 	}
-	
-	//Todas os codigos das questoes objetivas devem comecar com O
+
+	// Todas os codigos das questoes objetivas devem comecar com O
 	private boolean testeCodigoFormatoCorreto(String codigo) {
 		if (codigo != null && codigo.length() == 5) {
 			boolean testeFinal = true;
@@ -49,8 +54,8 @@ public abstract class ObjetivaVO extends QuestaoVO {
 		}
 		return false;
 	}
-	
-	//Gera um codigo aleatorio conforme o tipo da disciplina
+
+	// Gera um codigo aleatorio conforme o tipo da disciplina
 	private String gerarCodigoAleatorio() {
 		String codigoGerado;
 		codigoGerado = "O";
@@ -77,8 +82,12 @@ public abstract class ObjetivaVO extends QuestaoVO {
 		saida += super.toString();
 
 		saida += "\nOpcoes:";
-		for (int i = 0; i < this.opcoes.length; i++) {
-			saida += "\n" + this.opcoes[i];
+		if (this.opcoes.size() == 0) {
+			saida += "Questao sem opcoes";
+		} else {
+			for (String opcao : opcoes) {
+				saida += "\n" + opcao;
+			}
 		}
 
 		return saida;

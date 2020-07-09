@@ -1,30 +1,36 @@
 package model.VO;
 
 public class MultiplaEscolhaVO extends ObjetivaVO {
-	
-	public void setOpcoes(String[] opcoesRecebidas) {
-		String[] opcoes;
-		if (opcoesRecebidas != null) {
-			opcoes = new String[opcoesRecebidas.length];
-			char alternativa = 'a';
 
-			// todas as opcoes sao do formato "letra) enunciado"
-			for (int i = 0; i < opcoesRecebidas.length && alternativa <= 'z'; i++) {
-				if (opcoesRecebidas[i] == null || opcoesRecebidas[i].isEmpty()) {
-					opcoes[i] = "*Opcao invalida!*";
-				} else {
-					opcoes[i] = String.valueOf(alternativa) + ") " + opcoesRecebidas[i];
-					alternativa++;
-				}
+	public void addOpcao(String opcao) {
+		if (opcao != null) {
+			// So eh possivel adicionar opcoes de 'a' ate 'z'
+			if (super.getOpcoes().size() < 26) {
+				char alternativa = 'a';
+				alternativa += super.getOpcoes().size();
+				String opcaoFormatada = String.valueOf(alternativa) + ") " + opcao;
+				super.addOpcao(opcaoFormatada);
 			}
-			super.setOpcoes(opcoes);
-		} else {
-			opcoes = new String[1];
-			opcoes[0] = "Questao sem opcoes!";
-			super.setOpcoes(opcoes);
+		} 
+	}
+
+	public void removeOpcao(int posicao) {
+		if (posicao < super.getOpcoes().size()) {
+			super.getOpcoes().remove(posicao);
+
+			/*
+			 * Eh necessario fazer com que as posicoes que se encontram apos a posicao
+			 * removida tenham as suas alternativas subtraidas por 1
+			 */
+			for (int i = posicao; i < super.getOpcoes().size(); i++) {
+				char alternativa = super.getOpcoes().get(i).charAt(0);
+				alternativa--;
+				String temp = super.getOpcoes().get(i).substring(3);
+				super.getOpcoes().set(i, String.valueOf(alternativa) + ") " + temp);
+			}
 		}
 	}
-	
+
 	public void setGabarito(String gabarito) {
 		if (gabarito != null && !gabarito.isEmpty()) {
 			if (this.testeGabaritoValido(gabarito)) {
@@ -36,11 +42,11 @@ public class MultiplaEscolhaVO extends ObjetivaVO {
 			super.setGabarito("Questao sem gabarito!");
 		}
 	}
-	
+
 	private boolean testeGabaritoValido(String gabarito) {
 		boolean teste = false;
 		int i = 0;
-		while (teste == false && i < super.getOpcoes().length) {
+		while (teste == false && i < super.getOpcoes().size()) {
 
 			/*
 			 * Se o gabarito for igual a uma letra minuscula presente na primeira posicao de
@@ -48,13 +54,12 @@ public class MultiplaEscolhaVO extends ObjetivaVO {
 			 * esta correto
 			 */
 
-			if (gabarito.equals(String.valueOf(super.getOpcoes()[i].charAt(0)))) {
+			if (gabarito.equals(String.valueOf(super.getOpcoes().get(i).charAt(0)))) {
 				teste = true;
 			}
 			i++;
 		}
 		return teste;
 	}
-	
-	
+
 }
