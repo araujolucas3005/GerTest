@@ -7,7 +7,7 @@ public class VerdadeiroOuFalsoVO extends ObjetivaVO {
 			super.addOpcao(opcao);
 		} 
 	}
-	
+
 	// O gabarito deve ser uma String contendo V ou F sem espaços
 	// Exemplo: "VVVFFV"
 	public void setGabarito(String gabarito) {
