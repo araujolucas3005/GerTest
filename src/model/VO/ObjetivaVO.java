@@ -10,6 +10,10 @@ public abstract class ObjetivaVO extends QuestaoVO {
 	public ObjetivaVO() {
 		super();
 	}
+	
+	public ObjetivaVO(DisciplinaVO disciplina, int nivel, String codigo, String tipo, String enunciado, String gabarito, String assunto) {
+		super(disciplina, nivel, codigo, tipo, enunciado, gabarito, assunto);
+	}
 
 	public List<String> getOpcoes() {
 		return opcoes;

@@ -19,7 +19,7 @@ public abstract class QuestaoVO {
 	}
 
 	public QuestaoVO(DisciplinaVO disciplina, int nivel, String codigo, String tipo, String enunciado, String gabarito,
-			String assunto, String[] opcoes) {
+			String assunto) {
 		this.setDiscip(disciplina);
 		this.setNivel(nivel);
 		this.setAssunto(assunto);
