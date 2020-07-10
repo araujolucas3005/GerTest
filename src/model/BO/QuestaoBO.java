@@ -25,7 +25,17 @@ public class QuestaoBO {
 
 	public void cadastrar(QuestaoVO questao) {
 		if (questao != null) {
-			bancoDeDados.add(questao);
+			boolean teste = true;
+			while (teste) {
+				for (int i = 0; i < bancoDeDados.size(); i++) {
+					if (questao.getCodigo() == bancoDeDados.get(i).getCodigo()) {
+						teste = false;
+					}
+				}
+			}
+			if (teste) {
+				bancoDeDados.add(questao);
+			}
 		}
 	}
 
@@ -53,7 +63,7 @@ public class QuestaoBO {
 			}
 		}
 	}
-	
+
 	public void adicionar(QuestaoVO questao, String opcao) {
 		if (questao != null && opcao != null) {
 			if (questao instanceof VerdadeiroOuFalsoVO) {
@@ -93,7 +103,7 @@ public class QuestaoBO {
 		if (questao != null && opcao != null && numeroDaOpcao != 0) {
 			numeroDaOpcao--;
 			char letraOpcao = 'a';
-			letraOpcao +=  numeroDaOpcao;
+			letraOpcao += numeroDaOpcao;
 			if (questao instanceof VerdadeiroOuFalsoVO) {
 				VerdadeiroOuFalsoVO vf = (VerdadeiroOuFalsoVO) questao;
 				vf.getOpcoes().set(numeroDaOpcao, String.valueOf(letraOpcao) + ") " + opcao);
@@ -108,10 +118,15 @@ public class QuestaoBO {
 
 	public void remover(QuestaoVO questao) {
 		if (questao != null) {
-			bancoDeDados.remove(questao);
+			for (QuestaoVO q : bancoDeDados) {
+				if (questao == q) {
+					bancoDeDados.remove(questao);
+					break;
+				}
+			}
 		}
 	}
-	
+
 	public void remover(QuestaoVO questao, int numeroOpcao) {
 		if (questao != null && numeroOpcao > 0) {
 			numeroOpcao--;
