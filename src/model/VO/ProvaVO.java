@@ -3,8 +3,6 @@ package model.VO;
 import java.util.List;
 
 public class ProvaVO {
-	private static int id;
-	private String disciplina;
 	private List<QuestaoVO> questoes;
 	private int nivel1;
 	private int nivel2;
@@ -15,37 +13,23 @@ public class ProvaVO {
 
 	}
 
-	public ProvaVO(String disciplina, int nivel1, int nivel2, int nivel3, int nivel4) {
-		this.disciplina = disciplina;
+	public ProvaVO(List<QuestaoVO> questoes,int nivel1, int nivel2, int nivel3, int nivel4) {
+		this.questoes = questoes;
 		this.nivel1 = nivel1;
 		this.nivel2 = nivel2;
 		this.nivel3 = nivel3;
 		this.nivel4 = nivel4;
 	}
 
-	public static int getId() {
-		return id;
-	}
-
-	// id � gerado automaticamente
-	public static void setId(int id) {
-		ProvaVO.id = id;
-	}
-
-	public String getDisciplina() {
-		return disciplina;
-	}
-
-	public void setDisciplina(String disciplina) {
-		if (disciplina == null || disciplina.isEmpty())
-			this.disciplina = "Prova sem disciplina";
-		else
-			this.disciplina = disciplina;
-	}
-
 	// questoes sao geradas de maneira aleatoria
 	public List<QuestaoVO> getQuestoes() {
 		return questoes;
+	}
+	
+	public void addQuestao(QuestaoVO questao) {
+		if (questao != null) {
+			questoes.add(questao);
+		}
 	}
 
 	public int getNivel1() {
@@ -95,8 +79,6 @@ public class ProvaVO {
 	public String toString() {
 		String modeloString;
 		modeloString = "----Prova----";
-		modeloString += "\nID: " + id;
-		modeloString += "\nDisciplina: " + this.disciplina;
 		modeloString += "\n----Questoes----\n";
 
 		for (int i = 0; i < this.questoes.size(); i++) {

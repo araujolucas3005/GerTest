@@ -2,7 +2,6 @@ package model.BO;
 
 import java.util.ArrayList;
 import java.util.List;
-import model.VO.DisciplinaVO;
 import model.VO.MultiplaEscolhaVO;
 import model.VO.QuestaoVO;
 import model.VO.VerdadeiroOuFalsoVO;
@@ -39,12 +38,6 @@ public class QuestaoBO {
 		}
 	}
 
-	public void adicionar(QuestaoVO questao, DisciplinaVO disciplina) {
-		if (questao != null && disciplina != null && questao.getDiscip() != null) {
-			questao.setDiscip(disciplina);
-		}
-	}
-
 	public void adicionar(QuestaoVO questao, String codigoEnunciadoAssuntoOuGabarito, String tipo) {
 		if (questao != null && codigoEnunciadoAssuntoOuGabarito != null && tipo != null) {
 			switch (tipo) {
@@ -75,12 +68,6 @@ public class QuestaoBO {
 				me.addOpcao(opcao);
 				questao = me;
 			}
-		}
-	}
-
-	public void editar(QuestaoVO questao, DisciplinaVO disciplina) {
-		if (questao != null && disciplina != null) {
-			questao.setDiscip(disciplina);
 		}
 	}
 

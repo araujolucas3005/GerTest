@@ -8,7 +8,7 @@ import model.VO.ProvaVO;
 public class ProvaBO {
 	
 	public void editar(ProvaVO prova) {
-		prova.setDisciplina("exemplo");
+		
 	}
 
 	public void excluir(ProvaVO prova) {

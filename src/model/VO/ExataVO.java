@@ -6,7 +6,6 @@ public class ExataVO extends DisciplinaVO {
 	
 	public ExataVO() {
 		super();
-		this.setCodigo(null);
 	}
 	
 	public ExataVO(String nome, String codigo) {
