@@ -6,7 +6,6 @@ public class BiologicaVO extends DisciplinaVO {
 	
 	public BiologicaVO() {
 		super();
-		this.setCodigo(null);
 	}
 	
 	public BiologicaVO(String nome, String codigo) {

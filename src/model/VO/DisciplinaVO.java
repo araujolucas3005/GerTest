@@ -7,6 +7,8 @@ public abstract class DisciplinaVO {
 	private String nome;
 	private String codigo;
 	private List<String> assuntos = new ArrayList<String>();
+	private List<QuestaoVO> questoes = new ArrayList<QuestaoVO>();
+	private List<ProvaVO> provas = new ArrayList<ProvaVO>();
 
 	public DisciplinaVO() {
 		this.setNome(null);
@@ -36,7 +38,40 @@ public abstract class DisciplinaVO {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
-
+	
+	public List<ProvaVO> getProvas() {
+		return provas;
+	}
+	
+	public void addProva(ProvaVO prova) {
+		if (prova != null) {
+			provas.add(prova);
+		}
+	}
+	
+	public void removeProva(int idProva) {
+		if (idProva > 0 && idProva <= provas.size()) {
+			idProva--;
+			provas.remove(idProva);
+		}
+	}
+	
+	public List<QuestaoVO> getQuestoes() {
+		return questoes;
+	}
+	
+	public void addQuestao(QuestaoVO questao) {
+		if (questao != null) {
+			questoes.add(questao);
+		}
+	}
+	
+	public void removeQuestao(int posicao) {
+		if (posicao >= 0 && posicao <= provas.size()) {
+			questoes.remove(posicao);
+		}
+	}
+	
 	public List<String> getAssuntos() {
 		return assuntos;
 	}
@@ -62,13 +97,28 @@ public abstract class DisciplinaVO {
 		modeloString += "\nAssuntos: ";
 
 		if (assuntos.size() == 0) {
-			modeloString += "Sem assuntos ainda";
+			modeloString += "Sem assuntos ainda\n";
 		} else {
 			for (int i = 0; i < this.assuntos.size(); i++) {
 				modeloString += "\n" + String.valueOf(i+1) + ". "+ assuntos.get(i);
 			}
 		}
-
+		
+		if (questoes.size() == 0) {
+			modeloString += "Sem questoes ainda\n";
+		} else {
+			for (QuestaoVO questao : questoes) {
+				modeloString += questao;
+			}
+		}
+		
+		if (provas.size() == 0) {
+			modeloString += "Sem provas ainda\n";
+		} else {
+			for (ProvaVO prova : provas) {
+				modeloString += prova;
+			}
+		}
 		return modeloString;
 	}
 }

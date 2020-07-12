@@ -2,7 +2,6 @@ package model.VO;
 
 public abstract class QuestaoVO {
 	
-	private DisciplinaVO disciplina;
 	private int nivel;
 	private String codigo;
 	private String enunciado;
@@ -10,31 +9,16 @@ public abstract class QuestaoVO {
 	private String assunto;
 
 	public QuestaoVO() {
-		this.setDiscip(null);
-		this.setCodigo(null);
-		this.setNivel(0);
-		this.setAssunto(null);
-		this.setEnunciado(null);
-		this.setGabarito(null);
+
 	}
 
-	public QuestaoVO(DisciplinaVO disciplina, int nivel, String codigo, String tipo, String enunciado, String gabarito,
+	public QuestaoVO(String codigo, int nivel, String tipo, String enunciado, String gabarito,
 			String assunto) {
-		this.setDiscip(disciplina);
+		this.setCodigo(codigo);
 		this.setNivel(nivel);
 		this.setAssunto(assunto);
 		this.setEnunciado(enunciado);
 		this.setGabarito(gabarito);
-	}
-
-	public DisciplinaVO getDiscip() {
-		return this.disciplina;
-	}
-
-	public void setDiscip(DisciplinaVO disciplina) {
-		if (disciplina != null) {
-			this.disciplina = disciplina;
-		} 
 	}
 
 	public int getNivel() {
@@ -82,30 +66,17 @@ public abstract class QuestaoVO {
 	}
 
 	public void setAssunto(String assunto) {
-		if (assunto != null && !assunto.isEmpty() && testeDisciplinaContemAssunto(assunto)) {
+		if (assunto != null && !assunto.isEmpty()) {
 			this.assunto = assunto;
 		} else {
 			this.assunto = "Questao sem assunto!";
 		}
 	}
 
-	private boolean testeDisciplinaContemAssunto(String assunto) {
-		boolean teste = false;
-		int i = 0;
-		while (teste == false && i < disciplina.getAssuntos().size()) {
-			if (assunto.equals(disciplina.getAssuntos().get(i))) {
-				teste = true;
-			}
-			i++;
-		}
-		return teste;
-	}
-
 	public String toString() {
 		String modeloString;
-		modeloString = "\nDisciplina: " + this.disciplina.getNome();
+		modeloString = "\nCodigo: " + this.codigo;
 		modeloString += "\nNivel: " + this.nivel;
-		modeloString += "\nCodigo: " + this.codigo;
 		modeloString += "\nAssunto: " + this.assunto;
 		modeloString += "\nEnunciado: " + this.enunciado;
 		modeloString += "\nGabarito: " + this.gabarito;
