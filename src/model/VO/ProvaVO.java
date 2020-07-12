@@ -31,6 +31,12 @@ public class ProvaVO {
 			questoes.add(questao);
 		}
 	}
+	
+	public void removeQuestao(int posicaoQuestao) {
+		if (posicaoQuestao >= 0 && posicaoQuestao < questoes.size()) {
+			questoes.remove(posicaoQuestao);
+		}
+	}
 
 	public int getNivel1() {
 		return nivel1;
