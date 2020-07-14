@@ -5,21 +5,22 @@ import java.util.List;
 import java.util.Random;
 
 public abstract class ObjetivaVO extends QuestaoVO {
-	private List<String> opcoes = new ArrayList<String>();
+	private List<OpcaoVO> opcoes;
 
 	public ObjetivaVO() {
 		super();
+		opcoes = new ArrayList<>();
 	}
 	
 	public ObjetivaVO(String codigo, int nivel, String tipo, String enunciado, String gabarito, String assunto) {
 		super(codigo, nivel, tipo, enunciado, gabarito, assunto);
 	}
 
-	public List<String> getOpcoes() {
+	public List<OpcaoVO> getOpcoes() {
 		return opcoes;
 	}
 
-	public void addOpcao(String opcao) {
+	public void addOpcao(OpcaoVO opcao) {
 		this.opcoes.add(opcao);
 	}
 
@@ -89,7 +90,7 @@ public abstract class ObjetivaVO extends QuestaoVO {
 		if (this.opcoes.size() == 0) {
 			saida += "Questao sem opcoes";
 		} else {
-			for (String opcao : opcoes) {
+			for (OpcaoVO opcao : opcoes) {
 				saida += "\n" + opcao;
 			}
 		}

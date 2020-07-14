@@ -2,8 +2,8 @@ package model.VO;
 
 public class VerdadeiroOuFalsoVO extends ObjetivaVO {
 	// Qualquer opcao eh valida, desde que esta nao seja null e nao esteja em branco
-	public void addOpcao(String opcao) {
-		if (opcao != null && !opcao.isEmpty()) {
+	public void addOpcao(OpcaoVO opcao) {
+		if (opcao != null) {
 			super.addOpcao(opcao);
 		} 
 	}
