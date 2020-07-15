@@ -1,7 +1,12 @@
 package model.BO;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import model.VO.DiscursivaVO;
 import model.VO.MultiplaEscolhaVO;
 import model.VO.QuestaoVO;
 import model.VO.VerdadeiroOuFalsoVO;
@@ -141,4 +146,46 @@ public class QuestaoBO {
 		}
 		return null;
 	}
+	
+	/*public QuestaoVO buscarByNivel(int nivel) {
+		String sql = "select * from questao where nivel = " + nivel;
+		Statement st;
+		ResultSet rs;
+		QuestaoVO vo1 = new DiscursivaVO();
+		try {
+			st = getConnection().createStatement();
+			rs = st.executeQuery(sql);
+			while (rs.next()) {
+				vo1.setCodigo(rs.getString("codigo"));
+				vo1.setEnunciado(rs.getString("enunciado"));
+				vo1.setGabarito(rs.getString("gabarito"));
+				vo1.setNivel(rs.getInt("nivel"));	
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return vo1;}*/
+	
+	/*public QuestaoVO buscarByCodigo(String codigo) {
+		String sql = "select * from questao where codigo = " + "'" + codigo + "'";
+		Statement st;
+		ResultSet rs;
+		QuestaoVO vo1 = new DiscursivaVO();
+		try {		
+			st = getConnection().createStatement();
+			rs = st.executeQuery(sql);
+			while (rs.next()) {
+				vo1.setCodigo(rs.getString("codigo"));
+				vo1.setEnunciado(rs.getString("enunciado"));
+				vo1.setGabarito(rs.getString("gabarito"));
+				vo1.setNivel(rs.getInt("nivel"));	
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return vo1;
+	}*/
+		
 }

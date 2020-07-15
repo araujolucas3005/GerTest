@@ -2,11 +2,14 @@ package model.VO;
 
 public abstract class QuestaoVO {
 	
+	private Long idQuestao;
 	private int nivel;
 	private String codigo;
 	private String enunciado;
 	private String gabarito;
 	private String assunto;
+	private Long idDisciplina;
+	private Long idAssuntos;
 
 	public QuestaoVO() {
 
@@ -71,6 +74,30 @@ public abstract class QuestaoVO {
 		} else {
 			this.assunto = "Questao sem assunto!";
 		}
+	}
+
+	public Long getIdQuestao() {
+		return idQuestao;
+	}
+
+	public void setIdQuestao(Long id) {
+		this.idQuestao = id;
+	}
+
+	public Long getIdDisciplina() {
+		return idDisciplina;
+	}
+
+	public void setIdDisciplina(Long idDisciplina) {
+		this.idDisciplina = idDisciplina;
+	}
+
+	public Long getIdAssuntos() {
+		return idAssuntos;
+	}
+
+	public void setIdAssuntos(Long idAssuntos) {
+		this.idAssuntos = idAssuntos;
 	}
 
 	public String toString() {
