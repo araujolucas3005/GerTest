@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class DisciplinaVO {
+	private Long id;
 	private String nome;
 	private String codigo;
 	private List<AssuntoVO> assuntos = new ArrayList<AssuntoVO>();
@@ -12,6 +13,14 @@ public abstract class DisciplinaVO {
 
 	public DisciplinaVO() {
 		assuntos = new ArrayList<>();
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public DisciplinaVO(String nome, String codigo) {
