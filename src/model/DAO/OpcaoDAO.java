@@ -88,7 +88,7 @@ public class OpcaoDAO extends BaseDAO<OpcaoVO>{
 	}
 	
 	public ResultSet listarPorQuestao(OpcaoVO opcao) {
-		String sql = "select * from Questao where id_questao = ";
+		String sql = "select * from Opcao where id_objetiva = ?";
 		PreparedStatement ptst;
 		ResultSet rs = null;
 		
