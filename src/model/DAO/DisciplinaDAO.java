@@ -11,14 +11,13 @@ public class DisciplinaDAO extends BaseDAO<DisciplinaVO> {
 
 	public void inserir(DisciplinaVO disciplina) {
 
-		conn = getConnection();
 		String sql = "insert into Disciplina (nome,codigo) values (?,?)";
 		// String sqlAssunto = "insert into Assuntos (assunto, id_disciplina) values
 		// (?,?)";
 		PreparedStatement ptst;
 
 		try {
-			ptst = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			ptst = getConnection().prepareStatement(sql);
 			ptst.setNString(1, disciplina.getNome());
 			ptst.setNString(2, disciplina.getCodigo());
 			
@@ -45,26 +44,13 @@ public class DisciplinaDAO extends BaseDAO<DisciplinaVO> {
 	}
 
 	public void remover(DisciplinaVO disciplina) {
-		conn = getConnection();
 		String sql = "remove from Disciplina where codigo = ?";
 		PreparedStatement ptst = null;
 
 		try {
-			ptst = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			ptst = getConnection().prepareStatement(sql);
 			ptst.setNString(1, disciplina.getCodigo());
 			ptst.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		Long id = null;
-		ResultSet rs;
-		try {
-			rs = ptst.getGeneratedKeys();
-			while (rs.next()) {
-				id = rs.getLong(1);
-			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -73,8 +59,8 @@ public class DisciplinaDAO extends BaseDAO<DisciplinaVO> {
 		// remover tambem os assuntos
 		sql = "remove * from Assuntos where id_disciplina = ?";
 		try {
-			ptst = conn.prepareStatement(sql);
-			ptst.setLong(1, id);
+			ptst = getConnection().prepareStatement(sql);
+			ptst.setLong(1, disciplina.getId());
 			ptst.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -84,8 +70,8 @@ public class DisciplinaDAO extends BaseDAO<DisciplinaVO> {
 		// remover tambem as questoes
 		sql = "remove * from Questao where id_disciplina = ?";
 		try {
-			ptst = conn.prepareStatement(sql);
-			ptst.setLong(1, id);
+			ptst = getConnection().prepareStatement(sql);
+			ptst.setLong(1, disciplina.getId());
 			ptst.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -94,13 +80,11 @@ public class DisciplinaDAO extends BaseDAO<DisciplinaVO> {
 	}
 
 	public void atualizar (DisciplinaVO disciplina) {
-		
-		conn = getConnection();
 		String sql = "update Disciplina set nome = ?, codigo = ?";
 		PreparedStatement ptst;
 		
 		try {
-			ptst = conn.prepareStatement(sql);
+			ptst = getConnection().prepareStatement(sql);
 			ptst.setNString(1, disciplina.getNome());
 			ptst.setNString(2, disciplina.getCodigo());
 			ptst.executeUpdate();
@@ -159,14 +143,13 @@ public class DisciplinaDAO extends BaseDAO<DisciplinaVO> {
 	}
 	
 	public ResultSet listar() {
-		conn = getConnection();
 		String sql = "select * from Disciplina";
 		Statement st;
 		ResultSet rs;
 		rs = null;
 
 		try {
-			st = conn.createStatement();
+			st = getConnection().createStatement();
 			rs = st.executeQuery(sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
