@@ -87,4 +87,20 @@ public class AssuntoDAO extends BaseDAO<AssuntoVO> {
 		}
 		return st;
 	}
+
+	public ResultSet listarPorDisciplina(AssuntoVO assunto) {
+		String sql = "select * from Assunto where id_disciplina = ?";
+		PreparedStatement ptst;
+		ResultSet rs = null;
+		
+		try {
+			ptst = getConnection().prepareStatement(sql);
+			ptst.setLong(1, assunto.getIdDisciplina());
+			rs = ptst.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
 }

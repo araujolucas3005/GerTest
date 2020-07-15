@@ -86,4 +86,20 @@ public class OpcaoDAO extends BaseDAO<OpcaoVO>{
 		}
 		return rs;
 	}
+	
+	public ResultSet listarPorQuestao(OpcaoVO opcao) {
+		String sql = "select * from Questao where id_questao = ";
+		PreparedStatement ptst;
+		ResultSet rs = null;
+		
+		try {
+			ptst = getConnection().prepareStatement(sql);
+			ptst.setLong(1, opcao.getIdQuestao());
+			rs = ptst.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
 }
