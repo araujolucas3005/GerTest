@@ -13,7 +13,7 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO>{
 	
 	
 	public void inserir(QuestaoVO vo) {
-		String sql = "insert into questao (codigo,nivel,gabarito,enunciado) values (?,?,?,?)";
+		String sql = "insert into questao (codigo,nivel,gabarito,enunciado,tipo) values (?,?,?,?,?)";
 		PreparedStatement ptst;
 		try {
 			ptst = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -21,6 +21,7 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO>{
 			ptst.setInt(2, vo.getNivel());
 			ptst.setString(3, vo.getGabarito());
 			ptst.setString(4,vo.getEnunciado());
+			ptst.setString(5,vo.getTipo());
 			
 			int affectedRows = ptst.executeUpdate();
 			
@@ -69,6 +70,7 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO>{
 		}
 	}
 	
+	
 	public ResultSet listar() throws SQLException{
 		String sql = "select * from questao";
 		Statement st;
@@ -78,14 +80,12 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO>{
 			rs = st.executeQuery(sql);
 			List<QuestaoVO> questoes = new ArrayList<QuestaoVO>();
 			while(rs.next()) {
-				QuestaoVO vo = new DiscursivaVO();
-				vo.setCodigo(rs.getString("codigo"));
-				vo.setEnunciado(rs.getString("enunciado"));
-				vo.setGabarito(rs.getString("gabarito"));
-				vo.setNivel(rs.getInt("nivel"));
-				questoes.add(vo);
-			}
-			
+				if (rs.getString(6).equals("D")) {
+					DiscursivaDAO dao = new DiscursivaDAO();
+					QuestaoVO q = dao.listarDiscursiva(questoes,rs);
+					questoes.add(q);
+				}
+			}			
 			for (QuestaoVO vo2 : questoes) {
 				System.out.println(vo2);
 			}

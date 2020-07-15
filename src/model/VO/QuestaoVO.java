@@ -10,6 +10,7 @@ public abstract class QuestaoVO {
 	private String assunto;
 	private Long idDisciplina;
 	private Long idAssuntos;
+	private String tipo;
 
 	public QuestaoVO() {
 
@@ -100,6 +101,14 @@ public abstract class QuestaoVO {
 		this.idAssuntos = idAssuntos;
 	}
 
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+			this.tipo = tipo;
+	}
+
 	public String toString() {
 		String modeloString;
 		modeloString = "\nCodigo: " + this.codigo;
@@ -111,4 +120,5 @@ public abstract class QuestaoVO {
 		return modeloString;
 
 	}
+
 }
