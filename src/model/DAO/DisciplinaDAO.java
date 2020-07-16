@@ -20,9 +20,9 @@ public class DisciplinaDAO extends BaseDAO<DisciplinaVO> {
 			ptst = getConnection().prepareStatement(sql);
 			ptst.setNString(1, disciplina.getNome());
 			ptst.setNString(2, disciplina.getCodigo());
-			
+
 			int affectedRows = ptst.executeUpdate();
-			
+
 			if (affectedRows == 0) {
 				throw new SQLException("A inserção falhou. Nenhuma linha foi alterada.");
 			}
@@ -44,9 +44,32 @@ public class DisciplinaDAO extends BaseDAO<DisciplinaVO> {
 	}
 
 	public void remover(DisciplinaVO disciplina) {
-		String sql = "remove from Disciplina where codigo = ?";
-		PreparedStatement ptst = null;
+		PreparedStatement ptst;
 
+		// remover os assuntos
+		String sql = "remove * from Assuntos where id_disciplina = ?";
+		try {
+			ptst = getConnection().prepareStatement(sql);
+			ptst.setLong(1, disciplina.getId());
+			ptst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		// remover as questoes
+		sql = "delete * from Questao where id_disciplina = ?";
+		try {
+			ptst = getConnection().prepareStatement(sql);
+			ptst.setLong(1, disciplina.getId());
+			ptst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		// finalmente remove a disciplina
+		sql = "delete from Disciplina where codigo = ?";
 		try {
 			ptst = getConnection().prepareStatement(sql);
 			ptst.setNString(1, disciplina.getCodigo());
@@ -55,34 +78,12 @@ public class DisciplinaDAO extends BaseDAO<DisciplinaVO> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		// remover tambem os assuntos
-		sql = "remove * from Assuntos where id_disciplina = ?";
-		try {
-			ptst = getConnection().prepareStatement(sql);
-			ptst.setLong(1, disciplina.getId());
-			ptst.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		// remover tambem as questoes
-		sql = "remove * from Questao where id_disciplina = ?";
-		try {
-			ptst = getConnection().prepareStatement(sql);
-			ptst.setLong(1, disciplina.getId());
-			ptst.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
-	public void atualizar (DisciplinaVO disciplina) {
+	public void atualizar(DisciplinaVO disciplina) {
 		String sql = "update Disciplina set nome = ?, codigo = ?";
 		PreparedStatement ptst;
-		
+
 		try {
 			ptst = getConnection().prepareStatement(sql);
 			ptst.setNString(1, disciplina.getNome());
@@ -93,12 +94,12 @@ public class DisciplinaDAO extends BaseDAO<DisciplinaVO> {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public ResultSet listarPorId(DisciplinaVO disciplina) {
 		String sql = "select * from Disciplina where id = ?";
 		PreparedStatement ptst;
 		ResultSet rs = null;
-		
+
 		try {
 			ptst = getConnection().prepareStatement(sql);
 			ptst.setLong(1, disciplina.getId());
@@ -109,12 +110,12 @@ public class DisciplinaDAO extends BaseDAO<DisciplinaVO> {
 		}
 		return rs;
 	}
-	
+
 	public ResultSet listarPorNome(DisciplinaVO disciplina) {
 		String sql = "select * from Disciplina where nome = ?";
 		PreparedStatement ptst;
 		ResultSet rs = null;
-		
+
 		try {
 			ptst = getConnection().prepareStatement(sql);
 			ptst.setNString(1, disciplina.getNome());
@@ -130,7 +131,7 @@ public class DisciplinaDAO extends BaseDAO<DisciplinaVO> {
 		String sql = "select * from Disciplina where codigo = ?";
 		PreparedStatement ptst;
 		ResultSet rs = null;
-		
+
 		try {
 			ptst = getConnection().prepareStatement(sql);
 			ptst.setNString(1, disciplina.getNome());
@@ -141,7 +142,7 @@ public class DisciplinaDAO extends BaseDAO<DisciplinaVO> {
 		}
 		return rs;
 	}
-	
+
 	public ResultSet listar() {
 		String sql = "select * from Disciplina";
 		Statement st;

@@ -30,7 +30,7 @@ public class AssuntoDAO extends BaseDAO<AssuntoVO> {
 	}
 	
 	public void remover(AssuntoVO assunto) {
-		String sql = "remove from Assunto where id = ?";
+		String sql = "delete from Assunto where id = ?";
 		PreparedStatement ptst;
 		
 		try {
