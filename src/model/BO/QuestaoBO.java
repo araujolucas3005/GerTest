@@ -52,9 +52,6 @@ public class QuestaoBO {
 			case "enunciado":
 				if (questao.getEnunciado() == null)
 					questao.setEnunciado(codigoEnunciadoAssuntoOuGabarito);
-			case "assunto":
-				if (questao.getAssunto() == null)
-					questao.setAssunto(codigoEnunciadoAssuntoOuGabarito);
 			case "gabarito":
 				if (questao.getGabarito() == null)
 					questao.setGabarito(codigoEnunciadoAssuntoOuGabarito);
@@ -83,8 +80,6 @@ public class QuestaoBO {
 				questao.setCodigo(codigoEnunciadoAssuntoOuGabarito);
 			case "enunciado":
 				questao.setEnunciado(codigoEnunciadoAssuntoOuGabarito);
-			case "assunto":
-				questao.setAssunto(codigoEnunciadoAssuntoOuGabarito);
 			case "gabarito":
 				questao.setGabarito(codigoEnunciadoAssuntoOuGabarito);
 			}

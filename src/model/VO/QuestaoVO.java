@@ -7,7 +7,6 @@ public abstract class QuestaoVO {
 	private String codigo;
 	private String enunciado;
 	private String gabarito;
-	private String assunto;
 	private Long idDisciplina;
 	private Long idAssuntos;
 	private String tipo;
@@ -20,7 +19,6 @@ public abstract class QuestaoVO {
 			String assunto) {
 		this.setCodigo(codigo);
 		this.setNivel(nivel);
-		this.setAssunto(assunto);
 		this.setEnunciado(enunciado);
 		this.setGabarito(gabarito);
 	}
@@ -65,18 +63,6 @@ public abstract class QuestaoVO {
 		this.gabarito = gabarito;
 	}
 
-	public String getAssunto() {
-		return assunto;
-	}
-
-	public void setAssunto(String assunto) {
-		if (assunto != null && !assunto.isEmpty()) {
-			this.assunto = assunto;
-		} else {
-			this.assunto = "Questao sem assunto!";
-		}
-	}
-
 	public Long getIdQuestao() {
 		return idQuestao;
 	}
@@ -113,7 +99,6 @@ public abstract class QuestaoVO {
 		String modeloString;
 		modeloString = "\nCodigo: " + this.codigo;
 		modeloString += "\nNivel: " + this.nivel;
-		modeloString += "\nAssunto: " + this.assunto;
 		modeloString += "\nEnunciado: " + this.enunciado;
 		modeloString += "\nGabarito: " + this.gabarito;
 

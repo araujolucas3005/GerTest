@@ -7,13 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.VO.DiscursivaVO;
+import model.VO.MultiplaEscolhaVO;
 import model.VO.QuestaoVO;
+import model.VO.VerdadeiroOuFalsoVO;
 
 public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO>{
 	
 	
 	public void inserir(QuestaoVO vo) {
-		String sql = "insert into questao (codigo,nivel,gabarito,enunciado,tipo) values (?,?,?,?,?)";
+		String sql = "insert into questao (codigo,nivel,gabarito,enunciado,tipo, idAssuntos) values (?,?,?,?,?,?)";
 		PreparedStatement ptst;
 		try {
 			ptst = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -22,6 +24,7 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO>{
 			ptst.setString(3, vo.getGabarito());
 			ptst.setString(4,vo.getEnunciado());
 			ptst.setString(5,vo.getTipo());
+			ptst.setLong(6, vo.getIdAssuntos());
 			
 			int affectedRows = ptst.executeUpdate();
 			
@@ -81,11 +84,31 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO>{
 			List<QuestaoVO> questoes = new ArrayList<QuestaoVO>();
 			while(rs.next()) {
 				if (rs.getString(6).equals("D")) {
-					DiscursivaDAO dao = new DiscursivaDAO();
-					QuestaoVO q = dao.listarDiscursiva(questoes,rs);
-					questoes.add(q);
+					QuestaoVO vo = new DiscursivaVO();
+					vo.setCodigo(rs.getString("codigo"));
+					vo.setEnunciado(rs.getString("enunciado"));
+					vo.setGabarito(rs.getString("gabarito"));
+					vo.setNivel(rs.getInt("nivel"));
+					questoes.add(vo);
 				}
-			}			
+				if (rs.getString(6).equals("ME")) {
+					QuestaoVO vo = new MultiplaEscolhaVO();
+					vo.setCodigo(rs.getString("codigo"));
+					vo.setEnunciado(rs.getString("enunciado"));
+					vo.setGabarito(rs.getString("gabarito"));
+					vo.setNivel(rs.getInt("nivel"));
+					questoes.add(vo);
+				}
+				if (rs.getString(6).equals("VoF")) {
+					QuestaoVO vo = new VerdadeiroOuFalsoVO();
+					vo.setCodigo(rs.getString("codigo"));
+					vo.setEnunciado(rs.getString("enunciado"));
+					vo.setGabarito(rs.getString("gabarito"));
+					vo.setNivel(rs.getInt("nivel"));
+					questoes.add(vo);
+				}
+			}
+			
 			for (QuestaoVO vo2 : questoes) {
 				System.out.println(vo2);
 			}
