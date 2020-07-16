@@ -136,6 +136,22 @@ public class ProvaDAO extends BaseDAO<ProvaVO> {
 		return rs;
 	}
 
+	public ResultSet listarQuestoes(ProvaVO prova) {
+		String sql = "select id_questao from Prova_Questao where id_prova = ?";
+		PreparedStatement ptst;
+		ResultSet rs = null;
+		
+		try {
+			ptst = getConnection().prepareStatement(sql);
+			ptst.setLong(1, prova.getIdDisciplina());
+			rs = ptst.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
 	public ResultSet listarPorDisciplina(ProvaVO prova) {
 		String sql = "select * from Prova where id_disciplina = ?";
 		PreparedStatement ptst;
