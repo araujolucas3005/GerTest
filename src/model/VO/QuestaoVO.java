@@ -7,6 +7,9 @@ public abstract class QuestaoVO {
 	private String enunciado;
 	private String gabarito;
 	private String assunto;
+	private Long idDisciplina;
+	private Long idAssunto;
+	private Long idQuestao;
 
 	public QuestaoVO() {
 
@@ -19,6 +22,30 @@ public abstract class QuestaoVO {
 		this.setAssunto(assunto);
 		this.setEnunciado(enunciado);
 		this.setGabarito(gabarito);
+	}
+	
+	public Long getIdQuestao() {
+		return idQuestao;
+	}
+
+	public void setIdQuestao(Long idQuestao) {
+		this.idQuestao = idQuestao;
+	}
+	
+	public Long getIdDisciplina() {
+		return idDisciplina;
+	}
+
+	public void setIdDisciplina(Long idDisciplina) {
+		this.idDisciplina = idDisciplina;
+	}
+
+	public Long getIdAssunto() {
+		return idAssunto;
+	}
+
+	public void setIdAssunto(Long idAssunto) {
+		this.idAssunto = idAssunto;
 	}
 
 	public int getNivel() {
