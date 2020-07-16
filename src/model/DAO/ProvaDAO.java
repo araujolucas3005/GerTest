@@ -29,7 +29,8 @@ public class ProvaDAO extends BaseDAO<ProvaVO> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
+		// Inserindo as questoes aleatórias da disciplina na prova
 		sql = "select * from Questao where id_disciplina = ? AND nivel = ? order by RAND() LIMIT ?";
 		String sql2 = "insert into Prova_Questao (id_questao,id_prova) values (?,?)";
 		
