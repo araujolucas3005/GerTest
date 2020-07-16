@@ -3,6 +3,8 @@ package model.VO;
 import java.util.List;
 
 public class ProvaVO {
+	private Long id;
+	private Long idDisciplina;
 	private List<QuestaoVO> questoes;
 	private int nivel1;
 	private int nivel2;
@@ -19,6 +21,22 @@ public class ProvaVO {
 		this.nivel2 = nivel2;
 		this.nivel3 = nivel3;
 		this.nivel4 = nivel4;
+	}
+	
+	public Long getIdDisciplina() {
+		return idDisciplina;
+	}
+
+	public void setIdDisciplina(Long idDisciplina) {
+		this.idDisciplina = idDisciplina;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	// questoes sao geradas de maneira aleatoria
