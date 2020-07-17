@@ -29,12 +29,11 @@ public class AssuntoBO extends BaseBO<AssuntoVO> {
 	
 	public List<AssuntoVO> listarPorDisciplina(AssuntoVO assunto) throws Exception {
 		ResultSet rs = dao.listarPorDisciplina(assunto);
-		List<AssuntoVO> assuntos;
-		AssuntoVO newAssunto = null;
+		List<AssuntoVO> assuntos = new ArrayList<>();
 		
 		try {
 			while (rs.next()) {
-				newAssunto = new AssuntoVO();
+				AssuntoVO newAssunto = new AssuntoVO();
 				newAssunto.setId(rs.getLong("id"));
 				newAssunto.setConteudo(rs.getString("conteudo"));
 				newAssunto.setIdDisciplina(rs.getLong("id_disciplina"));
