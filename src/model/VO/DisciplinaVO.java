@@ -4,14 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class DisciplinaVO {
+	private Long id;
 	private String nome;
 	private String codigo;
-	private List<String> assuntos = new ArrayList<String>();
+	private List<AssuntoVO> assuntos = new ArrayList<AssuntoVO>();
 	private List<QuestaoVO> questoes = new ArrayList<QuestaoVO>();
 	private List<ProvaVO> provas = new ArrayList<ProvaVO>();
 
 	public DisciplinaVO() {
-		this.setNome(null);
+		assuntos = new ArrayList<>();
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public DisciplinaVO(String nome, String codigo) {
@@ -72,12 +81,12 @@ public abstract class DisciplinaVO {
 		}
 	}
 	
-	public List<String> getAssuntos() {
+	public List<AssuntoVO> getAssuntos() {
 		return assuntos;
 	}
 
-	public void addAssunto(String assunto) {
-		if (assunto != null && !assunto.isEmpty()) {
+	public void addAssunto(AssuntoVO assunto) {
+		if (assunto != null) {
 			assuntos.add(assunto);
 		}
 	}

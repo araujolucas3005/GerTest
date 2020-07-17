@@ -1,11 +1,20 @@
 package model.VO;
 
 public class UsuarioVO {
+	private Long id;
 	private String login;
 	private String senha;
 	private String nome;
 	private String email;
 	private String cpf;
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		if (id > 0)
+			this.id = id;
+	}
 	
 	public String getLogin() {
 		return login;
