@@ -4,14 +4,23 @@ public class OpcaoVO {
 	
 	private String conteudo;
 	private Long idQuestao;
-	
+	private Long id;
+
 	public OpcaoVO() {
 		
 	}
 	
-	public OpcaoVO(String conteudo, Long id_disciplina) {
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	public OpcaoVO(String conteudo, Long idQuestao) {
 		this.conteudo = conteudo;
-		this.idQuestao = new Long(id_disciplina);
+		this.idQuestao = new Long(idQuestao);
 	}
 
 	public String getConteudo() {
@@ -24,12 +33,12 @@ public class OpcaoVO {
 		}
 	}
 
-	public Long getIdDisciplina() {
+	public Long getIdQuestao() {
 		return idQuestao;
 	}
 
-	public void setIdDisciplina(Long idDisciplina) {
-		this.idQuestao = idDisciplina;
+	public void setIdQuestao(Long idQuestao) {
+		this.idQuestao = idQuestao;
 	}
 	
 	public String toString() {
