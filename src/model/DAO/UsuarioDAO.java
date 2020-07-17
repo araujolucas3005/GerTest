@@ -34,11 +34,11 @@ public class UsuarioDAO <VO extends UsuarioVO> extends BaseDAO<VO> {
 	
 	public void remover(VO usuario) {
 
-		String sql = "remove from Disciplina where login = ?";
+		String sql = "delete from Usuario where login = ?";
 		PreparedStatement ptst = null;
 
 		try {
-			ptst = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			ptst = getConnection().prepareStatement(sql);
 			ptst.setNString(1, usuario.getLogin());
 			ptst.executeUpdate();
 		} catch (SQLException e) {

@@ -29,7 +29,7 @@ public class OpcaoDAO extends BaseDAO<OpcaoVO>{
 	}
 	
 	public void remover(OpcaoVO opcao) {
-		String sql = "remove from Opcao where id = ?";
+		String sql = "delete from Opcao where id = ?";
 		PreparedStatement ptst;
 		
 		try {
