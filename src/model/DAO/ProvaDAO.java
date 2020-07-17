@@ -29,14 +29,14 @@ public class ProvaDAO extends BaseDAO<ProvaVO> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		// Inserindo as questoes aleatórias da disciplina na prova
 		sql = "select * from Questao where id_disciplina = ? AND nivel = ? order by RAND() LIMIT ?";
 		String sql2 = "insert into Prova_Questao (id_questao,id_prova) values (?,?)";
-		
+
 		PreparedStatement ptst2;
 		ResultSet rs;
-		
+
 		try {
 			ptst = getConnection().prepareStatement(sql);
 			ptst2 = getConnection().prepareStatement(sql2);
@@ -44,37 +44,53 @@ public class ProvaDAO extends BaseDAO<ProvaVO> {
 			ptst.setInt(2, 1);
 			ptst.setInt(3, prova.getNivel1());
 			rs = ptst.executeQuery();
-			while (rs.next()) {
-				ptst2.setLong(1, rs.getLong("id"));
-				ptst2.setLong(2, prova.getId());
-				ptst2.executeUpdate();
+			if (!rs.next()) {
+				throw new SQLException("Nao tem questoes desse nivel!");
+			} else {
+				while (rs.next()) {
+					ptst2.setLong(1, rs.getLong("id"));
+					ptst2.setLong(2, prova.getId());
+					ptst2.executeUpdate();
+				}
 			}
-			
+
 			ptst.setInt(2, 2);
 			ptst.setInt(3, prova.getNivel2());
 			rs = ptst.executeQuery();
-			while (rs.next()) {
-				ptst2.setLong(1, rs.getLong("id"));
-				ptst2.setLong(2, prova.getId());
-				ptst2.executeUpdate();
+			if (!rs.next()) {
+				throw new SQLException("Nao tem questoes desse nivel!");
+			} else {
+				while (rs.next()) {
+					ptst2.setLong(1, rs.getLong("id"));
+					ptst2.setLong(2, prova.getId());
+					ptst2.executeUpdate();
+				}
 			}
-			
+
 			ptst.setInt(2, 3);
 			ptst.setInt(3, prova.getNivel3());
 			rs = ptst.executeQuery();
-			while (rs.next()) {
-				ptst2.setLong(1, rs.getLong("id"));
-				ptst2.setLong(2, prova.getId());
-				ptst2.executeUpdate();
+			if (!rs.next()) {
+				throw new SQLException("Nao tem questoes desse nivel!");
+			} else {
+				while (rs.next()) {
+					ptst2.setLong(1, rs.getLong("id"));
+					ptst2.setLong(2, prova.getId());
+					ptst2.executeUpdate();
+				}
 			}
-			
+
 			ptst.setInt(2, 4);
 			ptst.setInt(3, prova.getNivel4());
 			rs = ptst.executeQuery();
-			while (rs.next()) {
-				ptst2.setLong(1, rs.getLong("id"));
-				ptst2.setLong(2, prova.getId());
-				ptst2.executeUpdate();
+			if (!rs.next()) {
+				throw new SQLException("Nao tem questoes desse nivel!");
+			} else {
+				while (rs.next()) {
+					ptst2.setLong(1, rs.getLong("id"));
+					ptst2.setLong(2, prova.getId());
+					ptst2.executeUpdate();
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -86,7 +102,7 @@ public class ProvaDAO extends BaseDAO<ProvaVO> {
 	public void remover(ProvaVO prova) {
 		String sql = "delete from Prova_Questao where id_prova = ?";
 		PreparedStatement ptst;
-		
+
 		try {
 			ptst = getConnection().prepareStatement(sql);
 			ptst.setLong(1, prova.getId());
@@ -95,7 +111,7 @@ public class ProvaDAO extends BaseDAO<ProvaVO> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		sql = "delete from Prova where id = ?";
 
 		try {
@@ -141,7 +157,7 @@ public class ProvaDAO extends BaseDAO<ProvaVO> {
 		String sql = "select id_questao from Prova_Questao where id_prova = ?";
 		PreparedStatement ptst;
 		ResultSet rs = null;
-		
+
 		try {
 			ptst = getConnection().prepareStatement(sql);
 			ptst.setLong(1, prova.getIdDisciplina());
@@ -152,7 +168,7 @@ public class ProvaDAO extends BaseDAO<ProvaVO> {
 		}
 		return rs;
 	}
-	
+
 	public ResultSet listarPorDisciplina(ProvaVO prova) {
 		String sql = "select * from Prova where id_disciplina = ?";
 		PreparedStatement ptst;
