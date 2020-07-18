@@ -102,4 +102,20 @@ public class OpcaoDAO extends BaseDAO<OpcaoVO>{
 		}
 		return rs;
 	}
+	
+	public ResultSet listarPorConteudo(OpcaoVO opcao) {
+		String sql = "select * from Opcao where conteudo = ";
+		PreparedStatement ptst;
+		ResultSet rs = null;
+		
+		try {
+			ptst = getConnection().prepareStatement(sql);
+			ptst.setLong(1, opcao.getConteudo());
+			rs = ptst.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
 }
