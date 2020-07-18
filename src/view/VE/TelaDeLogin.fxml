@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="330.0" style="-fx-background-color: F1F1F1;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FrontController">
+   <children>
+      <ImageView fitHeight="50.0" fitWidth="213.0" layoutX="65.0" layoutY="14.0">
+         <image>
+            <Image url="@GerTestLogo.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="230.0" fitWidth="200.0" layoutX="65.0" layoutY="113.0">
+         <image>
+            <Image url="@RetanguloLogin.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="73.0" layoutY="178.0" text="Login:" />
+      <Label layoutX="71.0" layoutY="230.0" text="Senha:" />
+      <TextField fx:id="login" layoutX="115.0" layoutY="173.0" prefHeight="31.0" prefWidth="121.0" style="-: C4C4C4;" />
+      <PasswordField fx:id="senha" layoutX="115.0" layoutY="225.0" prefHeight="30.0" prefWidth="121.0" />
+      <Button layoutX="82.0" layoutY="307.0" mnemonicParsing="false" onAction="#autenticar" text="Entrar" />
+      <Button layoutX="176.0" layoutY="307.0" mnemonicParsing="false" text="Cadastrar" />
+      <Label fx:id="falhaAut" layoutX="82.0" layoutY="139.0" text="Usuário ou Senha invalidos!" textFill="#f80808" visible="false" />
+   </children>
+</Pane>

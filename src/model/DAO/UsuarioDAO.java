@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import model.VO.DiscursivaVO;
+import model.VO.QuestaoVO;
 import model.VO.UsuarioVO;
 
 public class UsuarioDAO <VO extends UsuarioVO> extends BaseDAO<VO> {
@@ -111,4 +113,22 @@ public class UsuarioDAO <VO extends UsuarioVO> extends BaseDAO<VO> {
 		}
 		return rs;
 	}
+	
+	public ResultSet buscarPorLogin(VO usuario) {
+		String sql = "	select * from  Usuario where login = ?";
+		PreparedStatement ptst;
+		ResultSet rs = null;
+		
+		try {
+			ptst = getConnection().prepareStatement(sql);
+			ptst.setNString(1, usuario.getLogin());
+			rs = ptst.executeQuery();
+			return rs;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
 }
