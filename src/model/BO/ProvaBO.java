@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import exception.InsertException;
 import model.DAO.ProvaDAO;
 import model.VO.ProvaVO;
 import model.VO.QuestaoVO;
@@ -19,20 +21,36 @@ public class ProvaBO extends BaseBO<ProvaVO> {
 	public void remover(ProvaVO prova) {
 		ResultSet rs = dao.listarPorId(prova);
 		
-		if (rs.next()) {
-			dao.remover(prova);
-		} else {
-			throw new InsertException("Nao tem prova com esse id!");
+		try {
+			if (rs.next()) {
+				dao.remover(prova);
+			} else {
+				throw new InsertException("Nao tem prova com esse id!");
+			}
+		} catch (InsertException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
 	public void editar(ProvaVO prova) {
 		ResultSet rs = dao.listarPorId(prova);
 		
-		if (rs.next()) {
-			dao.atualizar(prova);
-		} else {
-			throw new InsertException("Nao tem prova com esse id!");
+		try {
+			if (rs.next()) {
+				dao.atualizar(prova);
+			} else {
+				throw new InsertException("Nao tem prova com esse id!");
+			}
+		} catch (InsertException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
