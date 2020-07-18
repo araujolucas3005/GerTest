@@ -27,7 +27,7 @@ public class QuestaoBO<VO extends QuestaoVO> extends BaseBO<VO> implements Quest
 		try {
 			ResultSet discRs = discDAO.listar();
 			if (!discRs.next()) {
-				throw new Exception("Sem questoes Discursivas!");
+				throw new InsertException("Sem questoes Discursivas!");
 			} else {
 				while (discRs.next()) {
 					DiscursivaVO discursiva = new DiscursivaVO();
@@ -44,7 +44,7 @@ public class QuestaoBO<VO extends QuestaoVO> extends BaseBO<VO> implements Quest
 
 			ResultSet meRs = meDAO.listar();
 			if (!discRs.next()) {
-				throw new Exception("Sem questoes Discursivas!");
+				throw new InsertException("Sem questoes Discursivas!");
 			} else {
 				while (discRs.next()) {
 					MultiplaEscolhaVO multiplaEscolha = new MultiplaEscolhaVO();
@@ -60,7 +60,7 @@ public class QuestaoBO<VO extends QuestaoVO> extends BaseBO<VO> implements Quest
 
 			ResultSet vfRs = vfDAO.listar();
 			if (!discRs.next()) {
-				throw new Exception("Sem questoes Discursivas!");
+				throw new InsertException("Sem questoes Discursivas!");
 			} else {
 				while (discRs.next()) {
 					VerdadeiroOuFalsoVO vf = new VerdadeiroOuFalsoVO();
@@ -73,8 +73,8 @@ public class QuestaoBO<VO extends QuestaoVO> extends BaseBO<VO> implements Quest
 					questoes.add(vf);
 				}
 			}
-		} catch (Exception e) {
-			throw new Exception("A insercao falhou. Nenhum id foi retornado.");
+		} catch (SQLException e) {
+			throw new InsertException("A insercao falhou. Nenhum id foi retornado.");
 		}
 		return questoes;
 	}
@@ -85,7 +85,7 @@ public class QuestaoBO<VO extends QuestaoVO> extends BaseBO<VO> implements Quest
 		try {
 			rs = questaoDAO.listarPorCodigo(questao);
 			if (rs.next()) {
-				throw new Exception("Ja existe essa questao!");
+				throw new InsertException("Ja existe essa questao!");
 			} else {
 				questaoDAO.inserir(questao);
 			}
