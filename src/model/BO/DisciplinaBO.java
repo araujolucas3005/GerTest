@@ -100,7 +100,7 @@ public class DisciplinaBO extends BaseBO<DisciplinaVO> {
 		ResultSet rs = dDao.listarPorCodigo(disciplina);
 		try {
 			if (rs.next()) {
-				throw new InsertException("Essa disciplina não existe!");
+				throw new InsertException("Ja existe disciplina com esse codigo!");
 			} else {
 				dDao.atualizar(disciplina);
 			}
@@ -113,13 +113,13 @@ public class DisciplinaBO extends BaseBO<DisciplinaVO> {
 	public void remover(DisciplinaVO disciplina) {
 		ResultSet rs = dDao.listarPorCodigo(disciplina);
 		try {
-			if (rs.next()) {
+			if (!rs.next()) {
 				throw new InsertException("Essa disciplina não existe!");
 			} else {
 				dDao.remover(disciplina);
 			}
 		} catch (SQLException e) {
-			throw new InsertException(e.getMessage());
+			throw new SQLException(e.getMessage());
 
 		}
 	}
