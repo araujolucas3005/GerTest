@@ -77,7 +77,7 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> {
 	}
 
 	@Override
-	public ResultSet listar() throws SQLException {
+	public ResultSet listar() {
 		String sql = "select * from Questao";
 		Statement st;
 		ResultSet rs;
@@ -113,7 +113,7 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> {
 
 	public ResultSet listarPorCodigo(VO vo) throws SQLException {
 		// TODO Auto-generated method stub
-		String sql = "select * from Questao where cpdigo = ?";
+		String sql = "select * from Questao where codigo = ?";
 		PreparedStatement ptst;
 		ResultSet rs = null;
 

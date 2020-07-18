@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import model.VO.DiscursivaVO;
 import model.VO.MultiplaEscolhaVO;
 
 public class MultiplaEscolhaDAO extends ObjetivaDAO<MultiplaEscolhaVO> {
@@ -56,6 +57,22 @@ public class MultiplaEscolhaDAO extends ObjetivaDAO<MultiplaEscolhaVO> {
 		try {
 			st = getConnection().createStatement();
 			rs = st.executeQuery(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
+	public ResultSet buscarPorId(MultiplaEscolhaVO vo) {
+		String sql = "select * from MultiplaEscolha where id_questao = ?";
+		PreparedStatement ptst;
+		ResultSet rs = null;
+		
+		try {
+		ptst = getConnection().prepareStatement(sql);
+		ptst.setLong(1, vo.getIdQuestao());
+		rs = ptst.executeQuery();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

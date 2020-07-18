@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import model.VO.MultiplaEscolhaVO;
 import model.VO.VerdadeiroOuFalsoVO;
 
 public class VerdadeiroOuFalsoDAO extends ObjetivaDAO<VerdadeiroOuFalsoVO>{
@@ -56,6 +57,22 @@ public class VerdadeiroOuFalsoDAO extends ObjetivaDAO<VerdadeiroOuFalsoVO>{
 		try {
 			st = getConnection().createStatement();
 			rs = st.executeQuery(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
+	public ResultSet buscarPorId(MultiplaEscolhaVO vo) {
+		String sql = "select * from VerdadeiroOuFalso where id_questao = ?";
+		PreparedStatement ptst;
+		ResultSet rs = null;
+		
+		try {
+		ptst = getConnection().prepareStatement(sql);
+		ptst.setLong(1, vo.getIdQuestao());
+		rs = ptst.executeQuery();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

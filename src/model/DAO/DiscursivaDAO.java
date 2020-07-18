@@ -57,4 +57,20 @@ public class DiscursivaDAO extends QuestaoDAO<DiscursivaVO> {
 		}
 		return rs;
 	}
+	
+	public ResultSet buscarPorIdQuestao(DiscursivaVO vo) {
+		String sql = "select * from Discursiva where id_questao = ?";
+		PreparedStatement ptst;
+		ResultSet rs = null;
+		
+		try {
+		ptst = getConnection().prepareStatement(sql);
+		ptst.setLong(1, vo.getIdQuestao());
+		rs = ptst.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
 }
