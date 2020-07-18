@@ -13,7 +13,7 @@ public class AssuntoBO extends BaseBO<AssuntoVO> {
 	private static AssuntoDAO dao = new AssuntoDAO();
 
 	@Override
-	public void cadastrar(AssuntoVO assunto) throws Exception {
+	public void cadastrar(AssuntoVO assunto) throws InsertException {
 		ResultSet rs = dao.listarPorConteudo(assunto);
 
 		try {
@@ -46,7 +46,7 @@ public class AssuntoBO extends BaseBO<AssuntoVO> {
 	}
 
 	@Override
-	public AssuntoVO buscarPorId(AssuntoVO assunto) throws Exception {
+	public AssuntoVO buscarPorId(AssuntoVO assunto) throws InsertException {
 		ResultSet rs = dao.listarPorId(assunto);
 		AssuntoVO assunt = null;
 		
@@ -66,7 +66,7 @@ public class AssuntoBO extends BaseBO<AssuntoVO> {
 	}
 
 	@Override
-	public List<AssuntoVO> listar() throws Exception {
+	public List<AssuntoVO> listar() throws InsertException {
 		ResultSet rs = dao.listar();
 		AssuntoVO assunto = null;
 		List<AssuntoVO> assuntos = new ArrayList<>();
@@ -86,14 +86,14 @@ public class AssuntoBO extends BaseBO<AssuntoVO> {
 	}
 
 	@Override
-	public void alterar(AssuntoVO assunto) throws Exception {
+	public void alterar(AssuntoVO assunto) {
 		ResultSet rs = dao.listarPorConteudo(assunto);
 		
 		try {
 			if (rs.next()) {
-				dao.atualizar(assunto);
+				throw new InsertException("Ja existe um assunto com esse conteudo!");
 			} else {
-				throw new Exception("Esse assunto nao existe!");
+				dao.atualizar(assunto);
 			}
 		} catch (SQLException e) {
 			throw new SQLException(e.getMessage());
@@ -101,7 +101,7 @@ public class AssuntoBO extends BaseBO<AssuntoVO> {
 	}
 
 	@Override
-	public void remover(AssuntoVO assunto) throws Exception {
+	public void remover(AssuntoVO assunto) throws InsertException {
 		// TODO Auto-generated method stub
 		ResultSet rs = dao.listarPorConteudo(assunto);
 		
