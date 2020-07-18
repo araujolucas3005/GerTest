@@ -18,16 +18,16 @@ public class AssuntoBO extends BaseBO<AssuntoVO> {
 
 		try {
 			if (rs.next()) {
-				throw new Exception("Assunto ja cadastrado!");
+				throw new InsertException("Assunto ja cadastrado!");
 			} else {
 				dao.inserir(assunto);
 			}
 		} catch (SQLException e) {
-			throw new Exception(e.getMessage());
+			throw new InsertException(e.getMessage());
 		}
 	}
 	
-	public List<AssuntoVO> listarPorDisciplina(AssuntoVO assunto) throws Exception {
+	public List<AssuntoVO> listarPorDisciplina(AssuntoVO assunto) throws InsertException {
 		ResultSet rs = dao.listarPorDisciplina(assunto);
 		List<AssuntoVO> assuntos = new ArrayList<>();
 		
@@ -57,10 +57,10 @@ public class AssuntoBO extends BaseBO<AssuntoVO> {
 				assunt.setId(rs.getLong("id"));
 				assunto.setIdDisciplina(rs.getLong("id_disciplina"));
 			} else {
-				throw new Exception("Não existe esse assunto!");
+				throw new InsertException("Não existe esse assunto!");
 			}
 		} catch(SQLException e) {
-			throw new Exception(e.getMessage());
+			throw new InsertException(e.getMessage());
 		}
 		return assunt;
 	}
@@ -80,7 +80,7 @@ public class AssuntoBO extends BaseBO<AssuntoVO> {
 				assuntos.add(assunto);
 			}
 		} catch(SQLException e) {
-			throw new SQLException(e.getMessage());
+			throw new InsertException(e.getMessage());
 		}
 		return assuntos;
 	}
@@ -96,7 +96,7 @@ public class AssuntoBO extends BaseBO<AssuntoVO> {
 				dao.atualizar(assunto);
 			}
 		} catch (SQLException e) {
-			throw new SQLException(e.getMessage());
+			throw new InsertException(e.getMessage());
 		}
 	}
 
@@ -109,10 +109,10 @@ public class AssuntoBO extends BaseBO<AssuntoVO> {
 			if (rs.next()) {
 				dao.remover(assunto);
 			} else {
-				throw new Exception("Esse assunto nao existe!");
+				throw new InsertException("Esse assunto nao existe!");
 			}
 		} catch (SQLException e) {
-			throw new SQLException(e.getMessage());
+			throw new InsertException(e.getMessage());
 		}
 	}
 }
