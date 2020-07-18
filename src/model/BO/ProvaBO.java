@@ -1,41 +1,76 @@
 package model.BO;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+import model.DAO.ProvaDAO;
 import model.VO.ProvaVO;
 
-public class ProvaBO {
+public class ProvaBO extends BaseBO<ProvaVO> {
 	
-	public void editar(ProvaVO prova) {
-		
-	}
-
-	public void excluir(ProvaVO prova) {
-		List<ProvaVO> exemplo = new ArrayList<ProvaVO>();
-		exemplo.remove(prova);
-		
-	}
-	
-	public void buscar(ProvaVO prova) {
-		List<ProvaVO> exemplo = new ArrayList<ProvaVO>();
-		int tamanhoLista = exemplo.size();
-		for (int i = 0; i < tamanhoLista; i++)
-			if (exemplo.contains(prova))
-				prova.toString();	
-	}
-	
-	/*public void gerarRelatorio()
-	{
-		Escreve todas as provas registradas no BD.
-	}*/
-	
-	/*public void gerarProva() {
-		Seleciona questoes de uma determinada disciplina para gerar uma prova especifica, aleatoriamente.
-	}*/
+	ProvaDAO dao = new ProvaDAO();
 	
 	public void cadastrar(ProvaVO prova) {
-		List<ProvaVO> exemplo = new ArrayList<ProvaVO>();
-		exemplo.add(prova);
+		dao.inserir(prova);
+	}
+	
+	public void remover(ProvaVO prova) {
+		ResultSet rs = dao.listarPorId(prova);
+		
+		if (rs.next()) {
+			dao.remover(prova);
+		} else {
+			throw new InsertException("Nao tem prova com esse id!");
+		}
+	}
+	
+	public void editar(ProvaVO prova) {
+		ResultSet rs = dao.listarPorId(prova);
+		
+		if (rs.next()) {
+			dao.atualizar(prova);
+		} else {
+			throw new InsertException("Nao tem prova com esse id!");
+		}
+	}
+	
+	public List<ProvaVO> listar(ProvaVO prova) {
+		ResultSet rs = dao.listar();
+		List<ProvaVO> provas = new ArrayList<>();
+		
+		try {
+			while (rs.next()) {
+				ProvaVO prov = new ProvaVO();
+				prov.setId(rs.getLong("id"));
+				prov.setNivel1(rs.getInt("nivel1"));
+				prov.setNivel2(rs.getInt("nivel2"));
+				prov.setNivel3(rs.getInt("nivel3"));
+				prov.setNivel4(rs.getInt("nivel4"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return provas;
+	}
+	
+	public ProvaVO buscarPorId(ProvaVO prova) {
+		ResultSet rs = dao.listarPorId(prova);
+		
+		try {
+			while (rs.next()) {
+				prova.setNivel1(rs.getInt("nivel1"));
+				prova.setNivel2(rs.getInt("nivel2"));
+				prova.setNivel3(rs.getInt("nivel3"));
+				prova.setNivel4(rs.getInt("nivel4"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return prova;
 	}
 }
