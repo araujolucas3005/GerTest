@@ -124,6 +124,7 @@ public class ProvaDAO extends BaseDAO<ProvaVO> {
 		}
 	}
 
+	// tem que mudar ainda
 	public void atualizar(ProvaVO prova) {
 		String sql = "update Prova_Questao set id_questao = ? where id_prova = ?";
 		PreparedStatement ptst;
@@ -154,19 +155,16 @@ public class ProvaDAO extends BaseDAO<ProvaVO> {
 	}
 
 	public ResultSet listarQuestoes(ProvaVO prova) {
-		String sql = "select id_questao from Prova_Questao where id_prova = ?";
-		PreparedStatement ptst;
-		ResultSet rs = null;
-
+		String sql = "select * from Questao inner join Prova_Questao on Questao.id = Prova_Questao.id_questao where Prova_Questao.id = ?";
+		
 		try {
 			ptst = getConnection().prepareStatement(sql);
-			ptst.setLong(1, prova.getIdDisciplina());
-			rs = ptst.executeQuery();
+			ptst.setLong(1, prova.getId());
+			ptst.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return rs;
 	}
 
 	public ResultSet listarPorDisciplina(ProvaVO prova) {

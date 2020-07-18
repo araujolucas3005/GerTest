@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.DAO.ProvaDAO;
 import model.VO.ProvaVO;
+import model.VO.QuestaoVO;
 
 public class ProvaBO extends BaseBO<ProvaVO> {
 	
@@ -72,5 +73,14 @@ public class ProvaBO extends BaseBO<ProvaVO> {
 		}
 		
 		return prova;
+	}
+	
+	public List<QuestaoVO> listarQuestoes(ProvaVO prova) {
+		ResultSet rs = dao.listarQuestoes(prova);
+		
+
+		while (rs.next()) {
+			//
+		}
 	}
 }
