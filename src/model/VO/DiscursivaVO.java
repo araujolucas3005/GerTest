@@ -16,7 +16,6 @@ public class DiscursivaVO extends QuestaoVO {
 
 	public DiscursivaVO() {
 		super();
-		super.setTipo("D");
 	}
 	
 	public void setGabarito(String gabarito) {
