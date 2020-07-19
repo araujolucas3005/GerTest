@@ -43,12 +43,13 @@ public class OpcaoDAO extends BaseDAO<OpcaoVO>{
 	}
 	
 	public void atualizar(OpcaoVO opcao) {
-		String sql = "update Opcao set conteudo = ?";
+		String sql = "update Opcao set conteudo = ? where id = ?";
 		PreparedStatement ptst;
 		
 		try {
 			ptst = getConnection().prepareStatement(sql);
-			ptst.setLong(1, opcao.getId());
+			ptst.setString(1, opcao.getConteudo());
+			ptst.setLong(2, opcao.getId());
 			ptst.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -79,7 +80,7 @@ public class OpcaoDAO extends BaseDAO<OpcaoVO>{
 		try {
 			ptst = getConnection().prepareStatement(sql);
 			ptst.setLong(1, opcao.getId());
-			rs = ptst.executeQuery(sql);
+			rs = ptst.executeQuery();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -104,13 +105,13 @@ public class OpcaoDAO extends BaseDAO<OpcaoVO>{
 	}
 	
 	public ResultSet listarPorConteudo(OpcaoVO opcao) {
-		String sql = "select * from Opcao where conteudo = ";
+		String sql = "select * from Opcao where conteudo = ?";
 		PreparedStatement ptst;
 		ResultSet rs = null;
 		
 		try {
 			ptst = getConnection().prepareStatement(sql);
-			ptst.setLong(1, opcao.getConteudo());
+			ptst.setString(1, opcao.getConteudo());
 			rs = ptst.executeQuery();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -5,8 +5,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import exception.InsertException;
 import model.DAO.OpcaoDAO;
-import model.VO.AssuntoVO;
 import model.VO.OpcaoVO;
 
 public class OpcaoBO extends BaseBO<OpcaoVO>{
@@ -19,7 +19,7 @@ public class OpcaoBO extends BaseBO<OpcaoVO>{
 
 		try {
 			if (rs.next()) {
-				throw new Exception("Assunto ja cadastrado!");
+				throw new InsertException("Assunto ja cadastrado!");
 			} else {
 				dao.inserir(opcao);
 			}
@@ -47,22 +47,26 @@ public class OpcaoBO extends BaseBO<OpcaoVO>{
 	}
 
 	@Override
-	public OpcaoVO buscarPorId(OpcaoVO opcao) throws InsertException {
+	public OpcaoVO buscarPorId(OpcaoVO opcao) {
 		ResultSet rs = dao.listarPorId(opcao);
 		OpcaoVO op = null;
 		
-		try {
-			if (rs.next()) {
-				op = new OpcaoVO();
-				op.setConteudo(rs.getString("conteudo"));
-				op.setId(rs.getLong("id"));
-				op.setIdQuestao(rs.getLong("id_disciplina"));
-			} else {
-				throw new Exception("Não existe esse assunto!");
+			try {
+				if (rs.next()) {
+					op = new OpcaoVO();
+					op.setConteudo(rs.getString("conteudo"));
+					op.setId(rs.getLong("id"));
+					op.setIdQuestao(rs.getLong("id_disciplina"));
+				} else {
+					throw new InsertException("Não existe esse assunto!");
+				}
+			} catch (InsertException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch(SQLException e) {
-			throw new InsertException(e.getMessage());
-		}
 		return op;
 	}
 
@@ -90,15 +94,19 @@ public class OpcaoBO extends BaseBO<OpcaoVO>{
 	public void alterar(OpcaoVO opcao) {
 		ResultSet rs = dao.listarPorConteudo(opcao);
 		
-		try {
-			if (rs.next()) {
-				throw new InsertException("Ja existe uma opcao com esse conteudo!");
-			} else {
-				dao.atualizar(opcao);
+			try {
+				if (rs.next()) {
+					throw new InsertException("Ja existe uma opcao com esse conteudo!");
+				} else {
+					dao.atualizar(opcao);
+				}
+			} catch (InsertException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			throw new InsertException(e.getMessage());
-		}
 	}
 
 	@Override
