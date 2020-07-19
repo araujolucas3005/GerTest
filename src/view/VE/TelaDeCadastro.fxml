@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="330.0" style="-fx-background-color: f1f1f1;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FrontController">
+   <children>
+      <ImageView fitHeight="50.0" fitWidth="213.0" layoutX="65.0" layoutY="14.0">
+         <image>
+            <Image url="@GerTestLogo.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="230.0" fitWidth="200.0" layoutX="65.0" layoutY="113.0">
+         <image>
+            <Image url="@RetanguloLogin.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="72.0" layoutY="129.0" text="Login:" />
+      <TextField fx:id="loginCadastro" layoutX="118.0" layoutY="124.0" prefHeight="30.0" prefWidth="137.0" />
+      <Label layoutX="70.0" layoutY="164.0" text="Senha:" />
+      <TextField fx:id="senhaCadastro" layoutX="118.0" layoutY="159.0" prefHeight="30.0" prefWidth="137.0" />
+      <Label layoutX="69.0" layoutY="199.0" text="EMAIL:" />
+      <TextField fx:id="emailCadastro" layoutX="118.0" layoutY="194.0" prefHeight="30.0" prefWidth="137.0" />
+      <Label layoutX="69.0" layoutY="234.0" text="Nome:" />
+      <TextField fx:id="nomeCadastro" layoutX="118.0" layoutY="229.0" prefHeight="30.0" prefWidth="137.0" />
+      <Button layoutX="81.0" layoutY="306.0" mnemonicParsing="false" onAction="#cadastrar" text="Cadastro" />
+      <Button layoutX="187.0" layoutY="306.0" mnemonicParsing="false" onAction="#loginButton" text="Voltar" />
+      <Label layoutX="81.0" layoutY="269.0" text="CPF:" />
+      <TextField fx:id="cpfCadastro" layoutX="118.0" layoutY="264.0" prefHeight="30.0" prefWidth="137.0" />
+   </children>
+</Pane>

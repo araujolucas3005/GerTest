@@ -5,7 +5,6 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="330.0" style="-fx-background-color: F1F1F1;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FrontController">
    <children>
       <ImageView fitHeight="50.0" fitWidth="213.0" layoutX="65.0" layoutY="14.0">
@@ -23,7 +22,7 @@
       <TextField fx:id="login" layoutX="115.0" layoutY="173.0" prefHeight="31.0" prefWidth="121.0" style="-: C4C4C4;" />
       <PasswordField fx:id="senha" layoutX="115.0" layoutY="225.0" prefHeight="30.0" prefWidth="121.0" />
       <Button layoutX="82.0" layoutY="307.0" mnemonicParsing="false" onAction="#autenticar" text="Entrar" />
-      <Button layoutX="176.0" layoutY="307.0" mnemonicParsing="false" text="Cadastrar" />
+      <Button layoutX="176.0" layoutY="307.0" mnemonicParsing="false" onAction="#cadastroButton" text="Cadastrar" />
       <Label fx:id="falhaAut" layoutX="82.0" layoutY="139.0" text="Usuário ou Senha invalidos!" textFill="#f80808" visible="false" />
    </children>
 </Pane>

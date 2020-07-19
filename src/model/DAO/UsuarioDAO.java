@@ -13,7 +13,7 @@ public class UsuarioDAO <VO extends UsuarioVO> extends BaseDAO<VO> {
 	
 	public void inserir(VO usuario) {
 		
-		String sql = "insert into Usuario (login,senha,nome,email) values (?,?,?,?)";
+		String sql = "insert into Usuario (login,senha,nome,email,cpf) values (?,?,?,?,?)";
 		PreparedStatement ptst;
 
 		try {
@@ -22,6 +22,7 @@ public class UsuarioDAO <VO extends UsuarioVO> extends BaseDAO<VO> {
 			ptst.setNString(2, usuario.getSenha());
 			ptst.setNString(3, usuario.getNome());
 			ptst.setNString(4, usuario.getEmail());
+			ptst.setNString(5, usuario.getCpf());
 			
 			int affectedRows = ptst.executeUpdate();
 			
