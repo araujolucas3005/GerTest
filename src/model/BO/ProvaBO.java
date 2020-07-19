@@ -66,6 +66,7 @@ public class ProvaBO extends BaseBO<ProvaVO> {
 				prov.setNivel2(rs.getInt("nivel2"));
 				prov.setNivel3(rs.getInt("nivel3"));
 				prov.setNivel4(rs.getInt("nivel4"));
+				provas.add(prov);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -95,10 +96,8 @@ public class ProvaBO extends BaseBO<ProvaVO> {
 	
 	public List<QuestaoVO> listarQuestoes(ProvaVO prova) {
 		ResultSet rs = dao.listarQuestoes(prova);
-		
-
-		while (rs.next()) {
-			//
-		}
+		DiscursivaDAO dDAO = new DiscursivaDAO();
+		MultiplaEscolhaDAO meDAO = new MultiplaEscolhaDAO();
+		VerdadeiroOuFalsoDAO vfDAO = new VerdadeiroOuFalsoDAO();
 	}
 }
