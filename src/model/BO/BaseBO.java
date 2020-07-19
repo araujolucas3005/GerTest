@@ -5,8 +5,8 @@ import java.util.List;
 import exception.InsertException;
 import exception.NotFoundException;
 
-public class BaseBO<VO> implements BaseInterBO<VO> {
-
+public class BaseBO<VO> implements BaseInterBO<VO>{
+ 
 	@Override
 	public void cadastrar(VO vo) throws InsertException {
 		// TODO Auto-generated method stub
@@ -14,7 +14,8 @@ public class BaseBO<VO> implements BaseInterBO<VO> {
 	}
 
 	@Override
-	public void buscarPorId(VO vo) throws NotFoundException {
+	public VO buscarPorId(VO vo) throws NotFoundException {
+		return vo;
 		// TODO Auto-generated method stub
 		
 	}
@@ -35,6 +36,5 @@ public class BaseBO<VO> implements BaseInterBO<VO> {
 	public void remover(VO vo) throws InsertException {
 		// TODO Auto-generated method stub
 		
-	}
-
+  }
 }

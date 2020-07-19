@@ -34,7 +34,7 @@ public class DisciplinaDAO extends BaseDAO<DisciplinaVO> {
 		PreparedStatement ptst;
 
 		// remover os assuntos
-		String sql = "delete * from Assuntos where id_disciplina = ?";
+		String sql = "delete from Assunto where id_disciplina = ?";
 		try {
 			ptst = getConnection().prepareStatement(sql);
 			ptst.setLong(1, disciplina.getId());
@@ -45,7 +45,7 @@ public class DisciplinaDAO extends BaseDAO<DisciplinaVO> {
 		}
 
 		// remover as questoes
-		sql = "delete * from Questao where id_disciplina = ?";
+		sql = "delete from Questao where id_disciplina = ?";
 		try {
 			ptst = getConnection().prepareStatement(sql);
 			ptst.setLong(1, disciplina.getId());
@@ -90,7 +90,7 @@ public class DisciplinaDAO extends BaseDAO<DisciplinaVO> {
 		try {
 			ptst = getConnection().prepareStatement(sql);
 			ptst.setLong(1, disciplina.getId());
-			rs = ptst.executeQuery(sql);
+			rs = ptst.executeQuery();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -106,7 +106,7 @@ public class DisciplinaDAO extends BaseDAO<DisciplinaVO> {
 		try {
 			ptst = getConnection().prepareStatement(sql);
 			ptst.setNString(1, disciplina.getNome());
-			rs = ptst.executeQuery(sql);
+			rs = ptst.executeQuery();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -121,8 +121,8 @@ public class DisciplinaDAO extends BaseDAO<DisciplinaVO> {
 
 		try {
 			ptst = getConnection().prepareStatement(sql);
-			ptst.setNString(1, disciplina.getNome());
-			rs = ptst.executeQuery(sql);
+			ptst.setNString(1, disciplina.getCodigo());
+			rs = ptst.executeQuery();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

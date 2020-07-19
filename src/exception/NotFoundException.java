@@ -7,7 +7,6 @@ public class NotFoundException extends SQLException{
 	private static final long serialVersionUID = 1L;
 	
 	public NotFoundException() {
-		super("Entidade não encontrada!");
+		super("Entidade nï¿½o encontrada!");
 	}
-		
 }

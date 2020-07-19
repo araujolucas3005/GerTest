@@ -4,6 +4,6 @@ public class AutenticationException extends Exception{
 	private static final long serialVersionUID = 1L;
 
 	public AutenticationException() {
-		super ("Login ou senha não encontrados");
+		super ("Login ou senha nao encontrados");
 	}
 }

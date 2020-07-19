@@ -1,102 +1,137 @@
 package model.BO;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Random;
+import exception.InsertException;
 import java.util.List;
+import model.DAO.DisciplinaDAO;
+import model.VO.BiologicaVO;
 import model.VO.DisciplinaVO;
-import model.VO.ProvaVO;
-import model.VO.QuestaoVO;
+import model.VO.ExataVO;
+import model.VO.HumanaVO;
 
-public class DisciplinaBO {
+public class DisciplinaBO extends BaseBO<DisciplinaVO> {
 
-	public void cadastrar(DisciplinaVO disciplina) {
-		List<DisciplinaVO> exemplo = new ArrayList<DisciplinaVO>();
-		exemplo.add(disciplina);
+	private static DisciplinaDAO dDao = new DisciplinaDAO();
+
+	public void cadastrar(DisciplinaVO disciplina) throws InsertException {
+		ResultSet rs = dDao.listarPorCodigo(disciplina);
+		ResultSet rs2 = dDao.listarPorNome(disciplina);
+		try {
+			if (rs.next()) {
+				throw new InsertException("Já existe disciplina com esse código!");
+			} else if (rs2.next()) {
+				throw new InsertException("Já existe disciplina com esse nome!");
+			} else {
+				dDao.inserir(disciplina);
+			}
+		} catch (SQLException e) {
+			throw new InsertException(e.getMessage());
+
+		}
+	}
+	
+	public DisciplinaVO buscarPorId(DisciplinaVO disciplina) {
+		ResultSet rs = dDao.listarPorId(disciplina);
+		DisciplinaVO disc = null;
+
+			try {
+				if (rs.next()) {
+					if (rs.getString("Codigo").substring(0, 3).equals("EXA")) {
+						disc = new ExataVO();
+						disc.setId(rs.getLong("id"));
+						disc.setCodigo(rs.getString("codigo"));
+						disc.setNome(rs.getString("nome"));
+					} else if (rs.getString("Codigo").substring(0, 3).equals("BIO")) {
+						disc = new BiologicaVO();
+						disc.setId(rs.getLong("id"));
+						disc.setCodigo(rs.getString("codigo"));
+						disc.setNome(rs.getString("nome"));
+					} else {
+						disc = new HumanaVO();
+						disc.setId(rs.getLong("id"));
+						disc.setCodigo(rs.getString("codigo"));
+						disc.setNome(rs.getString("nome"));
+					}
+				} else {
+					throw new InsertException("Não existe disciplina com esse ID!");
+				}
+			} catch (InsertException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return disc;
 	}
 
-	public void editar(DisciplinaVO disciplina) {
-		disciplina.setNome("banco de dados");
-		disciplina.setCodigo("EXA101");
+	public List<DisciplinaVO> listar() {
+		ResultSet rs = dDao.listar();
+		List<DisciplinaVO> disciplinas = new ArrayList<>();
+		DisciplinaVO disciplina = null;
+
+
+			try {
+				while (rs.next()) {
+					if (rs.getString("Codigo").substring(0, 3).equals("EXA")) {
+						disciplina = new ExataVO();
+						disciplina.setId(rs.getLong("id"));
+						disciplina.setCodigo(rs.getString("codigo"));
+						disciplina.setNome(rs.getString("nome"));
+					} else if (rs.getString("Codigo").substring(0, 3).equals("BIO")) {
+						disciplina = new BiologicaVO();
+						disciplina.setId(rs.getLong("id"));
+						disciplina.setCodigo(rs.getString("codigo"));
+						disciplina.setNome(rs.getString("nome"));
+					} else {
+						disciplina = new HumanaVO();
+						disciplina.setId(rs.getLong("id"));
+						disciplina.setCodigo(rs.getString("codigo"));
+						disciplina.setNome(rs.getString("nome"));
+					}
+					disciplinas.add(disciplina);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		return disciplinas;
+	}
+
+	public void alterar(DisciplinaVO disciplina) {
+		ResultSet rs = dDao.listarPorCodigo(disciplina);
+			try {
+				if (rs.next()) {
+					throw new InsertException("Ja existe disciplina com esse codigo!");
+				} else {
+					dDao.atualizar(disciplina);
+				}
+			} catch (InsertException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 
 	public void remover(DisciplinaVO disciplina) {
-		List<DisciplinaVO> exemplo = new ArrayList<DisciplinaVO>();
-		exemplo.remove(disciplina);
-	}
-
-	public ProvaVO gerarProva(DisciplinaVO disciplina) {
-		ProvaVO prova = new ProvaVO();
-		Random gerador = new Random();
-		List<QuestaoVO> questoesNivel1 = new ArrayList<>();
-		List<QuestaoVO> questoesNivel2 = new ArrayList<>();
-		List<QuestaoVO> questoesNivel3 = new ArrayList<>();
-		List<QuestaoVO> questoesNivel4 = new ArrayList<>();
-
-		for (QuestaoVO questao : disciplina.getQuestoes()) {
-			switch (questao.getNivel()) {
-			case 1:
-				questoesNivel1.add(questao);
-			case 2:
-				questoesNivel2.add(questao);
-			case 3:
-				questoesNivel3.add(questao);
-			case 4:
-				questoesNivel4.add(questao);
+		ResultSet rs = dDao.listarPorCodigo(disciplina);
+			try {
+				if (rs.next()) {
+					dDao.remover(disciplina);
+				} else {
+					throw new InsertException("essa disciplina nao existe!");
+				}
+			} catch (InsertException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		}
-		
-		List<Integer> posicoesQuestoesNivel1 = new ArrayList<>();
-		List<Integer> posicoesQuestoesNivel2 = new ArrayList<>();
-		List<Integer> posicoesQuestoesNivel3 = new ArrayList<>();
-		List<Integer> posicoesQuestoesNivel4 = new ArrayList<>();
-		
-		int i = 0;
-		while (i < prova.getNivel1()) {
-			int numQuestao = gerador.nextInt(questoesNivel1.size());
-			// para nao gerar questoes repetidas
-			if (!posicoesQuestoesNivel1.contains(numQuestao)) {
-				posicoesQuestoesNivel1.add(numQuestao);
-				prova.addQuestao(questoesNivel1.get(numQuestao));
-				i++;
-			}
-		}
-		
-		i = 0;
-		while (i < prova.getNivel2()) {
-			int numQuestao = gerador.nextInt(questoesNivel2.size());
-			if (!posicoesQuestoesNivel2.contains(numQuestao)) {
-				posicoesQuestoesNivel2.add(numQuestao);
-				prova.addQuestao(questoesNivel2.get(numQuestao));
-				i++;
-			}
-		}
-		
-		i = 0;
-		while (i < prova.getNivel3()) {
-			int numQuestao = gerador.nextInt(questoesNivel3.size());
-			if (!posicoesQuestoesNivel3.contains(numQuestao)) {
-				posicoesQuestoesNivel3.add(numQuestao);
-				prova.addQuestao(questoesNivel3.get(numQuestao));
-				i++;
-			}
-		}
-		
-		i = 0;
-		while (i < prova.getNivel4()) {
-			int numQuestao = gerador.nextInt(questoesNivel4.size());
-			if (!posicoesQuestoesNivel4.contains(numQuestao)) {
-				posicoesQuestoesNivel4.add(numQuestao);
-				prova.addQuestao(questoesNivel4.get(numQuestao));
-				i++;
-			}
-		}
-		return prova;
 	}
 }
-
-/*
- * public void listar(lista de disciplinaVO) { disciplina(na posicao da
- * lista).toString();
- * 
- * }
- */

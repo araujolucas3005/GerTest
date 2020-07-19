@@ -12,3 +12,4 @@ public interface BaseInterBO<VO> {
 	public void alterar(VO vo) throws InsertException;
 	public void remover(VO vo) throws InsertException;
 }
+
