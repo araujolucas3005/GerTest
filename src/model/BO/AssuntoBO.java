@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import exception.InsertException;
 import model.DAO.AssuntoDAO;
 import model.VO.AssuntoVO;
 
@@ -27,41 +28,46 @@ public class AssuntoBO extends BaseBO<AssuntoVO> {
 		}
 	}
 	
-	public List<AssuntoVO> listarPorDisciplina(AssuntoVO assunto) throws InsertException {
+	public List<AssuntoVO> listarPorDisciplina(AssuntoVO assunto) {
 		ResultSet rs = dao.listarPorDisciplina(assunto);
 		List<AssuntoVO> assuntos = new ArrayList<>();
 		
-		try {
-			while (rs.next()) {
-				AssuntoVO newAssunto = new AssuntoVO();
-				newAssunto.setId(rs.getLong("id"));
-				newAssunto.setConteudo(rs.getString("conteudo"));
-				newAssunto.setIdDisciplina(rs.getLong("id_disciplina"));
-				assuntos.add(newAssunto);
+			try {
+				while (rs.next()) {
+					AssuntoVO newAssunto = new AssuntoVO();
+					newAssunto.setId(rs.getLong("id"));
+					newAssunto.setConteudo(rs.getString("conteudo"));
+					newAssunto.setIdDisciplina(rs.getLong("id_disciplina"));
+					assuntos.add(newAssunto);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch(SQLException e) {
-			throw new Exception(e.getMessage());
-		}
 		return assuntos;
 	}
 
 	@Override
-	public AssuntoVO buscarPorId(AssuntoVO assunto) throws InsertException {
+	public AssuntoVO buscarPorId(AssuntoVO assunto) {
 		ResultSet rs = dao.listarPorId(assunto);
 		AssuntoVO assunt = null;
 		
-		try {
-			if (rs.next()) {
-				assunt = new AssuntoVO();
-				assunt.setConteudo(rs.getString("conteudo"));
-				assunt.setId(rs.getLong("id"));
-				assunto.setIdDisciplina(rs.getLong("id_disciplina"));
-			} else {
-				throw new InsertException("Não existe esse assunto!");
+			try {
+				if (rs.next()) {
+					assunt = new AssuntoVO();
+					assunt.setConteudo(rs.getString("conteudo"));
+					assunt.setId(rs.getLong("id"));
+					assunto.setIdDisciplina(rs.getLong("id_disciplina"));
+				} else {
+					throw new InsertException("Não existe esse assunto!");
+				}
+			} catch (InsertException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch(SQLException e) {
-			throw new InsertException(e.getMessage());
-		}
 		return assunt;
 	}
 
@@ -71,48 +77,59 @@ public class AssuntoBO extends BaseBO<AssuntoVO> {
 		AssuntoVO assunto = null;
 		List<AssuntoVO> assuntos = new ArrayList<>();
 		
-		try {
-			while (rs.next()) {
-				assunto = new AssuntoVO();
-				assunto.setConteudo(rs.getString("conteudo"));
-				assunto.setId(rs.getLong("id"));
-				assunto.setIdDisciplina(rs.getLong("id_disciplina"));
-				assuntos.add(assunto);
+			try {
+				while (rs.next()) {
+					assunto = new AssuntoVO();
+					assunto.setConteudo(rs.getString("conteudo"));
+					assunto.setId(rs.getLong("id"));
+					assunto.setIdDisciplina(rs.getLong("id_disciplina"));
+					assuntos.add(assunto);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch(SQLException e) {
-			throw new InsertException(e.getMessage());
-		}
 		return assuntos;
 	}
 
 	@Override
-	public void alterar(AssuntoVO assunto) {
+	public void alterar(AssuntoVO assunto) throws InsertException {
 		ResultSet rs = dao.listarPorConteudo(assunto);
 		
-		try {
-			if (rs.next()) {
-				throw new InsertException("Ja existe um assunto com esse conteudo!");
-			} else {
-				dao.atualizar(assunto);
+			try {
+				if (rs.next()) {
+					throw new InsertException("Ja existe um assunto com esse conteudo!");
+				} else {
+					dao.atualizar(assunto);
+				}
+			} catch (InsertException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			throw new InsertException(e.getMessage());
-		}
+
 	}
 
 	@Override
 	public void remover(AssuntoVO assunto) throws InsertException {
 		// TODO Auto-generated method stub
-		ResultSet rs = dao.listarPorConteudo(assunto);
+		ResultSet rs = dao.listarPorId(assunto);
 		
-		try {
-			if (rs.next()) {
-				dao.remover(assunto);
-			} else {
-				throw new InsertException("Esse assunto nao existe!");
+			try {
+				if (rs.next()) {
+					dao.remover(assunto);
+				} else {
+					throw new InsertException("Esse assunto nao existe!");
+				}
+			} catch (InsertException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			throw new InsertException(e.getMessage());
-		}
+
 	}
 }

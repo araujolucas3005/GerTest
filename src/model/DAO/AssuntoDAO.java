@@ -44,12 +44,13 @@ public class AssuntoDAO extends BaseDAO<AssuntoVO> {
 	}
 	
 	public void atualizar(AssuntoVO assunto) {
-		String sql = "update Assunto set conteudo = ?";
+		String sql = "update Assunto set conteudo = ? where id = ?";
 		PreparedStatement ptst;
 		
 		try {
 			ptst = getConnection().prepareStatement(sql);
 			ptst.setNString(1, assunto.getConteudo());
+			ptst.setLong(2, assunto.getId());
 			ptst.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -96,7 +97,7 @@ public class AssuntoDAO extends BaseDAO<AssuntoVO> {
 		try {
 			ptst = getConnection().prepareStatement(sql);
 			ptst.setString(1, assunto.getConteudo());
-			rs = ptst.executeQuery(sql);
+			rs = ptst.executeQuery();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
