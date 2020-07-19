@@ -79,4 +79,19 @@ public class VerdadeiroOuFalsoDAO extends ObjetivaDAO<VerdadeiroOuFalsoVO>{
 		}
 		return rs;
 	}
+	
+	public ResultSet listarQuestaoProva() {
+		String sql = "select * from VerdadeiroOuFalso inner join Prova_Questao on VeradeiroOuFalso.id = Prova_Questao.id_questao";
+		ResultSet rs = null;
+		Statement st;
+		
+		try {
+			st = getConnection().createStatement();
+			rs = st.executeQuery(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
 }
