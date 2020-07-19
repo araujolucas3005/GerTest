@@ -96,7 +96,8 @@ public class ProvaBO extends BaseBO<ProvaVO> {
 	
 	public List<QuestaoVO> listarQuestoes(ProvaVO prova) {
 		ResultSet rs = dao.listarQuestoes(prova);
-		
-		// pensando ainda
+		DiscursivaDAO dDAO = new DiscursivaDAO();
+		MultiplaEscolhaDAO meDAO = new MultiplaEscolhaDAO();
+		VerdadeiroOuFalsoDAO vfDAO = new VerdadeiroOuFalsoDAO();
 	}
 }
