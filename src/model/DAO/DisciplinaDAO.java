@@ -12,8 +12,6 @@ public class DisciplinaDAO extends BaseDAO<DisciplinaVO> {
 	public void inserir(DisciplinaVO disciplina) {
 
 		String sql = "insert into Disciplina (nome,codigo) values (?,?)";
-		// String sqlAssunto = "insert into Assuntos (assunto, id_disciplina) values
-		// (?,?)";
 		PreparedStatement ptst;
 
 		try {
@@ -26,17 +24,6 @@ public class DisciplinaDAO extends BaseDAO<DisciplinaVO> {
 			if (affectedRows == 0) {
 				throw new SQLException("A inserção falhou. Nenhuma linha foi alterada.");
 			}
-
-			/*
-			 * ResultSet rs = ptst.getGeneratedKeys(); long id = 0; while (rs.next()) { id =
-			 * rs.getLong(1); }
-			 */
-
-			/*
-			 * for (String assunto : disciplina.getAssuntos()) { ptst =
-			 * conn.prepareStatement(sqlAssunto); ptst.setNString(1, assunto);
-			 * ptst.setLong(2, id); ptst.execute(); }
-			 */
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -47,7 +34,7 @@ public class DisciplinaDAO extends BaseDAO<DisciplinaVO> {
 		PreparedStatement ptst;
 
 		// remover os assuntos
-		String sql = "remove * from Assuntos where id_disciplina = ?";
+		String sql = "delete * from Assuntos where id_disciplina = ?";
 		try {
 			ptst = getConnection().prepareStatement(sql);
 			ptst.setLong(1, disciplina.getId());
