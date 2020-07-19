@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import model.VO.DiscursivaVO;
 import model.VO.MultiplaEscolhaVO;
 
 public class MultiplaEscolhaDAO extends ObjetivaDAO<MultiplaEscolhaVO> {

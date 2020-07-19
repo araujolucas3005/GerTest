@@ -25,13 +25,13 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> {
 			int affectedRows = ptst.executeUpdate();
 
 			if (affectedRows == 0) {
-				throw new SQLException("A inserção falhou. Nenhuma linha foi alterada.");
+				throw new SQLException("A insercao falhou. Nenhuma linha foi alterada.");
 			}
 			ResultSet generatedKeys = ptst.getGeneratedKeys();
 			if (generatedKeys.next()) {
 				vo.setIdQuestao(generatedKeys.getLong(1));
 			} else {
-				throw new SQLException("A inserção falhou. Nenhum id foi retornado.");
+				throw new SQLException("A insercao falhou. Nenhum id foi retornado.");
 			}
 
 		} catch (SQLException e) {
@@ -59,7 +59,7 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> {
 	@Override
 	public void atualizar(VO vo) throws SQLException {
 		// TODO Auto-generated method stub
-		String sql = "update Questao set codigo = ? set nivel = ? set id_assunto = ? set enunciado = ? set gabarito = ?";
+		String sql = "update Questao set codigo = ?, nivel = ?, id_assunto = ?, enunciado = ?, gabarito = ? where id = ?";
 		PreparedStatement ptst;
 
 		try {
@@ -69,6 +69,7 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> {
 			ptst.setLong(3, vo.getIdAssunto());
 			ptst.setString(4, vo.getEnunciado());
 			ptst.setString(5, vo.getGabarito());
+			ptst.setLong(6, vo.getIdQuestao());
 			ptst.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -103,7 +104,7 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> {
 		try {
 			ptst = getConnection().prepareStatement(sql);
 			ptst.setLong(1, vo.getIdQuestao());
-			rs = ptst.executeQuery(sql);
+			rs = ptst.executeQuery();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -120,7 +121,7 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> {
 		try {
 			ptst = getConnection().prepareStatement(sql);
 			ptst.setString(1, vo.getCodigo());
-			rs = ptst.executeQuery(sql);
+			rs = ptst.executeQuery();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

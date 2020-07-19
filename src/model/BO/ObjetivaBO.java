@@ -3,6 +3,7 @@ package model.BO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import exception.InsertException;
 import model.DAO.ObjetivaDAO;
 import model.VO.ObjetivaVO;
 

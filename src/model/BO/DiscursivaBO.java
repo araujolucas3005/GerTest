@@ -3,6 +3,7 @@ package model.BO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import exception.InsertException;
 import model.DAO.DiscursivaDAO;
 import model.VO.DiscursivaVO;
 import model.VO.MultiplaEscolhaVO;
