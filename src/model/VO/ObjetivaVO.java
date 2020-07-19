@@ -6,6 +6,7 @@ import java.util.Random;
 
 public abstract class ObjetivaVO extends QuestaoVO {
 	private List<OpcaoVO> opcoes;
+	private Long idObjetiva;
 
 	public ObjetivaVO() {
 		super();
@@ -14,6 +15,14 @@ public abstract class ObjetivaVO extends QuestaoVO {
 	
 	public ObjetivaVO(String codigo, int nivel, String tipo, String enunciado, String gabarito, String assunto) {
 		super(codigo, nivel, tipo, enunciado, gabarito, assunto);
+	}
+	
+	public Long getIdObjetiva() {
+		return idObjetiva;
+	}
+
+	public void setIdObjetiva(Long idObjetiva) {
+		this.idObjetiva = idObjetiva;
 	}
 
 	public List<OpcaoVO> getOpcoes() {

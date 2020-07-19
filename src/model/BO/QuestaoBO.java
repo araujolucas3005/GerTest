@@ -2,185 +2,151 @@ package model.BO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import exception.InsertException;
+import model.DAO.DiscursivaDAO;
+import model.DAO.MultiplaEscolhaDAO;
+import model.DAO.QuestaoDAO;
+import model.DAO.VerdadeiroOuFalsoDAO;
 import model.VO.DiscursivaVO;
 import model.VO.MultiplaEscolhaVO;
 import model.VO.QuestaoVO;
 import model.VO.VerdadeiroOuFalsoVO;
 
-public class QuestaoBO {
+public class QuestaoBO<VO extends QuestaoVO> extends BaseBO<VO> implements QuestaoInterBO<VO> {
 
-	// simulando o banco de dados
-	List<QuestaoVO> bancoDeDados = new ArrayList<>();
+	static private QuestaoDAO<QuestaoVO> questaoDAO = new QuestaoDAO<QuestaoVO>();
+	static private QuestaoDAO<DiscursivaVO> discDAO = new DiscursivaDAO();
+	static private QuestaoDAO<MultiplaEscolhaVO> meDAO = new MultiplaEscolhaDAO();
+	static private QuestaoDAO<VerdadeiroOuFalsoVO> vfDAO = new VerdadeiroOuFalsoDAO();
 
-	public QuestaoVO[] listar() {
-		QuestaoVO q1 = new MultiplaEscolhaVO();
-		QuestaoVO q2 = new VerdadeiroOuFalsoVO();
+	public List<QuestaoVO> listarTodos() {
+		List<QuestaoVO> questoes = new ArrayList<>();
 
-		QuestaoVO[] questoes = new QuestaoVO[2];
-		questoes[0] = q1;
-		questoes[1] = q2;
+		ResultSet discRs = discDAO.listar();
+		try {
+			while (discRs.next()) {
+				DiscursivaVO discursiva = new DiscursivaVO();
+				discursiva.setCodigo(discRs.getString("codigo"));
+				discursiva.setIdAssunto(discRs.getLong("id_assunto"));
+				discursiva.setEnunciado(discRs.getString("enunciado"));
+				discursiva.setGabarito(discRs.getString("gabarito"));
+				discursiva.setIdQuestao(discRs.getLong("id_questao"));
+				discursiva.setNivel(discRs.getInt("nivel"));
+				discursiva.setIdDisciplina(discRs.getLong("id_disciplina"));
+				questoes.add(discursiva);
+				throw new InsertException("Sem questoes Discursivas!");
+			}
+		} catch (InsertException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
+		ResultSet meRs = meDAO.listar();
+		try {
+			while (meRs.next()) {
+				MultiplaEscolhaVO multiplaEscolha = new MultiplaEscolhaVO();
+				multiplaEscolha.setCodigo(meRs.getString("codigo"));
+				multiplaEscolha.setIdAssunto(meRs.getLong("id_assunto"));
+				multiplaEscolha.setEnunciado(meRs.getString("enunciado"));
+				multiplaEscolha.setGabarito(meRs.getString("gabarito"));
+				multiplaEscolha.setIdQuestao(meRs.getLong("id_questao"));
+				multiplaEscolha.setNivel(meRs.getInt("nivel"));
+				questoes.add(multiplaEscolha);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		ResultSet vfRs = vfDAO.listar();
+		try {
+			while (vfRs.next()) {
+				VerdadeiroOuFalsoVO vf = new VerdadeiroOuFalsoVO();
+				vf.setCodigo(vfRs.getString("codigo"));
+				vf.setIdAssunto(vfRs.getLong("id_assunto"));
+				vf.setEnunciado(vfRs.getString("enunciado"));
+				vf.setGabarito(vfRs.getString("gabarito"));
+				vf.setIdQuestao(vfRs.getLong("id_questao"));
+				vf.setNivel(vfRs.getInt("nivel"));
+				questoes.add(vf);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return questoes;
 	}
 
-	public void cadastrar(QuestaoVO questao) {
-		if (questao != null) {
-			boolean teste = true;
-			while (teste) {
-				for (int i = 0; i < bancoDeDados.size(); i++) {
-					if (questao.getCodigo() == bancoDeDados.get(i).getCodigo()) {
-						teste = false;
-					}
-				}
-			}
-			if (teste) {
-				bancoDeDados.add(questao);
-			}
-		}
-	}
-
-	public void adicionar(QuestaoVO questao, String codigoEnunciadoAssuntoOuGabarito, String tipo) {
-		if (questao != null && codigoEnunciadoAssuntoOuGabarito != null && tipo != null) {
-			switch (tipo) {
-			case "codigo":
-				if (questao.getCodigo() == null)
-					questao.setCodigo(codigoEnunciadoAssuntoOuGabarito);
-			case "enunciado":
-				if (questao.getEnunciado() == null)
-					questao.setEnunciado(codigoEnunciadoAssuntoOuGabarito);
-			case "gabarito":
-				if (questao.getGabarito() == null)
-					questao.setGabarito(codigoEnunciadoAssuntoOuGabarito);
-			}
-		}
-	}
-
-	public void adicionar(QuestaoVO questao, String opcao) {
-		if (questao != null && opcao != null) {
-			if (questao instanceof VerdadeiroOuFalsoVO) {
-				VerdadeiroOuFalsoVO vf = (VerdadeiroOuFalsoVO) questao;
-				vf.addOpcao(opcao);
-				questao = vf;
-			} else {
-				MultiplaEscolhaVO me = (MultiplaEscolhaVO) questao;
-				me.addOpcao(opcao);
-				questao = me;
-			}
-		}
-	}
-
-	public void editar(QuestaoVO questao, String codigoEnunciadoAssuntoOuGabarito, String tipo) {
-		if (questao != null && codigoEnunciadoAssuntoOuGabarito != null && tipo != null) {
-			switch (tipo) {
-			case "codigo":
-				questao.setCodigo(codigoEnunciadoAssuntoOuGabarito);
-			case "enunciado":
-				questao.setEnunciado(codigoEnunciadoAssuntoOuGabarito);
-			case "gabarito":
-				questao.setGabarito(codigoEnunciadoAssuntoOuGabarito);
-			}
-		}
-	}
-
-	public void editar(QuestaoVO questao, String opcao, int numeroDaOpcao) {
-		if (questao != null && opcao != null && numeroDaOpcao != 0) {
-			numeroDaOpcao--;
-			char letraOpcao = 'a';
-			letraOpcao += numeroDaOpcao;
-			if (questao instanceof VerdadeiroOuFalsoVO) {
-				VerdadeiroOuFalsoVO vf = (VerdadeiroOuFalsoVO) questao;
-				vf.getOpcoes().set(numeroDaOpcao, String.valueOf(letraOpcao) + ") " + opcao);
-				questao = vf;
-			} else {
-				MultiplaEscolhaVO me = (MultiplaEscolhaVO) questao;
-				me.getOpcoes().set(numeroDaOpcao, String.valueOf(letraOpcao) + ") " + opcao);
-				questao = me;
-			}
-		}
-	}
-
-	public void remover(QuestaoVO questao) {
-		if (questao != null) {
-			for (QuestaoVO q : bancoDeDados) {
-				if (questao == q) {
-					bancoDeDados.remove(questao);
-					break;
-				}
-			}
-		}
-	}
-
-	public void remover(QuestaoVO questao, int numeroOpcao) {
-		if (questao != null && numeroOpcao > 0) {
-			numeroOpcao--;
-			if (questao instanceof VerdadeiroOuFalsoVO) {
-				VerdadeiroOuFalsoVO vf = (VerdadeiroOuFalsoVO) questao;
-				if (numeroOpcao < vf.getOpcoes().size())
-					vf.removeOpcao(numeroOpcao);
-				questao = vf;
-			} else {
-				MultiplaEscolhaVO me = (MultiplaEscolhaVO) questao;
-				if (numeroOpcao < me.getOpcoes().size())
-					me.removeOpcao(numeroOpcao);
-				questao = me;
-			}
-		}
-	}
-
-	public QuestaoVO buscar(QuestaoVO questao) {
-		if (questao != null) {
-			for (QuestaoVO q : bancoDeDados) {
-				if (questao == q) {
-					return questao;
-				}
-			}
-		}
-		return null;
-	}
-	
-	/*public QuestaoVO buscarByNivel(int nivel) {
-		String sql = "select * from questao where nivel = " + nivel;
-		Statement st;
+	public void cadastrar(VO questao) throws InsertException {
 		ResultSet rs;
-		QuestaoVO vo1 = new DiscursivaVO();
+
 		try {
-			st = getConnection().createStatement();
-			rs = st.executeQuery(sql);
-			while (rs.next()) {
-				vo1.setCodigo(rs.getString("codigo"));
-				vo1.setEnunciado(rs.getString("enunciado"));
-				vo1.setGabarito(rs.getString("gabarito"));
-				vo1.setNivel(rs.getInt("nivel"));	
+			rs = questaoDAO.listarPorCodigo(questao);
+			if (rs.next()) {
+				throw new InsertException("Ja existe essa questao!");
+			} else {
+				questaoDAO.inserir(questao);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return vo1;}*/
-	
-	/*public QuestaoVO buscarByCodigo(String codigo) {
-		String sql = "select * from questao where codigo = " + "'" + codigo + "'";
-		Statement st;
+	}
+
+	public void alterar(VO questao) {
+		try {
+			ResultSet rs = questaoDAO.listarPorCodigo(questao);
+			if (rs.next()) {
+				throw new InsertException("Ja existe questao com esse codigo!");
+			} else {
+				questaoDAO.atualizar(questao);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void remover(VO questao) {
 		ResultSet rs;
-		QuestaoVO vo1 = new DiscursivaVO();
-		try {		
-			st = getConnection().createStatement();
-			rs = st.executeQuery(sql);
-			while (rs.next()) {
-				vo1.setCodigo(rs.getString("codigo"));
-				vo1.setEnunciado(rs.getString("enunciado"));
-				vo1.setGabarito(rs.getString("gabarito"));
-				vo1.setNivel(rs.getInt("nivel"));	
+		try {
+			rs = questaoDAO.listarPorCodigo(questao);
+			if (!rs.next()) {
+				throw new InsertException("Essa questao nao existe!");
+			} else {
+				while (rs.next()) {
+					questaoDAO.remover(questao);
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return vo1;
-	}*/
-		
+	}
+
+	public VO buscarPorId(VO questao) {
+		ResultSet rs;
+		try {
+			rs = questaoDAO.listarPorId(questao);
+			if (rs.next()) {
+				questao.setIdAssunto(rs.getLong("id_assunto"));
+				questao.setCodigo(rs.getString("codigo"));
+				questao.setEnunciado(rs.getString("enunciado"));
+				questao.setGabarito(rs.getString("gabarito"));
+				questao.setIdDisciplina(rs.getLong("id_disciplina"));
+				questao.setIdQuestao(rs.getLong("id_questao"));
+				questao.setNivel(rs.getInt("nivel"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return questao;
+	}
 }

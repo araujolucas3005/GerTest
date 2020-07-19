@@ -4,6 +4,16 @@ import java.util.Random;
 
 public class DiscursivaVO extends QuestaoVO {
 	
+	private Long idQuestao;
+
+	public Long getIdQuestao() {
+		return idQuestao;
+	}
+
+	public void setIdQuestao(Long idQuestao) {
+		this.idQuestao = idQuestao;
+	}
+
 	public DiscursivaVO() {
 		super();
 		super.setTipo("D");

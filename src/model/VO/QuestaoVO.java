@@ -2,14 +2,14 @@ package model.VO;
 
 public abstract class QuestaoVO {
 	
-	private Long idQuestao;
 	private int nivel;
 	private String codigo;
 	private String enunciado;
 	private String gabarito;
+	private String assunto;
 	private Long idDisciplina;
-	private Long idAssuntos;
-	private String tipo;
+	private Long idAssunto;
+	private Long idQuestao;
 
 	public QuestaoVO() {
 
@@ -19,8 +19,33 @@ public abstract class QuestaoVO {
 			String assunto) {
 		this.setCodigo(codigo);
 		this.setNivel(nivel);
+		this.setAssunto(assunto);
 		this.setEnunciado(enunciado);
 		this.setGabarito(gabarito);
+	}
+	
+	public Long getIdQuestao() {
+		return idQuestao;
+	}
+
+	public void setIdQuestao(Long idQuestao) {
+		this.idQuestao = idQuestao;
+	}
+	
+	public Long getIdDisciplina() {
+		return idDisciplina;
+	}
+
+	public void setIdDisciplina(Long idDisciplina) {
+		this.idDisciplina = idDisciplina;
+	}
+
+	public Long getIdAssunto() {
+		return idAssunto;
+	}
+
+	public void setIdAssunto(Long idAssunto) {
+		this.idAssunto = idAssunto;
 	}
 
 	public int getNivel() {
@@ -63,47 +88,27 @@ public abstract class QuestaoVO {
 		this.gabarito = gabarito;
 	}
 
-	public Long getIdQuestao() {
-		return idQuestao;
+	public String getAssunto() {
+		return assunto;
 	}
 
-	public void setIdQuestao(Long id) {
-		this.idQuestao = id;
-	}
-
-	public Long getIdDisciplina() {
-		return idDisciplina;
-	}
-
-	public void setIdDisciplina(Long idDisciplina) {
-		this.idDisciplina = idDisciplina;
-	}
-
-	public Long getIdAssuntos() {
-		return idAssuntos;
-	}
-
-	public void setIdAssuntos(Long idAssuntos) {
-		this.idAssuntos = idAssuntos;
-	}
-
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-			this.tipo = tipo;
+	public void setAssunto(String assunto) {
+		if (assunto != null && !assunto.isEmpty()) {
+			this.assunto = assunto;
+		} else {
+			this.assunto = "Questao sem assunto!";
+		}
 	}
 
 	public String toString() {
 		String modeloString;
 		modeloString = "\nCodigo: " + this.codigo;
 		modeloString += "\nNivel: " + this.nivel;
+		modeloString += "\nAssunto: " + this.assunto;
 		modeloString += "\nEnunciado: " + this.enunciado;
 		modeloString += "\nGabarito: " + this.gabarito;
 
 		return modeloString;
 
 	}
-
 }
