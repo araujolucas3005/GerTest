@@ -44,12 +44,13 @@ public class AssuntoDAO extends BaseDAO<AssuntoVO> {
 	}
 	
 	public void atualizar(AssuntoVO assunto) {
-		String sql = "update Assunto set conteudo = ?";
+		String sql = "update Assunto set conteudo = ? where id = ?";
 		PreparedStatement ptst;
 		
 		try {
 			ptst = getConnection().prepareStatement(sql);
 			ptst.setNString(1, assunto.getConteudo());
+			ptst.setLong(2, assunto.getId());
 			ptst.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -75,17 +76,33 @@ public class AssuntoDAO extends BaseDAO<AssuntoVO> {
 	public ResultSet listarPorId(AssuntoVO assunto) {
 		String sql = "select * from Assunto where id = ?";
 		PreparedStatement ptst;
-		ResultSet st = null;
+		ResultSet rs = null;
 		
 		try {
 			ptst = getConnection().prepareStatement(sql);
 			ptst.setLong(1, assunto.getId());
-			st = ptst.executeQuery();
+			rs = ptst.executeQuery();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return st;
+		return rs;
+	}
+	
+	public ResultSet listarPorConteudo(AssuntoVO assunto) {
+		String sql = "select * from Assunto where conteudo = ?";
+		PreparedStatement ptst;
+		ResultSet rs = null;
+		
+		try {
+			ptst = getConnection().prepareStatement(sql);
+			ptst.setString(1, assunto.getConteudo());
+			rs = ptst.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
 	}
 
 	public ResultSet listarPorDisciplina(AssuntoVO assunto) {
