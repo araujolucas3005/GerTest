@@ -5,13 +5,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import model.VO.DiscursivaVO;
+import model.VO.QuestaoVO;
 import model.VO.UsuarioVO;
 
 public class UsuarioDAO <VO extends UsuarioVO> extends BaseDAO<VO> {
 	
 	public void inserir(VO usuario) {
 		
-		String sql = "insert into Usuario (login,senha,nome,email) values (?,?,?,?)";
+		String sql = "insert into Usuario (login,senha,nome,email,cpf) values (?,?,?,?,?)";
 		PreparedStatement ptst;
 
 		try {
@@ -20,6 +22,7 @@ public class UsuarioDAO <VO extends UsuarioVO> extends BaseDAO<VO> {
 			ptst.setNString(2, usuario.getSenha());
 			ptst.setNString(3, usuario.getNome());
 			ptst.setNString(4, usuario.getEmail());
+			ptst.setNString(5, usuario.getCpf());
 			
 			int affectedRows = ptst.executeUpdate();
 			
@@ -111,4 +114,22 @@ public class UsuarioDAO <VO extends UsuarioVO> extends BaseDAO<VO> {
 		}
 		return rs;
 	}
+	
+	public ResultSet buscarPorLogin(VO usuario) {
+		String sql = "	select * from  Usuario where login = ?";
+		PreparedStatement ptst;
+		ResultSet rs = null;
+		
+		try {
+			ptst = getConnection().prepareStatement(sql);
+			ptst.setNString(1, usuario.getLogin());
+			rs = ptst.executeQuery();
+			return rs;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
 }

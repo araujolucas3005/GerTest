@@ -1,9 +1,12 @@
 package exception;
 
-public class NotFoundException extends Exception{
-	private static final long serialVersionUID = 1L;
+import java.sql.SQLException;
 
+public class NotFoundException extends SQLException{
+
+	private static final long serialVersionUID = 1L;
+	
 	public NotFoundException() {
-		super ("Entidade nao encontrada");
+		super("Entidade n�o encontrada!");
 	}
 }

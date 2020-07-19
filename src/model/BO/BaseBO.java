@@ -36,6 +36,5 @@ public class BaseBO<VO> implements BaseInterBO<VO>{
 	public void remover(VO vo) throws InsertException {
 		// TODO Auto-generated method stub
 		
-	}
-
+  }
 }
