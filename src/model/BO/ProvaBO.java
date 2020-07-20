@@ -102,5 +102,7 @@ public class ProvaBO extends BaseBO<ProvaVO> {
 		DiscursivaDAO dDAO = new DiscursivaDAO();
 		MultiplaEscolhaDAO meDAO = new MultiplaEscolhaDAO();
 		VerdadeiroOuFalsoDAO vfDAO = new VerdadeiroOuFalsoDAO();
+		List<QuestaoVO> questoes = new ArrayList<QuestaoVO>();
+		return questoes;
 	}
 }
