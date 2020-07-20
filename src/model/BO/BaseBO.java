@@ -8,7 +8,7 @@ import exception.NotFoundException;
 public class BaseBO<VO> implements BaseInterBO<VO>{
  
 	@Override
-	public void cadastrar(VO vo) throws InsertException {
+	public void cadastrar(VO vo) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}
@@ -27,7 +27,7 @@ public class BaseBO<VO> implements BaseInterBO<VO>{
 	}
 
 	@Override
-	public void alterar(VO vo) throws InsertException {
+	public void alterar(VO vo) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}

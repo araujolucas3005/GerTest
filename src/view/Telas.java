@@ -32,7 +32,31 @@ public class Telas extends Application{
 	}
 	
 	public static void telaCadastro() throws Exception {
-Parent root = FXMLLoader.load(Telas.class.getResource("VE/TelaDeCadastro.fxml"));
+		Parent root = FXMLLoader.load(Telas.class.getResource("VE/TelaDeCadastro.fxml"));
+		
+		Scene cena = new Scene(root);
+		primaryStage.setScene(cena);
+		primaryStage.show();
+	}
+	
+	public static void telaDisciplinas() throws Exception {
+		Parent root = FXMLLoader.load(Telas.class.getResource("VE/telaDasDisciplinas.fxml"));
+		
+		Scene cena = new Scene(root);
+		primaryStage.setScene(cena);
+		primaryStage.show();
+	}
+	
+	public static void telaNovaDisciplina() throws Exception {
+		Parent root = FXMLLoader.load(Telas.class.getResource("VE/telaNovaDisciplina.fxml"));
+		
+		Scene cena = new Scene(root);
+		primaryStage.setScene(cena);
+		primaryStage.show();
+	}
+	
+	public static void telaAssuntos() throws Exception {
+		Parent root = FXMLLoader.load(Telas.class.getResource("VE/telaAssuntos.fxml"));
 		
 		Scene cena = new Scene(root);
 		primaryStage.setScene(cena);
@@ -42,5 +66,5 @@ Parent root = FXMLLoader.load(Telas.class.getResource("VE/TelaDeCadastro.fxml"))
 	public static void main(String[] args) {
 		launch();
 	}
-
+	
 }

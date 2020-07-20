@@ -3,10 +3,8 @@ package model.BO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import model.DAO.QuestaoDAO;
+import exception.InsertException;
 import model.DAO.VerdadeiroOuFalsoDAO;
-import model.VO.MultiplaEscolhaVO;
-import model.VO.QuestaoVO;
 import model.VO.VerdadeiroOuFalsoVO;
 
 public class VerdadeiroOuFalsoBO extends ObjetivaBO<VerdadeiroOuFalsoVO> {

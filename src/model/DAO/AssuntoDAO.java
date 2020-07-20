@@ -21,7 +21,7 @@ public class AssuntoDAO extends BaseDAO<AssuntoVO> {
 			int affectedRows = ptst.executeUpdate();
 			
 			if (affectedRows == 0) {
-				throw new SQLException("A inserção falhou. Nenhuma linha foi alterada.");
+				throw new SQLException("A insercao falhou. Nenhuma linha foi alterada.");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

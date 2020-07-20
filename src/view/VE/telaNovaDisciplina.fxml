@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="775.0" prefWidth="549.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FrontController3">
+   <children>
+      <TextField fx:id="nomeDisciplina" layoutX="178.0" layoutY="50.0" prefHeight="25.0" prefWidth="196.0" />
+      <TextField fx:id="codigoDisciplina" layoutX="178.0" layoutY="99.0" prefHeight="25.0" prefWidth="196.0" />
+      <TextField fx:id="tipoDisciplina" layoutX="178.0" layoutY="151.0" prefHeight="25.0" prefWidth="196.0" />
+      <TableView fx:id="tabelaAssuntos" layoutX="19.0" layoutY="203.0" prefHeight="229.0" prefWidth="513.0">
+        <columns>
+          <TableColumn fx:id="conteudo" prefWidth="512.0" text="Assuntos" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <Button layoutX="254.0" layoutY="612.0" mnemonicParsing="false" onAction="#novoAssunto" text="Add" />
+      <TextField fx:id="textAssunto" alignment="TOP_LEFT" layoutX="43.0" layoutY="503.0" prefHeight="101.0" prefWidth="460.0" promptText="Assunto" />
+      <Button layoutX="224.0" layoutY="722.0" mnemonicParsing="false" onAction="#cadastrarDisciplina" prefHeight="25.0" prefWidth="99.0" text="Criar" />
+      <Label layoutX="258.0" layoutY="33.0" text="Nome" />
+      <Label layoutX="253.0" layoutY="82.0" text="Codigo" />
+      <Label layoutX="191.0" layoutY="134.0" text="Tipo (Exata, Biologica, Humana)" />
+      <Button layoutX="189.0" layoutY="446.0" mnemonicParsing="false" onAction="#deletarAssunto" text="Remover assunto selecionado" />
+      <Label fx:id="error" alignment="CENTER" layoutX="44.0" layoutY="664.0" prefHeight="17.0" prefWidth="460.0" text="Label" textAlignment="CENTER" textFill="#bf0000" visible="false" />
+      <Button layoutX="19.0" layoutY="14.0" mnemonicParsing="false" onAction="#retornar" text="&lt;" />
+   </children>
+</Pane>

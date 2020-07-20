@@ -32,7 +32,7 @@ public class FrontController {
 		try {
 			UsuarioVO autenticado = usuBO.autenticar(vo);
 			if(autenticado instanceof UsuarioVO ) {
-				System.out.println("chegou aqui!");
+				Telas.telaDisciplinas();
 			}
 		}
 		catch(AutenticationException e) {

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FrontController2">
+   <children>
+      <Text layoutX="63.0" layoutY="172.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Disciplinas">
+         <font>
+            <Font size="21.0" />
+         </font></Text>
+      <TableView fx:id="tabelaDisciplinas" layoutX="63.0" layoutY="186.0" prefHeight="288.0" prefWidth="683.0" tableMenuButtonVisible="true">
+        <columns>
+          <TableColumn fx:id="id" editable="false" prefWidth="161.0" text="ID" />
+          <TableColumn fx:id="codigo" editable="false" minWidth="0.0" prefWidth="117.0" text="Codigo" />
+            <TableColumn fx:id="nome" editable="false" minWidth="0.0" prefWidth="257.0" text="Nome" />
+            <TableColumn fx:id="assuntos" editable="false" minWidth="0.0" prefWidth="81.0" text="Assuntos" />
+            <TableColumn editable="false" minWidth="0.0" prefWidth="124.0" text="Outros" />
+        </columns>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <Button layoutX="648.0" layoutY="483.0" mnemonicParsing="false" onAction="#novaDisciplina" text="Nova Disciplina" />
+      <Button layoutX="63.0" layoutY="483.0" mnemonicParsing="false" onAction="#removerDisciplina" text="Remover Disciplina Selecionada" />
+      <Box layoutX="213.0" layoutY="128.0" />
+      <Button layoutX="592.0" layoutY="151.0" mnemonicParsing="false" onAction="#assuntos" text="Ver assuntos da Disciplina" />
+      <Accordion layoutX="173.0" layoutY="52.0" />
+      <Accordion layoutX="-242.0" layoutY="74.0" />
+      <Label fx:id="error" layoutX="592.0" layoutY="129.0" prefHeight="17.0" prefWidth="154.0" text="Label" textFill="#bf0000" visible="false" />
+   </children>
+</Pane>

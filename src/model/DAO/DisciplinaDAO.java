@@ -45,7 +45,17 @@ public class DisciplinaDAO extends BaseDAO<DisciplinaVO> {
 		}
 
 		// remover as questoes
-		sql = "delete from Questao where id_disciplina = ?";
+		/*sql = "delete from questao where id_disciplina = ?";
+		try {
+			ptst = getConnection().prepareStatement(sql);
+			ptst.setLong(1, disciplina.getId());
+			ptst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		
+		/*sql = "delete from Prova where id_disciplina = ?";
 		try {
 			ptst = getConnection().prepareStatement(sql);
 			ptst.setLong(1, disciplina.getId());
@@ -54,7 +64,17 @@ public class DisciplinaDAO extends BaseDAO<DisciplinaVO> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
+		sql = "delete from Questao where id_disciplina = ?";
+		try {
+			ptst = getConnection().prepareStatement(sql);
+			ptst.setLong(1, disciplina.getId());
+			ptst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		
 		// finalmente remove a disciplina
 		sql = "delete from Disciplina where codigo = ?";
 		try {
