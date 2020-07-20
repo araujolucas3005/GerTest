@@ -6,8 +6,6 @@ import java.sql.SQLException;
 import exception.InsertException;
 import model.DAO.DiscursivaDAO;
 import model.VO.DiscursivaVO;
-import model.VO.MultiplaEscolhaVO;
-import model.VO.QuestaoVO;
 
 public class DiscursivaBO extends QuestaoBO<DiscursivaVO> {
 	

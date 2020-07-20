@@ -14,13 +14,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.BO.DisciplinaBO;
-import model.VO.AssuntoVO;
 import model.VO.DisciplinaVO;
 import view.Telas;
 
 public class FrontController2 implements Initializable {
 	DisciplinaBO bo = new DisciplinaBO();
-
+	
+	@FXML
+	private Label error2;
+	 
 	@FXML
 	private TableView<DisciplinaVO> tabelaDisciplinas;
 
@@ -32,10 +34,10 @@ public class FrontController2 implements Initializable {
 
 	@FXML
 	private TableColumn<DisciplinaVO, String> codigo;
-	
+
 	@FXML
-    private Label error;
-	
+	private Label error;
+
 	private static DisciplinaVO lastSelected;
 
 	ObservableList<DisciplinaVO> list = FXCollections.observableArrayList();
@@ -60,11 +62,19 @@ public class FrontController2 implements Initializable {
 	public void novaDisciplina(ActionEvent event) throws Exception {
 		Telas.telaNovaDisciplina();
 	}
-	
+
 	public void removerDisciplina(ActionEvent event) {
 		DisciplinaBO bo = new DisciplinaBO();
-		bo.remover(tabelaDisciplinas.getSelectionModel().getSelectedItem());
-		tabelaDisciplinas.getItems().removeAll(tabelaDisciplinas.getSelectionModel().getSelectedItem());
+		try {
+			if (tabelaDisciplinas.getSelectionModel().getSelectedItem() == null) {
+				throw new Exception();
+			}
+			bo.remover(tabelaDisciplinas.getSelectionModel().getSelectedItem());
+			tabelaDisciplinas.getItems().removeAll(tabelaDisciplinas.getSelectionModel().getSelectedItem());
+		} catch (Exception e) {
+			error2.setText("Disciplina nao selecionada!");
+			error2.setVisible(true);
+		}
 	}
 
 	public static DisciplinaVO getLastSelected() {
@@ -74,7 +84,7 @@ public class FrontController2 implements Initializable {
 	public static void setLastSelected(DisciplinaVO lastSelected) {
 		FrontController2.lastSelected = lastSelected;
 	}
-	
+
 	public void assuntos(ActionEvent event) {
 		lastSelected = tabelaDisciplinas.getSelectionModel().getSelectedItem();
 		try {

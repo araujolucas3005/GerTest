@@ -102,7 +102,7 @@ public class AssuntoBO extends BaseBO<AssuntoVO> {
 	@Override
 	public void remover(AssuntoVO assunto) throws InsertException {
 		// TODO Auto-generated method stub
-		ResultSet rs = dao.listarPorId(assunto);
+		ResultSet rs = dao.listarPorConteudo(assunto);
 
 		try {
 			if (rs.next()) {
@@ -117,6 +117,5 @@ public class AssuntoBO extends BaseBO<AssuntoVO> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 }

@@ -6,7 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import exception.InsertException;
+import model.DAO.DiscursivaDAO;
+import model.DAO.MultiplaEscolhaDAO;
 import model.DAO.ProvaDAO;
+import model.DAO.VerdadeiroOuFalsoDAO;
 import model.VO.ProvaVO;
 import model.VO.QuestaoVO;
 

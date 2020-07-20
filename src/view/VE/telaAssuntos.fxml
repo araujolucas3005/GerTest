@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.shape.*?>
@@ -9,7 +10,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FrontController4">
    <children>
-      <Pane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
+      <Pane layoutX="-1.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
          <children>
             <TableView fx:id="tabelaAssuntos" layoutX="63.0" layoutY="186.0" prefHeight="288.0" prefWidth="683.0" tableMenuButtonVisible="true">
                <columnResizePolicy>
@@ -19,7 +20,6 @@
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
                <columns>
-                  <TableColumn fx:id="id" prefWidth="83.0" text="ID" />
                   <TableColumn fx:id="conteudo" prefWidth="598.0" text="Conteudo" />
                </columns>
             </TableView>
@@ -33,9 +33,10 @@
                   <Font size="21.0" />
                </font>
             </Label>
-            <Label fx:id="error" layoutX="344.0" layoutY="551.0" prefHeight="17.0" prefWidth="302.0" text="Label" textFill="#b20000" visible="false" />
-            <TextField fx:id="textAssunto" alignment="TOP_LEFT" layoutX="344.0" layoutY="480.0" prefHeight="62.0" prefWidth="302.0" promptText="Assunto" />
+            <Label fx:id="error" layoutX="390.0" layoutY="505.0" prefHeight="17.0" prefWidth="256.0" text="Label" textFill="#b20000" visible="false" />
+            <TextField fx:id="textAssunto" alignment="TOP_LEFT" layoutX="390.0" layoutY="480.0" prefHeight="25.0" prefWidth="256.0" promptText="Assunto" />
             <Button layoutX="17.0" layoutY="15.0" mnemonicParsing="false" onAction="#retornar" text="&lt;" />
+            <Label fx:id="errorRemoverAssunto" layoutX="63.0" layoutY="505.0" prefHeight="17.0" prefWidth="177.0" text="Label" textFill="#b90000" visible="false" />
          </children>
       </Pane>
    </children>

@@ -2,11 +2,8 @@ package model.BO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import exception.AutenticationException;
-import exception.InsertException;
 import model.DAO.UsuarioDAO;
 import model.VO.UsuarioVO;
 

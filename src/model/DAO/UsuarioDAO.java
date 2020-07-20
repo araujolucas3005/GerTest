@@ -5,8 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import model.VO.DiscursivaVO;
-import model.VO.QuestaoVO;
 import model.VO.UsuarioVO;
 
 public class UsuarioDAO <VO extends UsuarioVO> extends BaseDAO<VO> {

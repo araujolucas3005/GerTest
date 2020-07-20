@@ -30,12 +30,12 @@ public class AssuntoDAO extends BaseDAO<AssuntoVO> {
 	}
 	
 	public void remover(AssuntoVO assunto) {
-		String sql = "delete from Assunto where id = ?";
+		String sql = "delete from Assunto where conteudo = ?";
 		PreparedStatement ptst;
 		
 		try {
 			ptst = getConnection().prepareStatement(sql);
-			ptst.setLong(1, assunto.getId());
+			ptst.setString(1, assunto.getConteudo());
 			ptst.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
