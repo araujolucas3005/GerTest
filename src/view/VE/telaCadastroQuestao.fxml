@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FrontController6">
+   <children>
+      <Label layoutX="34.0" layoutY="14.0" text="Código:" />
+      <TextField fx:id="codigoQuestao" layoutX="93.0" layoutY="9.0" />
+      <Label layoutX="47.0" layoutY="52.0" text="Nivel:" />
+      <TextField fx:id="nivelQuestao" layoutX="93.0" layoutY="47.0" />
+      <TableView fx:id="tabelaSelecao" layoutX="160.0" layoutY="173.0" prefHeight="220.0" prefWidth="200.0">
+        <columns>
+          <TableColumn fx:id="disciplinaColuna" minWidth="199.0" prefWidth="199.0" text="Disciplina:" />
+        </columns>
+      </TableView>
+      <RadioButton fx:id="objetiva" layoutX="291.0" layoutY="52.0" mnemonicParsing="false" onAction="#desativaDiscursiva" text="Objetiva" />
+      <RadioButton fx:id="discursiva" layoutX="291.0" layoutY="14.0" mnemonicParsing="false" onAction="#desativaObjetiva" selected="true" text="Discursiva" />
+      <TextArea fx:id="enunciadoQuestao" layoutX="34.0" layoutY="403.0" prefHeight="144.0" prefWidth="433.0" />
+      <Label layoutX="34.0" layoutY="383.0" text="Enunciado:" />
+      <Label layoutX="29.0" layoutY="138.0" text="Gabarito:" />
+      <TextField fx:id="gabaritoQuestao" layoutX="93.0" layoutY="133.0" prefHeight="30.0" prefWidth="175.0" />
+      <Button layoutX="452.0" layoutY="9.0" mnemonicParsing="false" onAction="#retornar" text="&lt;" />
+      <Button layoutX="18.0" layoutY="556.0" mnemonicParsing="false" onAction="#cadastro" text="Cadastrar" />
+      <Label layoutX="31.0" layoutY="94.0" text="Assunto:" />
+      <TextField fx:id="assuntoQuestao" layoutX="93.0" layoutY="89.0" />
+      <RadioButton fx:id="VoF" layoutX="291.0" layoutY="94.0" mnemonicParsing="false" onAction="#desativaME" text="Verdadeiro ou Falso" visible="false" />
+      <RadioButton fx:id="ME" layoutX="291.0" layoutY="138.0" mnemonicParsing="false" onAction="#desativaVOF" text="Multipla Escolha" visible="false" />
+      <Label fx:id="error2" layoutX="101.0" layoutY="561.0" text="Label" textFill="RED" visible="false" />
+   </children>
+</Pane>

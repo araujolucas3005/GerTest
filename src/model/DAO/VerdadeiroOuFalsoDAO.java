@@ -12,7 +12,7 @@ public class VerdadeiroOuFalsoDAO extends ObjetivaDAO<VerdadeiroOuFalsoVO>{
 	
 	public void inserir(VerdadeiroOuFalsoVO vo) throws SQLException {
 		super.inserir(vo);
-		String sql = "insert into VeradeiroOuFalso (id_questao, id_objetiva) values (?)";
+		String sql = "insert into VerdadeiroOuFalso (id_questao, id_objetiva) values (?,?)";
 		PreparedStatement ptst;
 		
 		try {

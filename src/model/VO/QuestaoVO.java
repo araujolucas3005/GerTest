@@ -6,10 +6,10 @@ public abstract class QuestaoVO {
 	private String codigo;
 	private String enunciado;
 	private String gabarito;
-	private String assunto;
 	private Long idDisciplina;
 	private Long idAssunto;
 	private Long idQuestao;
+	private String tipo;
 
 	public QuestaoVO() {
 
@@ -19,7 +19,6 @@ public abstract class QuestaoVO {
 			String assunto) {
 		this.setCodigo(codigo);
 		this.setNivel(nivel);
-		this.setAssunto(assunto);
 		this.setEnunciado(enunciado);
 		this.setGabarito(gabarito);
 	}
@@ -85,26 +84,29 @@ public abstract class QuestaoVO {
 	}
 
 	public void setGabarito(String gabarito) {
-		this.gabarito = gabarito;
-	}
-
-	public String getAssunto() {
-		return assunto;
-	}
-
-	public void setAssunto(String assunto) {
-		if (assunto != null && !assunto.isEmpty()) {
-			this.assunto = assunto;
-		} else {
-			this.assunto = "Questao sem assunto!";
+		if (gabarito == null || gabarito.isEmpty()) {
+			this.gabarito = "Questao sem gabarito";
 		}
+		else {
+			this.gabarito = gabarito;
+		}			
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		if (tipo == null || tipo.isEmpty())
+			this.enunciado = "Questao sem tipo definido!";
+		else
+			this.tipo = tipo;
 	}
 
 	public String toString() {
 		String modeloString;
 		modeloString = "\nCodigo: " + this.codigo;
 		modeloString += "\nNivel: " + this.nivel;
-		modeloString += "\nAssunto: " + this.assunto;
 		modeloString += "\nEnunciado: " + this.enunciado;
 		modeloString += "\nGabarito: " + this.gabarito;
 

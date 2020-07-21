@@ -9,7 +9,7 @@ import model.VO.DiscursivaVO;
 
 public class DiscursivaDAO extends QuestaoDAO<DiscursivaVO> {
 	@Override
-	public void inserir(DiscursivaVO vo) {
+	public void inserir(DiscursivaVO vo) throws SQLException{
 		try {
 			super.inserir(vo);
 			String sql = "insert into Discursiva (id_questao) values (?)";

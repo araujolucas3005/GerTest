@@ -11,7 +11,7 @@ public class MultiplaEscolhaDAO extends ObjetivaDAO<MultiplaEscolhaVO> {
 	
 	public void inserir(MultiplaEscolhaVO vo) throws SQLException {
 		super.inserir(vo);
-		String sql = "insert into MultiplaEscolha (id_questao, id_objetiva) values (?)";
+		String sql = "insert into MultiplaEscolha (id_questao, id_objetiva) values (?,?)";
 		PreparedStatement ptst;
 		
 		try {

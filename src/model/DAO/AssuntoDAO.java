@@ -5,7 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import exception.DisciplinaNaoSelecionadaException;
 import model.VO.AssuntoVO;
+import model.VO.DisciplinaVO;
+import model.VO.QuestaoVO;
 
 public class AssuntoDAO extends BaseDAO<AssuntoVO> {
 	
@@ -115,6 +118,38 @@ public class AssuntoDAO extends BaseDAO<AssuntoVO> {
 			ptst.setLong(1, assunto.getIdDisciplina());
 			rs = ptst.executeQuery();
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+
+	public ResultSet listarPorDisciplina(DisciplinaVO disciplina) throws SQLException {
+		String sql = "select * from Assunto where id_disciplina = ?";
+		PreparedStatement ptst;
+		ResultSet rs = null;
+		
+		try {
+			ptst = getConnection().prepareStatement(sql);
+			ptst.setLong(1, disciplina.getId());
+			rs = ptst.executeQuery();
+		} catch (DisciplinaNaoSelecionadaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+
+	public ResultSet listarPorDisciplina(QuestaoVO questao) throws SQLException{
+		String sql = "select * from Assunto where id_disciplina = ?";
+		PreparedStatement ptst;
+		ResultSet rs = null;
+		
+		try {
+			ptst = getConnection().prepareStatement(sql);
+			ptst.setLong(1, questao.getIdDisciplina());
+			rs = ptst.executeQuery();
+		} catch (DisciplinaNaoSelecionadaException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -22,7 +22,7 @@ public class DiscursivaVO extends QuestaoVO {
 		if (gabarito != null && !gabarito.isEmpty()) {
 			super.setGabarito(gabarito);
 		} else {
-			super.setGabarito("Questao sem gabarito!");
+			super.setGabarito("Subjetivo");
 		}
 	}
 	

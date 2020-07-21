@@ -11,7 +11,7 @@ public class DiscursivaBO extends QuestaoBO<DiscursivaVO> {
 	
 	DiscursivaDAO dao = new DiscursivaDAO();
 	
-	public void cadastrar(DiscursivaVO vo) {
+	public void cadastrar(DiscursivaVO vo) throws SQLException {
 		ResultSet rs;
 
 		try {
