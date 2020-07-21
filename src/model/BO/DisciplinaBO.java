@@ -3,6 +3,8 @@ package model.BO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import exception.DisciplinaJaExisteException;
 import exception.InsertException;
 import java.util.List;
 import model.DAO.DisciplinaDAO;
@@ -95,17 +97,21 @@ public class DisciplinaBO extends BaseBO<DisciplinaVO> {
 		return disciplinas;
 	}
 
-	public void alterar(DisciplinaVO disciplina) {
+	public void alterar(DisciplinaVO disciplina) throws InsertException {
 		ResultSet rs = dDao.listarPorCodigo(disciplina);
+		ResultSet rs2 = dDao.listarPorNome(disciplina);
 		try {
 			if (rs.next()) {
 				throw new InsertException("Ja existe disciplina com esse codigo!");
+			} 
+			if (rs2.next()) {
+				throw new InsertException("Ja existe disciplian com esse nome!");
 			} else {
 				dDao.atualizar(disciplina);
 			}
 		} catch (InsertException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new InsertException("");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

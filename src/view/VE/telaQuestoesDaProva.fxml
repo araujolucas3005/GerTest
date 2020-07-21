@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane fx:id="questoesDaProva" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView fx:id="tabelaDisciplinas" layoutX="36.0" layoutY="177.0" prefHeight="288.0" prefWidth="729.0" style="-fx-shape: 234;" tableMenuButtonVisible="true">
+         <columns>
+            <TableColumn fx:id="id" editable="false" prefWidth="64.0" style="-fx-alignment: CENTER;" text="ID" />
+            <TableColumn fx:id="nome" editable="false" minWidth="0.0" prefWidth="375.0" text="Questoes">
+               <columns>
+                  <TableColumn prefWidth="150.0" text="Codigo" />
+                  <TableColumn minWidth="0.0" prefWidth="0.0" text="Nivel" />
+                  <TableColumn prefWidth="107.0" text="Enunciado" />
+                  <TableColumn prefWidth="118.0" text="Gabarito" />
+               </columns>
+            </TableColumn>
+         </columns>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <Button layoutX="36.0" layoutY="472.0" mnemonicParsing="false" onAction="#removerQuestao" text="Remover questao selecionada" />
+      <Button layoutX="624.0" layoutY="472.0" mnemonicParsing="false" onAction="#adicionarQuestao" text="Adicionar nova questao" />
+      <Button layoutX="689.0" layoutY="145.0" mnemonicParsing="false" text="Ver opcoes" />
+      <Button layoutX="37.0" layoutY="35.0" mnemonicParsing="false" onAction="#retornar" text="&lt;" />
+      <Label fx:id="provasDe" layoutX="36.0" layoutY="142.0" text="Questoes da prova ">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

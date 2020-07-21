@@ -63,6 +63,14 @@ public class Telas extends Application{
 		primaryStage.show();
 	}
 	
+	public static void telaQuestoesDaProva() throws Exception {
+		Parent root = FXMLLoader.load(Telas.class.getResource("VE/telaQuestoesDaProva.fxml"));
+		
+		Scene cena = new Scene(root);
+		primaryStage.setScene(cena);
+		primaryStage.show();
+	}
+	
 	public static void main(String[] args) {
 		launch();
 	}

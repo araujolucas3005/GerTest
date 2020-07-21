@@ -9,7 +9,7 @@ import model.VO.ProvaVO;
 
 public class ProvaDAO extends BaseDAO<ProvaVO> {
 
-	public void inserir(ProvaVO prova) {
+	public void inserir(ProvaVO prova) throws Exception {
 		String sql = "insert into prova (nivel1,nivel2,nivel3,nivel4, id_disciplina) values (?,?,?,?,?)";
 		PreparedStatement ptst = null;
 
@@ -114,7 +114,7 @@ public class ProvaDAO extends BaseDAO<ProvaVO> {
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new Exception();
 		}
 
 	}

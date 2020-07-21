@@ -4,6 +4,8 @@ import java.util.List;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import exception.CampoEmBrancoExcepetion;
+import exception.InsertException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.BO.DisciplinaBO;
 import model.VO.DisciplinaVO;
@@ -19,10 +22,10 @@ import view.Telas;
 
 public class FrontController2 implements Initializable {
 	DisciplinaBO bo = new DisciplinaBO();
-	
+
 	@FXML
 	private Label error2;
-	 
+
 	@FXML
 	private TableView<DisciplinaVO> tabelaDisciplinas;
 
@@ -37,6 +40,15 @@ public class FrontController2 implements Initializable {
 
 	@FXML
 	private Label error;
+
+	@FXML
+	private TextField editarNome;
+
+	@FXML
+	private TextField editarCodigo;
+	
+	@FXML
+    private Label errorDisciplina;
 
 	private static DisciplinaVO lastSelected;
 
@@ -97,5 +109,37 @@ public class FrontController2 implements Initializable {
 			error.setText("Discip. nao selecionada!");
 			error.setVisible(true);
 		}
+	}
+
+	public void editarDisciplina(ActionEvent event) {
+		DisciplinaVO disciplina = tabelaDisciplinas.getSelectionModel().getSelectedItem();
+		try {
+			if (disciplina == null) {
+				throw new Exception();
+			} else {
+				if (editarNome.getText().length() < 1) {
+					throw new CampoEmBrancoExcepetion();
+				}
+				disciplina.setNome(editarNome.getText());
+				disciplina.setCodigo(editarCodigo.getText());
+				bo.alterar(disciplina);
+				int posicao = 0;
+				for (int i = 0; i < list.size(); i++) {
+					if (disciplina.getId() == list.get(i).getId()) {
+						posicao = i;
+					}
+				}
+				list.set(posicao, disciplina);
+			}
+		} catch (InsertException e) {
+			errorDisciplina.setText("Ja existe disciplina com esse nome ou codigo!");
+			errorDisciplina.setVisible(true);
+		} catch (CampoEmBrancoExcepetion f) {
+			errorDisciplina.setText("Nome em branco!");
+			errorDisciplina.setVisible(true);
+		} catch (Exception e) {
+			errorDisciplina.setText("Disciplina nao selecionada!");
+			errorDisciplina.setVisible(true);
+		} 
 	}
 }

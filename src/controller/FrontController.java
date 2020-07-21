@@ -30,10 +30,8 @@ public class FrontController {
 		vo.setLogin(login.getText());
 		vo.setSenha(senha.getText());
 		try {
-			UsuarioVO autenticado = usuBO.autenticar(vo);
-			if(autenticado instanceof UsuarioVO ) {
-				Telas.telaDisciplinas();
-			}
+			usuBO.autenticar(vo);
+			Telas.telaDisciplinas();
 		}
 		catch(AutenticationException e) {
 			falhaAut.setText("Usuário ou senha inválidos");

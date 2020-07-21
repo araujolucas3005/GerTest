@@ -17,7 +17,7 @@ public class UsuarioBO<VO extends UsuarioVO> extends BaseBO<VO> implements Usuar
 				if (usuRS.getString("senha").equals(vo.getSenha())){
 					return vo;
 				}
-					else throw new AutenticationException();
+				else throw new AutenticationException();
 			}
 			else throw new AutenticationException();			
 		}
