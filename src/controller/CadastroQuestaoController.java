@@ -31,7 +31,7 @@ import model.VO.MultiplaEscolhaVO;
 import model.VO.VerdadeiroOuFalsoVO;
 import view.Telas;
 
-public class FrontController6 implements Initializable{	
+public class CadastroQuestaoController implements Initializable{	
 	@FXML private TextField codigoQuestao;
 	@FXML private TextField nivelQuestao;
 	@FXML private TextField assuntoQuestao;
@@ -75,7 +75,7 @@ public class FrontController6 implements Initializable{
 	}
 
 	public static void setLastSelected(DisciplinaVO lastSelected) {
-		FrontController6.lastSelected = lastSelected;
+		CadastroQuestaoController.lastSelected = lastSelected;
 	}
 	
 	public void cadastro() throws Exception, SQLException  {

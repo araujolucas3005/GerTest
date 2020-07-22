@@ -20,7 +20,7 @@ import model.BO.ProvaBO;
 import model.VO.ProvaVO;
 import view.Telas;
 
-public class FrontController9 implements Initializable {
+public class ProvasController implements Initializable {
 
     @FXML
     private TableColumn<ProvaVO, Long> id;
@@ -58,9 +58,9 @@ public class FrontController9 implements Initializable {
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-    	provasDe.setText(provasDe.getText() + FrontController2.lastSelectedDisciplina().getNome());
+    	provasDe.setText(provasDe.getText() + DisciplinasController.lastSelectedDisciplina().getNome());
 		ProvaVO prova = new ProvaVO();
-		prova.setIdDisciplina(FrontController2.lastSelectedDisciplina().getId());
+		prova.setIdDisciplina(DisciplinasController.lastSelectedDisciplina().getId());
 		List<ProvaVO> provas = bo.listarPorDisciplina(prova);
 		list.addAll(provas);
 
@@ -117,11 +117,11 @@ public class FrontController9 implements Initializable {
     				throw new TipoErradoExcepetion();
     			}
     		}
-    		prova.setIdDisciplina(FrontController2.lastSelectedDisciplina().getId());
-    		prova.setNivel1(Integer.valueOf(gerarNivel1.getText()));
-    		prova.setNivel2(Integer.valueOf(gerarNivel2.getText()));
-    		prova.setNivel3(Integer.valueOf(gerarNivel3.getText()));
-    		prova.setNivel4(Integer.valueOf(gerarNivel4.getText()));
+    		prova.setIdDisciplina(DisciplinasController.lastSelectedDisciplina().getId());
+    		prova.setNivel1(Integer.parseInt(gerarNivel1.getText()));
+    		prova.setNivel2(Integer.parseInt(gerarNivel2.getText()));
+    		prova.setNivel3(Integer.parseInt(gerarNivel3.getText()));
+    		prova.setNivel4(Integer.parseInt(gerarNivel4.getText()));
     		bo.cadastrar(prova);
     		list.add(prova);
     	} catch (TipoErradoExcepetion e) {
@@ -176,6 +176,6 @@ public class FrontController9 implements Initializable {
 	}
 
 	public static void lastSelectedProva(ProvaVO lastSelected) {
-		FrontController9.lastSelectedProva = lastSelected;
+		ProvasController.lastSelectedProva = lastSelected;
 	}
 }

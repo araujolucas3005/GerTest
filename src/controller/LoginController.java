@@ -15,7 +15,7 @@ import model.DAO.UsuarioDAO;
 import model.VO.UsuarioVO;
 import view.Telas;
 
-public class FrontController {
+public class LoginController {
 	@FXML private Label falhaAut;
 	@FXML private TextField login;
 	@FXML private PasswordField senha;

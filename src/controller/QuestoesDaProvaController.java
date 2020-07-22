@@ -22,7 +22,7 @@ import model.BO.QuestaoBO;
 import model.VO.QuestaoVO;
 import view.Telas;
 
-public class FrontController10 implements Initializable {
+public class QuestoesDaProvaController implements Initializable {
 
 	@FXML
 	private Pane questoesDaProva;
@@ -68,8 +68,8 @@ public class FrontController10 implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		provasDe.setText(provasDe.getText() + FrontController9.lastSelectedProva().getId());
-		List<QuestaoVO> questoes = bo.listarQuestoes(FrontController9.lastSelectedProva());
+		provasDe.setText(provasDe.getText() + ProvasController.lastSelectedProva().getId());
+		List<QuestaoVO> questoes = bo.listarQuestoes(ProvasController.lastSelectedProva());
 		list.addAll(questoes);
 
 		
@@ -94,7 +94,7 @@ public class FrontController10 implements Initializable {
 			errorRemover.setVisible(true);
 		}
 		if (list.size() == 0) {
-			bo.remover(FrontController9.lastSelectedProva());
+			bo.remover(ProvasController.lastSelectedProva());
 			try {
 				Telas.telaDasProvas();
 			} catch (IOException e) {

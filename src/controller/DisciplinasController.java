@@ -23,7 +23,7 @@ import model.VO.DisciplinaVO;
 import model.VO.QuestaoVO;
 import view.Telas;
 
-public class FrontController2 implements Initializable {
+public class DisciplinasController implements Initializable {
 	DisciplinaBO bo = new DisciplinaBO();
 
 	@FXML
@@ -107,15 +107,15 @@ public class FrontController2 implements Initializable {
 	}
 
 	public static void lastSelectedDisciplina(DisciplinaVO lastSelected) {
-		FrontController2.lastSelectedDisciplina = lastSelected;
+		DisciplinasController.lastSelectedDisciplina = lastSelected;
 	}
 
 	public void assuntos(ActionEvent event) {
-		lastSelectedDisciplina = tabelaDisciplinas.getSelectionModel().getSelectedItem();
 		try {
-			if (lastSelectedDisciplina == null) {
+			if (tabelaDisciplinas.getSelectionModel().getSelectedItem() == null) {
 				throw new Exception();
 			} else {
+				lastSelectedDisciplina = tabelaDisciplinas.getSelectionModel().getSelectedItem();
 				Telas.telaAssuntos();
 			}
 		} catch (Exception e) {

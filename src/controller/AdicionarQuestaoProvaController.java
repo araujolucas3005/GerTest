@@ -21,7 +21,7 @@ import model.VO.QuestaoVO;
 import view.Telas;
 import javafx.fxml.Initializable;
 
-public class FrontControllerAdicionarQuestaoProva implements Initializable {
+public class AdicionarQuestaoProvaController implements Initializable {
 
 	@FXML
 	private TableColumn<QuestaoVO, String> codigo;
@@ -56,9 +56,9 @@ public class FrontControllerAdicionarQuestaoProva implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		QuestaoVO temp = new DiscursivaVO();
-		temp.setIdDisciplina(FrontController2.lastSelectedDisciplina().getId());
+		temp.setIdDisciplina(DisciplinasController.lastSelectedDisciplina().getId());
 		List<QuestaoVO> questoes = bo.listarPorDisciplina(temp);
-		List<QuestaoVO> questoesDaProva = bo2.listarQuestoes(FrontController9.lastSelectedProva());
+		List<QuestaoVO> questoesDaProva = bo2.listarQuestoes(ProvasController.lastSelectedProva());
 		for (int i = 0; i < questoes.size(); i++) {
 			for (int j = 0; j < questoesDaProva.size(); j++) {
 				if (questoes.get(i).getCodigo().equals(questoesDaProva.get(j).getCodigo())) {
@@ -90,7 +90,7 @@ public class FrontControllerAdicionarQuestaoProva implements Initializable {
 			if (tabelaQuestoes.getSelectionModel().getSelectedItem() == null) {
 				throw new Exception();
 			} else {
-				bo2.cadastrarQuestaoAvulsa(FrontController9.lastSelectedProva(), tabelaQuestoes.getSelectionModel().getSelectedItem());
+				bo2.cadastrarQuestaoAvulsa(ProvasController.lastSelectedProva(), tabelaQuestoes.getSelectionModel().getSelectedItem());
 				list.remove(tabelaQuestoes.getSelectionModel().getSelectedItem());
 			}
 		} catch (Exception e) {

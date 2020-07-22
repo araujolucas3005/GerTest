@@ -20,7 +20,7 @@ import model.VO.AssuntoVO;
 import model.VO.QuestaoVO;
 import view.Telas;
 
-public class FrontController7 implements Initializable {
+public class EditarQuestaoController implements Initializable {
 	
 	@FXML private TableView<AssuntoVO> tabelaAssuntos;
 	@FXML private TableColumn<AssuntoVO, String> colunaAssuntos;
@@ -45,7 +45,7 @@ public class FrontController7 implements Initializable {
 	}
 
 	private void loadData() throws SQLException {
-	lastSelected2 = FrontController5.getLastSelected();
+	lastSelected2 = QuestoesController.getLastSelected();
 	if (lastSelected2.getTipo().equals("Discursiva")) {
 		gabaritoEdicao.setText("Subjetivo");
 		gabaritoEdicao.setEditable(false);
@@ -63,7 +63,7 @@ public class FrontController7 implements Initializable {
 	}
 
 	public static void setLastSelected(AssuntoVO lastSelected) {
-		FrontController7.lastSelected = lastSelected;
+		EditarQuestaoController.lastSelected = lastSelected;
 	}
 
 	public void editar() throws Exception {

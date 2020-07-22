@@ -16,7 +16,7 @@ import model.VO.ExataVO;
 import model.VO.HumanaVO;
 import view.Telas;
 
-public class FrontController3 {
+public class CriarDisciplinaController {
 
 	@FXML
 	private TextField nomeDisciplina;

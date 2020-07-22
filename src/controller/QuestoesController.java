@@ -19,7 +19,7 @@ import model.VO.AssuntoVO;
 import model.VO.QuestaoVO;
 import view.Telas;
 
-public class FrontController5 implements Initializable{
+public class QuestoesController implements Initializable{
 	QuestaoBO<QuestaoVO> boQ = new QuestaoBO<QuestaoVO>();
 	AssuntoBO boA = new AssuntoBO();
 	
@@ -64,7 +64,7 @@ public class FrontController5 implements Initializable{
 	}
 
 	public static void setLastSelected(QuestaoVO lastSelected) {
-		FrontController5.lastSelected = lastSelected;
+		QuestoesController.lastSelected = lastSelected;
 	}
 	
 	public void removerQuestao() {

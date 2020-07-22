@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FrontController7">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditarQuestaoController">
    <children>
       <TextField fx:id="nivelEdicao" layoutX="24.0" layoutY="14.0" prefHeight="30.0" prefWidth="51.0" promptText="Nivel" />
       <TextField fx:id="gabaritoEdicao" layoutX="24.0" layoutY="53.0" promptText="Gabarito" />

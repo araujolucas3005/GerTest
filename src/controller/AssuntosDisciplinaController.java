@@ -22,7 +22,7 @@ import model.BO.AssuntoBO;
 import model.VO.AssuntoVO;
 import view.Telas;
 
-public class FrontController4 implements Initializable {
+public class AssuntosDisciplinaController implements Initializable {
 
 	@FXML
 	private Label errorRemoverAssunto;
@@ -52,9 +52,9 @@ public class FrontController4 implements Initializable {
 	}
 
 	public void loadData() {
-		assuntosDaDisciplina.setText("Assuntos de " + FrontController2.lastSelectedDisciplina().getNome());
+		assuntosDaDisciplina.setText("Assuntos de " + DisciplinasController.lastSelectedDisciplina().getNome());
 		AssuntoVO assunto = new AssuntoVO();
-		assunto.setIdDisciplina(FrontController2.lastSelectedDisciplina().getId());
+		assunto.setIdDisciplina(DisciplinasController.lastSelectedDisciplina().getId());
 		List<AssuntoVO> assuntos = bo.listarPorDisciplina(assunto);
 		list.addAll(assuntos);
 
@@ -95,7 +95,7 @@ public class FrontController4 implements Initializable {
 					}
 				}
 			}
-			assunto.setIdDisciplina(FrontController2.lastSelectedDisciplina().getId());
+			assunto.setIdDisciplina(DisciplinasController.lastSelectedDisciplina().getId());
 			try {
 				bo.cadastrar(assunto);
 			} catch (AssuntoMuitoLongoException e) {

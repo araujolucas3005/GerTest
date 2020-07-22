@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane fx:id="questoesDaProva" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FrontController10">
+<Pane fx:id="questoesDaProva" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.QuestoesDaProvaController">
    <children>
       <Button layoutX="81.0" layoutY="516.0" mnemonicParsing="false" onAction="#removerQuestao" text="Remover questao selecionada" />
       <Button layoutX="371.0" layoutY="516.0" mnemonicParsing="false" onAction="#adicionarQuestao" text="Adicionar nova questao" />

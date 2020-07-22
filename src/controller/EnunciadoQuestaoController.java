@@ -9,7 +9,7 @@ import javafx.scene.control.TextArea;
 import model.VO.QuestaoVO;
 import view.Telas;
 
-public class FrontController8 implements Initializable{
+public class EnunciadoQuestaoController implements Initializable{
 	@FXML private TextArea enunciado;
 	
 	private static QuestaoVO lastSelected;
@@ -20,7 +20,7 @@ public class FrontController8 implements Initializable{
 	}
 
 	public void loadData() {
-		setLastSelected(FrontController5.getLastSelected());
+		setLastSelected(QuestoesController.getLastSelected());
 		enunciado.setText(lastSelected.getEnunciado());
 		enunciado.setEditable(false);
 	}	
@@ -30,7 +30,7 @@ public class FrontController8 implements Initializable{
 	}
 
 	public static void setLastSelected(QuestaoVO lastSelected) {
-		FrontController8.lastSelected = lastSelected;
+		EnunciadoQuestaoController.lastSelected = lastSelected;
 	}
 
 	public void retorno() throws Exception {
