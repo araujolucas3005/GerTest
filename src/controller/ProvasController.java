@@ -134,6 +134,7 @@ public class ProvasController implements Initializable {
     		error.setText("Nao tem essa quantidade de questoes na disciplina!");
     		error.setVisible(true);
     		bo.remover(prova);
+    		list.remove(prova);
     	}
     }
 
@@ -171,11 +172,11 @@ public class ProvasController implements Initializable {
 		}
     }
 
-	public static ProvaVO lastSelectedProva() {
+	public static ProvaVO getLastSelectedProva() {
 		return lastSelectedProva;
 	}
 
-	public static void lastSelectedProva(ProvaVO lastSelected) {
+	public static void setLastSelectedProva(ProvaVO lastSelected) {
 		ProvasController.lastSelectedProva = lastSelected;
 	}
 }

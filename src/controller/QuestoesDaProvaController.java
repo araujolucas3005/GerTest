@@ -68,8 +68,8 @@ public class QuestoesDaProvaController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		provasDe.setText(provasDe.getText() + ProvasController.lastSelectedProva().getId());
-		List<QuestaoVO> questoes = bo.listarQuestoes(ProvasController.lastSelectedProva());
+		provasDe.setText(provasDe.getText() + ProvasController.getLastSelectedProva().getId());
+		List<QuestaoVO> questoes = bo.listarQuestoes(ProvasController.getLastSelectedProva());
 		list.addAll(questoes);
 
 		
@@ -94,7 +94,7 @@ public class QuestoesDaProvaController implements Initializable {
 			errorRemover.setVisible(true);
 		}
 		if (list.size() == 0) {
-			bo.remover(ProvasController.lastSelectedProva());
+			bo.remover(ProvasController.getLastSelectedProva());
 			try {
 				Telas.telaDasProvas();
 			} catch (IOException e) {

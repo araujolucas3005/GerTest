@@ -30,7 +30,7 @@ public class ProvaDAO extends BaseDAO<ProvaVO> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		Long id = new Long(0);
 		ResultSet idGerado;
 		try {
@@ -59,16 +59,19 @@ public class ProvaDAO extends BaseDAO<ProvaVO> {
 			rs = ptst.executeQuery();
 			int rowsAffected = 0;
 			while (rs.next()) {
-				ptst2.setLong(1, rs.getLong("id"));
-				ptst2.setLong(2, prova.getId());
 				rowsAffected++;
 			}
 			if (rowsAffected < prova.getNivel1()) {
 				throw new Exception("Passou do limite de questoes nivel 1!");
 			} else {
-				ptst2.executeUpdate();
+				rs = ptst.executeQuery();
+				while (rs.next()) {
+					ptst2.setLong(1, rs.getLong("id"));
+					ptst2.setLong(2, prova.getId());
+					ptst2.executeUpdate();
+				}
 			}
-			
+
 			rowsAffected = 0;
 			ptst.setInt(2, 2);
 			ptst.setInt(3, prova.getNivel2());
@@ -79,46 +82,55 @@ public class ProvaDAO extends BaseDAO<ProvaVO> {
 				rowsAffected++;
 			}
 			if (rowsAffected < prova.getNivel2()) {
-				throw new Exception("Passou do limite de questoes nivel 2!");
+				throw new Exception("Passou do limite de questoes nivel 1!");
 			} else {
-				ptst2.executeUpdate();
+				rs = ptst.executeQuery();
+				while (rs.next()) {
+					ptst2.executeUpdate();
+				}
 			}
-			
+
 			rowsAffected = 0;
 			ptst.setInt(2, 3);
 			ptst.setInt(3, prova.getNivel3());
 			rs = ptst.executeQuery();
 			while (rs.next()) {
-				ptst2.setLong(1, rs.getLong("id"));
-				ptst2.setLong(2, prova.getId());
 				rowsAffected++;
 			}
 			if (rowsAffected < prova.getNivel3()) {
-				throw new Exception("Passou do limite de questoes nivel 3!");
+				throw new Exception("Passou do limite de questoes nivel 1!");
 			} else {
-				ptst2.executeUpdate();
+				rs = ptst.executeQuery();
+				while (rs.next()) {
+					ptst2.setLong(1, rs.getLong("id"));
+					ptst2.setLong(2, prova.getId());
+					ptst2.executeUpdate();
+				}
 			}
-			
+
 			rowsAffected = 0;
 			ptst.setInt(2, 4);
 			ptst.setInt(3, prova.getNivel4());
 			rs = ptst.executeQuery();
 			while (rs.next()) {
-				ptst2.setLong(1, rs.getLong("id"));
-				ptst2.setLong(2, prova.getId());
 				rowsAffected++;
 			}
 			if (rowsAffected < prova.getNivel4()) {
-				throw new Exception("Passou do limite de questoes nivel 4!");
+				throw new Exception("Passou do limite de questoes nivel 1!");
 			} else {
-				ptst2.executeUpdate();
+				rs = ptst.executeQuery();
+				while (rs.next()) {
+					ptst2.setLong(1, rs.getLong("id"));
+					ptst2.setLong(2, prova.getId());
+					ptst2.executeUpdate();
+				}
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new Exception();
 		}
 	}
-	
+
 	// nao consegui pensar em outro jeito de fazer
 	public void inserirQuestaoAvulsa(ProvaVO prova, QuestaoVO questao) {
 		String sql = "insert into Prova_Questao (id_questao,id_prova) values (?,?)";
@@ -131,7 +143,7 @@ public class ProvaDAO extends BaseDAO<ProvaVO> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public void remover(ProvaVO prova) {

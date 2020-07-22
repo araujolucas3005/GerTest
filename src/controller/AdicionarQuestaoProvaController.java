@@ -58,13 +58,11 @@ public class AdicionarQuestaoProvaController implements Initializable {
 		QuestaoVO temp = new DiscursivaVO();
 		temp.setIdDisciplina(DisciplinasController.lastSelectedDisciplina().getId());
 		List<QuestaoVO> questoes = bo.listarPorDisciplina(temp);
-		List<QuestaoVO> questoesDaProva = bo2.listarQuestoes(ProvasController.lastSelectedProva());
-		for (int i = 0; i < questoes.size(); i++) {
-			for (int j = 0; j < questoesDaProva.size(); j++) {
-				if (questoes.get(i).getCodigo().equals(questoesDaProva.get(j).getCodigo())) {
-					questoes.remove(i);
-				}
-			}
+		List<QuestaoVO> questoesDaProva = bo2.listarQuestoes(ProvasController.getLastSelectedProva());
+		for (QuestaoVO questao : questoesDaProva) {
+			
+			// se os codigos forem iguais, a questao ja esta na prova
+			questoes.removeIf(q -> q.getCodigo().equals(questao.getCodigo()));
 		}
 		list.addAll(questoes);
 		
@@ -90,7 +88,7 @@ public class AdicionarQuestaoProvaController implements Initializable {
 			if (tabelaQuestoes.getSelectionModel().getSelectedItem() == null) {
 				throw new Exception();
 			} else {
-				bo2.cadastrarQuestaoAvulsa(ProvasController.lastSelectedProva(), tabelaQuestoes.getSelectionModel().getSelectedItem());
+				bo2.cadastrarQuestaoAvulsa(ProvasController.getLastSelectedProva(), tabelaQuestoes.getSelectionModel().getSelectedItem());
 				list.remove(tabelaQuestoes.getSelectionModel().getSelectedItem());
 			}
 		} catch (Exception e) {
