@@ -9,13 +9,14 @@ import exception.AssuntoMuitoLongoException;
 import exception.DisciplinaNaoSelecionadaException;
 import exception.InsertException;
 import model.DAO.AssuntoDAO;
+import model.DAO.BaseInterDAO;
 import model.VO.AssuntoVO;
 import model.VO.DisciplinaVO;
 import model.VO.QuestaoVO;
 
-public class AssuntoBO extends BaseBO<AssuntoVO> {
+public class AssuntoBO extends BaseInterBO<AssuntoVO> {
 
-	private static AssuntoDAO dao = new AssuntoDAO();
+	private static BaseInterDAO<AssuntoVO> dao = new AssuntoDAO();
 
 	@Override
 	public void cadastrar(AssuntoVO assunto) throws AssuntoMuitoLongoException, Exception {
@@ -52,7 +53,7 @@ public class AssuntoBO extends BaseBO<AssuntoVO> {
 	}
 
 	@Override
-	public AssuntoVO buscarPorId(AssuntoVO assunto) {
+	public AssuntoVO buscarPorId(AssuntoVO assunto) throws SQLException {
 		ResultSet rs = dao.listarPorId(assunto);
 		AssuntoVO assunt = null;
 
@@ -76,7 +77,7 @@ public class AssuntoBO extends BaseBO<AssuntoVO> {
 	}
 
 	@Override
-	public List<AssuntoVO> listar() throws InsertException {
+	public List<AssuntoVO> listar() throws SQLException {
 		ResultSet rs = dao.listar();
 		AssuntoVO assunto = null;
 		List<AssuntoVO> assuntos = new ArrayList<>();
@@ -163,4 +164,5 @@ public class AssuntoBO extends BaseBO<AssuntoVO> {
 		}
 		return assuntos;
 	}
+
 }

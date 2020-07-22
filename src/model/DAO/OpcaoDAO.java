@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 import model.VO.OpcaoVO;
 
-public class OpcaoDAO extends BaseDAO<OpcaoVO>{
+public class OpcaoDAO extends BaseInterDAO<OpcaoVO>{
 		
 	public void inserir(OpcaoVO opcao) {
 		String sql = "insert into Opcao (conteudo, id_questao) values (?,?)";

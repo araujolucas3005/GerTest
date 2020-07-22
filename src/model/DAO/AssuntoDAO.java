@@ -11,7 +11,7 @@ import model.VO.AssuntoVO;
 import model.VO.DisciplinaVO;
 import model.VO.QuestaoVO;
 
-public class AssuntoDAO extends BaseDAO<AssuntoVO> {
+public class AssuntoDAO extends BaseInterDAO<AssuntoVO> {
 	
 	public void inserir(AssuntoVO assunto) throws AssuntoMuitoLongoException {
 		String sql = "insert into Assunto (conteudo, id_disciplina) values (?,?)";

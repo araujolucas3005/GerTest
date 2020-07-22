@@ -7,15 +7,17 @@ import exception.InsertException;
 import exception.NomeMuitoLongException;
 
 import java.util.List;
+
+import model.DAO.BaseInterDAO;
 import model.DAO.DisciplinaDAO;
 import model.VO.BiologicaVO;
 import model.VO.DisciplinaVO;
 import model.VO.ExataVO;
 import model.VO.HumanaVO;
 
-public class DisciplinaBO extends BaseBO<DisciplinaVO> {
+public class DisciplinaBO extends BaseInterBO<DisciplinaVO> {
 
-	private static DisciplinaDAO dDao = new DisciplinaDAO();
+	private static BaseInterDAO<DisciplinaVO> dDao = new DisciplinaDAO();
 
 	public void cadastrar(DisciplinaVO disciplina) throws Exception {
 		ResultSet rs = dDao.listarPorCodigo(disciplina);
@@ -33,7 +35,7 @@ public class DisciplinaBO extends BaseBO<DisciplinaVO> {
 		}
 	}
 
-	public DisciplinaVO buscarPorId(DisciplinaVO disciplina) {
+	public DisciplinaVO buscarPorId(DisciplinaVO disciplina) throws SQLException {
 		ResultSet rs = dDao.listarPorId(disciplina);
 		DisciplinaVO disc = null;
 
@@ -68,8 +70,8 @@ public class DisciplinaBO extends BaseBO<DisciplinaVO> {
 		return disc;
 	}
 
-	public List<DisciplinaVO> listar() {
-		ResultSet rs = dDao.listar();
+	public List<DisciplinaVO> listar() throws SQLException {
+		ResultSet rs = (ResultSet) dDao.listar();
 		List<DisciplinaVO> disciplinas = new ArrayList<>();
 		DisciplinaVO disciplina = null;
 

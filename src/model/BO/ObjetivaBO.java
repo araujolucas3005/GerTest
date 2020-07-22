@@ -4,14 +4,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import exception.InsertException;
+import model.DAO.BaseInterDAO;
 import model.DAO.ObjetivaDAO;
 import model.VO.ObjetivaVO;
 
 public class ObjetivaBO<VO extends ObjetivaVO> extends QuestaoBO<VO> {
 	
-	static private ObjetivaDAO<ObjetivaVO> dao = new ObjetivaDAO<ObjetivaVO>();
+	static private BaseInterDAO<ObjetivaVO> dao = new ObjetivaDAO<ObjetivaVO>();
 	
-	public void cadastrar(VO vo) {
+	public void cadastrar(VO vo) throws Exception {
 		ResultSet rs;
 
 		try {
@@ -27,7 +28,7 @@ public class ObjetivaBO<VO extends ObjetivaVO> extends QuestaoBO<VO> {
 		}
 	}
 	
-	public void remover(VO vo) {
+	public void remover(VO vo) throws Exception {
 		ResultSet rs;
 		try {
 			rs = dao.listarPorCodigo(vo);
