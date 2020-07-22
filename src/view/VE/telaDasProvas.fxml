@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
 <?import java.lang.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FrontController9">
    <children>
@@ -32,6 +30,6 @@
       <Label layoutX="367.0" layoutY="476.0" text="N° Questoes:" />
       <Button layoutX="27.0" layoutY="25.0" mnemonicParsing="false" onAction="#retornar" text="&lt;" />
       <Label fx:id="error" layoutX="441.0" layoutY="506.0" prefHeight="17.0" prefWidth="325.0" text="Label" textFill="#c30000" visible="false" />
-      <Label fx:id="verQuestoesErro" layoutX="583.0" layoutY="101.0" prefHeight="17.0" prefWidth="178.0" text="Label" textFill="#bc0000" visible="false" />
+      <Label fx:id="verQuestoesErro" alignment="CENTER" layoutX="506.0" layoutY="125.0" prefHeight="17.0" prefWidth="162.0" text="Label" textFill="#bc0000" visible="false" />
    </children>
 </Pane>

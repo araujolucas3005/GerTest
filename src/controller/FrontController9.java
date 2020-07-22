@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import exception.CampoEmBrancoException;
+import exception.TipoErradoExcepetion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -45,6 +46,7 @@ public class FrontController9 implements Initializable {
     @FXML
     private TextField gerarNivel4;
     
+    @FXML
     private Label verQuestoesErro;
     
     private static ProvaVO lastSelectedProva;
@@ -86,7 +88,7 @@ public class FrontController9 implements Initializable {
     void gerarProva(ActionEvent event) {
     	ProvaVO prova = new ProvaVO();
     	try {
-    		if (gerarNivel1.getText().length() == 0) {
+    		if (gerarNivel1.getText().length() == 0 ) {
     			throw new CampoEmBrancoException();
     		} else if (gerarNivel2.getText().length() == 0) {
     			throw new CampoEmBrancoException();
@@ -95,6 +97,26 @@ public class FrontController9 implements Initializable {
     		} else if (gerarNivel4.getText().length() == 0) {
     			throw new CampoEmBrancoException();
     		}
+    		for (int i = 0; i < gerarNivel1.getText().length(); i++) {
+    			if (!Character.isDigit(gerarNivel1.getText().charAt(i))) {
+    				throw new TipoErradoExcepetion();
+    			}
+    		}
+    		for (int i = 0; i < gerarNivel2.getText().length(); i++) {
+    			if (!Character.isDigit(gerarNivel1.getText().charAt(i))) {
+    				throw new TipoErradoExcepetion();
+    			}
+    		}
+    		for (int i = 0; i < gerarNivel2.getText().length(); i++) {
+    			if (!Character.isDigit(gerarNivel1.getText().charAt(i))) {
+    				throw new TipoErradoExcepetion();
+    			}
+    		}
+    		for (int i = 0; i < gerarNivel2.getText().length(); i++) {
+    			if (!Character.isDigit(gerarNivel1.getText().charAt(i))) {
+    				throw new TipoErradoExcepetion();
+    			}
+    		}
     		prova.setIdDisciplina(FrontController2.lastSelectedDisciplina().getId());
     		prova.setNivel1(Integer.valueOf(gerarNivel1.getText()));
     		prova.setNivel2(Integer.valueOf(gerarNivel2.getText()));
@@ -102,6 +124,9 @@ public class FrontController9 implements Initializable {
     		prova.setNivel4(Integer.valueOf(gerarNivel4.getText()));
     		bo.cadastrar(prova);
     		list.add(prova);
+    	} catch (TipoErradoExcepetion e) {
+    		error.setText("Apenas inteiros!");
+    		error.setVisible(true);
     	} catch (CampoEmBrancoException e) {
     		error.setText("Algum campo vazio!");
     		error.setVisible(true);
@@ -134,15 +159,14 @@ public class FrontController9 implements Initializable {
     }
     
     public void verQuestoes(ActionEvent event) {
-    	lastSelectedProva = tabelaProvas.getSelectionModel().getSelectedItem();
     	try {
     		if (tabelaProvas.getSelectionModel().getSelectedItem() == null) {
     			throw new Exception();
     		}
+        	lastSelectedProva = tabelaProvas.getSelectionModel().getSelectedItem();
 			Telas.telaQuestoesDaProva();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			verQuestoesErro.setText("Questao nao selecionada!");
+			verQuestoesErro.setText("Prova nao selecionada!");
 			verQuestoesErro.setVisible(true);
 		}
     }
