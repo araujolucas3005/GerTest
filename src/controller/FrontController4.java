@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import exception.AssuntoEmBrancoException;
+import exception.AssuntoMuitoLongoException;
 import exception.AssuntoNaoSelecionadoExcepetion;
 import exception.InsertException;
 import javafx.collections.FXCollections;
@@ -51,9 +52,9 @@ public class FrontController4 implements Initializable {
 	}
 
 	public void loadData() {
-		assuntosDaDisciplina.setText("Assuntos de " + FrontController2.getLastSelected().getNome());
+		assuntosDaDisciplina.setText("Assuntos de " + FrontController2.lastSelectedDisciplina().getNome());
 		AssuntoVO assunto = new AssuntoVO();
-		assunto.setIdDisciplina(FrontController2.getLastSelected().getId());
+		assunto.setIdDisciplina(FrontController2.lastSelectedDisciplina().getId());
 		List<AssuntoVO> assuntos = bo.listarPorDisciplina(assunto);
 		list.addAll(assuntos);
 
@@ -94,9 +95,16 @@ public class FrontController4 implements Initializable {
 					}
 				}
 			}
-			assunto.setIdDisciplina(FrontController2.getLastSelected().getId());
-			bo.cadastrar(assunto);
+			assunto.setIdDisciplina(FrontController2.lastSelectedDisciplina().getId());
+			try {
+				bo.cadastrar(assunto);
+			} catch (AssuntoMuitoLongoException e) {
+				throw new AssuntoMuitoLongoException();
+			}
 			list.add(assunto);
+		} catch (AssuntoMuitoLongoException e){
+			error.setText("Assunto muito longo!");
+			error.setVisible(true);
 		} catch (AssuntoEmBrancoException e) {
 			error.setText("Assunto em branco!");
 			error.setVisible(true);

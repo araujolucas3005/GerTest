@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import exception.AssuntoMuitoLongoException;
 import exception.DisciplinaNaoSelecionadaException;
 import model.VO.AssuntoVO;
 import model.VO.DisciplinaVO;
@@ -12,7 +13,7 @@ import model.VO.QuestaoVO;
 
 public class AssuntoDAO extends BaseDAO<AssuntoVO> {
 	
-	public void inserir(AssuntoVO assunto) {
+	public void inserir(AssuntoVO assunto) throws AssuntoMuitoLongoException {
 		String sql = "insert into Assunto (conteudo, id_disciplina) values (?,?)";
 		PreparedStatement ptst;
 		
@@ -27,8 +28,7 @@ public class AssuntoDAO extends BaseDAO<AssuntoVO> {
 				throw new SQLException("A insercao falhou. Nenhuma linha foi alterada.");
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new AssuntoMuitoLongoException();
 		}
 	}
 	

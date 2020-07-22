@@ -127,9 +127,15 @@ public class QuestaoBO<VO extends QuestaoVO> extends BaseBO<VO> implements Quest
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-			
-		
+	}
+	
+	public void removerDaProva(VO questao) {
+		try {
+			questaoDAO.removerDaProva(questao);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public VO buscarPorId(VO questao) {
@@ -150,5 +156,47 @@ public class QuestaoBO<VO extends QuestaoVO> extends BaseBO<VO> implements Quest
 			e.printStackTrace();
 		}
 		return questao;
+	}
+	
+	public List<QuestaoVO> listarPorDisciplina(VO vo) {
+		List<QuestaoVO> questoes = new ArrayList<>();
+		ResultSet rs;
+		try {
+			rs = questaoDAO.listarPorDisciplina(vo);
+			while (rs.next()) {
+				if (rs.getString("tipo").equals("Discursiva")) {
+					DiscursivaVO dVO = new DiscursivaVO();
+					dVO.setCodigo(rs.getString("codigo"));
+					dVO.setNivel(rs.getInt("nivel"));
+					dVO.setGabarito(rs.getString("gabarito"));
+					dVO.setEnunciado(rs.getString("enunciado"));
+					dVO.setIdQuestao(rs.getLong("id"));
+					dVO.setTipo(rs.getString("tipo"));
+					questoes.add(dVO);
+				} else if (rs.getString("tipo").equals("Multipla Escolha")) {
+					MultiplaEscolhaVO mVO = new MultiplaEscolhaVO();
+					mVO.setCodigo(rs.getString("codigo"));
+					mVO.setNivel(rs.getInt("nivel"));
+					mVO.setGabarito(rs.getString("gabarito"));
+					mVO.setEnunciado(rs.getString("id_questao"));
+					mVO.setIdQuestao(rs.getLong("id"));
+					mVO.setTipo(rs.getString("tipo"));
+					questoes.add(mVO);
+				} else {
+					VerdadeiroOuFalsoVO vfVO = new VerdadeiroOuFalsoVO();
+					vfVO.setCodigo(rs.getString("codigo"));
+					vfVO.setNivel(rs.getInt("nivel"));
+					vfVO.setGabarito(rs.getString("gabarito"));
+					vfVO.setEnunciado(rs.getString("id"));
+					vfVO.setIdQuestao(rs.getLong("id"));
+					vfVO.setTipo(rs.getString("tipo"));
+					questoes.add(vfVO);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return questoes;
 	}
 }

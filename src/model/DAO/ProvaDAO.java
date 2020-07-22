@@ -6,10 +6,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import model.VO.ProvaVO;
+import model.VO.QuestaoVO;
 
 public class ProvaDAO extends BaseDAO<ProvaVO> {
 
-	public void inserir(ProvaVO prova) {
+	public void inserir(ProvaVO prova) throws Exception {
 		String sql = "insert into prova (nivel1,nivel2,nivel3,nivel4, id_disciplina) values (?,?,?,?,?)";
 		PreparedStatement ptst = null;
 
@@ -63,7 +64,7 @@ public class ProvaDAO extends BaseDAO<ProvaVO> {
 				rowsAffected++;
 			}
 			if (rowsAffected < prova.getNivel1()) {
-				throw new SQLException("Passou do limite de questoes nivel 1!");
+				throw new Exception("Passou do limite de questoes nivel 1!");
 			} else {
 				ptst2.executeUpdate();
 			}
@@ -78,7 +79,7 @@ public class ProvaDAO extends BaseDAO<ProvaVO> {
 				rowsAffected++;
 			}
 			if (rowsAffected < prova.getNivel2()) {
-				throw new SQLException("Passou do limite de questoes nivel 2!");
+				throw new Exception("Passou do limite de questoes nivel 2!");
 			} else {
 				ptst2.executeUpdate();
 			}
@@ -93,7 +94,7 @@ public class ProvaDAO extends BaseDAO<ProvaVO> {
 				rowsAffected++;
 			}
 			if (rowsAffected < prova.getNivel3()) {
-				throw new SQLException("Passou do limite de questoes nivel 3!");
+				throw new Exception("Passou do limite de questoes nivel 3!");
 			} else {
 				ptst2.executeUpdate();
 			}
@@ -108,7 +109,7 @@ public class ProvaDAO extends BaseDAO<ProvaVO> {
 				rowsAffected++;
 			}
 			if (rowsAffected < prova.getNivel4()) {
-				throw new SQLException("Passou do limite de questoes nivel 4!");
+				throw new Exception("Passou do limite de questoes nivel 4!");
 			} else {
 				ptst2.executeUpdate();
 			}
@@ -116,7 +117,21 @@ public class ProvaDAO extends BaseDAO<ProvaVO> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+	}
+	
+	// nao consegui pensar em outro jeito de fazer
+	public void inserirQuestaoAvulsa(ProvaVO prova, QuestaoVO questao) {
+		String sql = "insert into Prova_Questao (id_questao,id_prova) values (?,?)";
+		try {
+			PreparedStatement ptst = getConnection().prepareStatement(sql);
+			ptst.setLong(1, questao.getIdQuestao());
+			ptst.setLong(2, prova.getId());
+			ptst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	public void remover(ProvaVO prova) {
@@ -177,7 +192,7 @@ public class ProvaDAO extends BaseDAO<ProvaVO> {
 	}
 
 	public ResultSet listarQuestoes(ProvaVO prova) {
-		String sql = "select * from Questao inner join Prova_Questao on Questao.id = Prova_Questao.id_questao where Prova_Questao.id = ?";
+		String sql = "select * from Questao inner join Prova_Questao on Questao.id = Prova_Questao.id_questao and Prova_Questao.id_prova = ?";
 		PreparedStatement ptst;
 		ResultSet rs = null;
 		try {

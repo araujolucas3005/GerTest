@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import exception.AssuntoMuitoLongoException;
 import exception.DisciplinaNaoSelecionadaException;
 import exception.InsertException;
 import model.DAO.AssuntoDAO;
@@ -17,13 +18,17 @@ public class AssuntoBO extends BaseBO<AssuntoVO> {
 	private static AssuntoDAO dao = new AssuntoDAO();
 
 	@Override
-	public void cadastrar(AssuntoVO assunto) throws Exception {
+	public void cadastrar(AssuntoVO assunto) throws AssuntoMuitoLongoException, Exception {
 		ResultSet rs = dao.listarPorConteudo(assunto);
 
 		if (rs.next()) {
 			throw new Exception();
 		} else {
+			try {
 			dao.inserir(assunto);
+			} catch (AssuntoMuitoLongoException e) {
+				throw new AssuntoMuitoLongoException();
+			}
 		}
 	}
 

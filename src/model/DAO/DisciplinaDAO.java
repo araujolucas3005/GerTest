@@ -5,11 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import exception.NomeMuitoLongException;
 import model.VO.DisciplinaVO;
 
 public class DisciplinaDAO extends BaseDAO<DisciplinaVO> {
 
-	public void inserir(DisciplinaVO disciplina) {
+	public void inserir(DisciplinaVO disciplina) throws NomeMuitoLongException {
 
 		String sql = "insert into Disciplina (nome,codigo) values (?,?)";
 		PreparedStatement ptst;
@@ -26,7 +27,7 @@ public class DisciplinaDAO extends BaseDAO<DisciplinaVO> {
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new NomeMuitoLongException();
 		}
 	}
 

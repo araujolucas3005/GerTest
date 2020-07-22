@@ -6,24 +6,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 import exception.InsertException;
-import model.DAO.DiscursivaDAO;
-import model.DAO.MultiplaEscolhaDAO;
 import model.DAO.ProvaDAO;
-import model.DAO.VerdadeiroOuFalsoDAO;
+import model.VO.DiscursivaVO;
+import model.VO.MultiplaEscolhaVO;
 import model.VO.ProvaVO;
 import model.VO.QuestaoVO;
+import model.VO.VerdadeiroOuFalsoVO;
 
 public class ProvaBO extends BaseBO<ProvaVO> {
-	
+
 	ProvaDAO dao = new ProvaDAO();
-	
-	public void cadastrar(ProvaVO prova) {
-		dao.inserir(prova);
+
+	public void cadastrar(ProvaVO prova) throws Exception {
+		try {
+			dao.inserir(prova);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw new Exception();
+		}
 	}
 	
+	public void cadastrarQuestaoAvulsa(ProvaVO prova, QuestaoVO questao) {
+		dao.inserirQuestaoAvulsa(prova, questao);
+	}
+
 	public void remover(ProvaVO prova) {
 		ResultSet rs = dao.listarPorId(prova);
-		
+
 		try {
 			if (rs.next()) {
 				dao.remover(prova);
@@ -38,10 +47,10 @@ public class ProvaBO extends BaseBO<ProvaVO> {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void editar(ProvaVO prova) {
 		ResultSet rs = dao.listarPorId(prova);
-		
+
 		try {
 			if (rs.next()) {
 				dao.atualizar(prova);
@@ -56,11 +65,11 @@ public class ProvaBO extends BaseBO<ProvaVO> {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public List<ProvaVO> listar(ProvaVO prova) {
 		ResultSet rs = dao.listar();
 		List<ProvaVO> provas = new ArrayList<>();
-		
+
 		try {
 			while (rs.next()) {
 				ProvaVO prov = new ProvaVO();
@@ -75,13 +84,35 @@ public class ProvaBO extends BaseBO<ProvaVO> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return provas;
 	}
-	
+
+	public List<ProvaVO> listarPorDisciplina(ProvaVO prova) {
+		ResultSet rs = dao.listarPorDisciplina(prova);
+		List<ProvaVO> provas = new ArrayList<>();
+
+		try {
+			while (rs.next()) {
+				ProvaVO prov = new ProvaVO();
+				prov.setId(rs.getLong("id"));
+				prov.setNivel1(rs.getInt("nivel1"));
+				prov.setNivel2(rs.getInt("nivel2"));
+				prov.setNivel3(rs.getInt("nivel3"));
+				prov.setNivel4(rs.getInt("nivel4"));
+				provas.add(prov);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return provas;
+	}
+
 	public ProvaVO buscarPorId(ProvaVO prova) {
 		ResultSet rs = dao.listarPorId(prova);
-		
+
 		try {
 			while (rs.next()) {
 				prova.setNivel1(rs.getInt("nivel1"));
@@ -93,16 +124,50 @@ public class ProvaBO extends BaseBO<ProvaVO> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return prova;
 	}
-	
+
 	public List<QuestaoVO> listarQuestoes(ProvaVO prova) {
-		ResultSet rs = dao.listarQuestoes(prova);
-		DiscursivaDAO dDAO = new DiscursivaDAO();
-		MultiplaEscolhaDAO meDAO = new MultiplaEscolhaDAO();
-		VerdadeiroOuFalsoDAO vfDAO = new VerdadeiroOuFalsoDAO();
-		List<QuestaoVO> questoes = new ArrayList<QuestaoVO>();
+		List<QuestaoVO> questoes = new ArrayList<>();
+		ProvaDAO pDAO = new ProvaDAO();
+		ResultSet rs = pDAO.listarQuestoes(prova);
+		
+		try {
+			while (rs.next()) {
+				if (rs.getString("tipo").equals("Discursiva")) {
+					DiscursivaVO dVO = new DiscursivaVO();
+					dVO.setCodigo(rs.getString("codigo"));
+					dVO.setNivel(rs.getInt("nivel"));
+					dVO.setGabarito(rs.getString("gabarito"));
+					dVO.setEnunciado(rs.getString("enunciado"));
+					dVO.setIdQuestao(rs.getLong("id_questao"));
+					dVO.setTipo(rs.getString("tipo"));
+					questoes.add(dVO);
+				} else if (rs.getString("tipo").equals("Multipla Escolha")) {
+					MultiplaEscolhaVO mVO = new MultiplaEscolhaVO();
+					mVO.setCodigo(rs.getString("codigo"));
+					mVO.setNivel(rs.getInt("nivel"));
+					mVO.setGabarito(rs.getString("gabarito"));
+					mVO.setEnunciado(rs.getString("id_questao"));
+					mVO.setIdQuestao(rs.getLong("id"));
+					mVO.setTipo(rs.getString("tipo"));
+					questoes.add(mVO);
+				} else {
+					VerdadeiroOuFalsoVO vfVO = new VerdadeiroOuFalsoVO();
+					vfVO.setCodigo(rs.getString("codigo"));
+					vfVO.setNivel(rs.getInt("nivel"));
+					vfVO.setGabarito(rs.getString("gabarito"));
+					vfVO.setEnunciado(rs.getString("id_questao"));
+					vfVO.setIdQuestao(rs.getLong("id"));
+					vfVO.setTipo(rs.getString("tipo"));
+					questoes.add(vfVO);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return questoes;
 	}
 }

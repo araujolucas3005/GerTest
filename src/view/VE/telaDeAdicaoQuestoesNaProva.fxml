@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FrontControllerAdicionarQuestaoProva">
+   <children>
+      <TableView fx:id="tabelaQuestoes" layoutX="81.0" layoutY="177.0" prefHeight="332.0" prefWidth="431.0">
+        <columns>
+          <TableColumn fx:id="codigo" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Codigo" />
+            <TableColumn fx:id="nivel" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Nivel" />
+            <TableColumn fx:id="tipo" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Tipo" />
+            <TableColumn fx:id="gabarito" prefWidth="82.0" style="-fx-alignment: CENTER;" text="Gabarito" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <Button layoutX="396.0" layoutY="514.0" mnemonicParsing="false" onAction="#adicionarNaProva" text="Adicionar na prova" />
+      <Button layoutX="37.0" layoutY="35.0" mnemonicParsing="false" onAction="#retornar" text="&lt;" />
+      <Label fx:id="error" alignment="CENTER" layoutX="360.0" layoutY="497.0" prefHeight="17.0" prefWidth="200.0" text="Label" textFill="#ae0000" visible="false" />
+      <TextArea fx:id="enunciado" editable="false" layoutX="522.0" layoutY="205.0" prefHeight="304.0" prefWidth="253.0" />
+      <Button layoutX="522.0" layoutY="177.0" mnemonicParsing="false" onAction="#verEnunciado" prefHeight="25.0" prefWidth="253.0" text="Ver enunciado da questao" />
+      <Label fx:id="error2" alignment="CENTER" layoutX="530.0" layoutY="116.0" prefHeight="17.0" prefWidth="253.0" text="Label" textFill="#ab0000" visible="false" />
+   </children>
+</Pane>

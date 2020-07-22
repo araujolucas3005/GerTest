@@ -1,9 +1,12 @@
 package controller;
 
 import java.util.List;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import exception.CampoEmBrancoException;
+import exception.InsertException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,17 +15,20 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.BO.DisciplinaBO;
+import model.BO.QuestaoBO;
 import model.VO.DisciplinaVO;
+import model.VO.QuestaoVO;
 import view.Telas;
 
 public class FrontController2 implements Initializable {
 	DisciplinaBO bo = new DisciplinaBO();
-	
+
 	@FXML
 	private Label error2;
-	 
+
 	@FXML
 	private TableView<DisciplinaVO> tabelaDisciplinas;
 
@@ -38,7 +44,19 @@ public class FrontController2 implements Initializable {
 	@FXML
 	private Label error;
 
-	private static DisciplinaVO lastSelected;
+	@FXML
+	private TextField editarNome;
+
+	@FXML
+	private TextField editarCodigo;
+
+	@FXML
+	private Label errorDisciplina;
+
+	@FXML
+	private Label errorProva;
+
+	private static DisciplinaVO lastSelectedDisciplina;
 
 	ObservableList<DisciplinaVO> list = FXCollections.observableArrayList();
 
@@ -65,11 +83,18 @@ public class FrontController2 implements Initializable {
 
 	public void removerDisciplina(ActionEvent event) {
 		DisciplinaBO bo = new DisciplinaBO();
+		QuestaoBO<QuestaoVO> bo2 = new QuestaoBO<>();
 		try {
 			if (tabelaDisciplinas.getSelectionModel().getSelectedItem() == null) {
 				throw new Exception();
 			}
 			bo.remover(tabelaDisciplinas.getSelectionModel().getSelectedItem());
+			List<QuestaoVO> questoes = bo2.listarTodos();
+			for (QuestaoVO questao : questoes) {
+				if (questao.getIdDisciplina() == tabelaDisciplinas.getSelectionModel().getSelectedItem().getId()) {
+					bo2.remover(questao);
+				}
+			}
 			tabelaDisciplinas.getItems().removeAll(tabelaDisciplinas.getSelectionModel().getSelectedItem());
 		} catch (Exception e) {
 			error2.setText("Disciplina nao selecionada!");
@@ -77,18 +102,18 @@ public class FrontController2 implements Initializable {
 		}
 	}
 
-	public static DisciplinaVO getLastSelected() {
-		return lastSelected;
+	public static DisciplinaVO lastSelectedDisciplina() {
+		return lastSelectedDisciplina;
 	}
 
-	public static void setLastSelected(DisciplinaVO lastSelected) {
-		FrontController2.lastSelected = lastSelected;
+	public static void lastSelectedDisciplina(DisciplinaVO lastSelected) {
+		FrontController2.lastSelectedDisciplina = lastSelected;
 	}
 
 	public void assuntos(ActionEvent event) {
-		lastSelected = tabelaDisciplinas.getSelectionModel().getSelectedItem();
+		lastSelectedDisciplina = tabelaDisciplinas.getSelectionModel().getSelectedItem();
 		try {
-			if (lastSelected == null) {
+			if (lastSelectedDisciplina == null) {
 				throw new Exception();
 			} else {
 				Telas.telaAssuntos();
@@ -96,6 +121,67 @@ public class FrontController2 implements Initializable {
 		} catch (Exception e) {
 			error.setText("Discip. nao selecionada!");
 			error.setVisible(true);
+		}
+	}
+
+	public void editarDisciplina(ActionEvent event) {
+		DisciplinaVO disciplina = tabelaDisciplinas.getSelectionModel().getSelectedItem();
+		try {
+			if (disciplina == null) {
+				throw new Exception();
+			} else {
+				if (editarNome.getText().length() < 1) {
+					throw new CampoEmBrancoException();
+				}
+				disciplina.setNome(editarNome.getText());
+				disciplina.setCodigo(editarCodigo.getText());
+				bo.alterar(disciplina);
+				int posicao = 0;
+				for (int i = 0; i < list.size(); i++) {
+					if (disciplina.getId() == list.get(i).getId()) {
+						posicao = i;
+					}
+				}
+				list.set(posicao, disciplina);
+			}
+		} catch (InsertException e) {
+			errorDisciplina.setText("Ja existe disciplina com esse nome ou codigo!");
+			errorDisciplina.setVisible(true);
+		} catch (CampoEmBrancoException f) {
+			errorDisciplina.setText("Nome em branco!");
+			errorDisciplina.setVisible(true);
+		} catch (Exception e) {
+			errorDisciplina.setText("Disciplina nao selecionada!");
+			errorDisciplina.setVisible(true);
+		}
+	}
+
+	public void verProvas(ActionEvent event) {
+		lastSelectedDisciplina = tabelaDisciplinas.getSelectionModel().getSelectedItem();
+		try {
+			if (tabelaDisciplinas.getSelectionModel().getSelectedItem() == null) {
+				throw new Exception();
+			} else {
+				try {
+					Telas.telaDasProvas();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+			errorProva.setText("Dis. nao selecionada!");
+			errorProva.setVisible(true);
+		}
+
+	}
+
+	public void verQuestoes(ActionEvent event) {
+		try {
+			Telas.telaQuestoes();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }

@@ -75,7 +75,7 @@ public class DiscursivaDAO extends QuestaoDAO<DiscursivaVO> {
 	}
 	
 	public ResultSet listarQuestaoProva() {
-		String sql = "select * from Discursiva inner join Prova_Questao on Discursiva.id = Prova_Questao.id_questao";
+		String sql = "select * from Questao inner join Prova_Questao on Questao.id = Prova_Questao.id_questao inner join Discursiva on Questao.id = Discursiva.id_questao";
 		ResultSet rs = null;
 		Statement st;
 		

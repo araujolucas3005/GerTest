@@ -5,6 +5,7 @@ import java.util.List;
 import exception.AssuntoEmBrancoException;
 import exception.DisciplinaJaExisteException;
 import exception.NomeEmBrancoExcepetion;
+import exception.NomeMuitoLongException;
 import exception.TipoErradoExcepetion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -113,11 +114,6 @@ public class FrontController3 {
 			disciplina.setCodigo(codigoDisciplina.getText());
 			disciplina.setNome(nomeDisciplina.getText());
 
-			try {
-				bo.cadastrar(disciplina);
-			} catch (Exception e) {
-				throw new DisciplinaJaExisteException();
-			}
 
 			List<DisciplinaVO> disciplinas = bo.listar();
 			for (AssuntoVO assuntosAdicionados : list) {
@@ -125,10 +121,17 @@ public class FrontController3 {
 				try {
 					bo2.cadastrar(assuntosAdicionados);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					throw new Exception();
 				}
 			}
+			
+			try {
+				bo.cadastrar(disciplina);
+			} catch (NomeMuitoLongException e) {
+				throw new NomeMuitoLongException();
+			} catch (Exception e) {
+				throw new DisciplinaJaExisteException();
+			} 
 
 			try {
 				Telas.telaDisciplinas();
@@ -136,6 +139,9 @@ public class FrontController3 {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		} catch (NomeMuitoLongException e) {
+			error.setText("Nome muito longo!");
+			error.setVisible(true);
 		} catch (NomeEmBrancoExcepetion e) {
 			// TODO Auto-generated catch block
 			error.setText("Nome em branco!");
@@ -150,7 +156,10 @@ public class FrontController3 {
 			error.setVisible(true);
 			error.setVisible(true);
 			error.setTextAlignment(TextAlignment.CENTER);
-		}
+		} catch (Exception e) {
+			error.setText("Assunto muito longo!");
+			error.setVisible(true);
+		} 
 	}
 
 	public void deletarAssunto(ActionEvent event) {

@@ -1,12 +1,14 @@
 package view;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class Telas extends Application{
+public class Telas extends Application {
 	private static Stage primaryStage;
 
 	public static Stage getPrimaryStage() {
@@ -17,86 +19,110 @@ public class Telas extends Application{
 		Telas.primaryStage = primaryStage;
 	}
 
-	public void start (Stage pS) throws Exception{
+	public void start(Stage pS) throws Exception {
 		setPrimaryStage(pS);
 		pS.setTitle("GerTest");
 		telaLogin();
 	}
-	
-	public static void telaLogin() throws Exception{
+
+	public static void telaLogin() throws Exception {
 		Parent root = FXMLLoader.load(Telas.class.getResource("VE/TelaDeLogin.fxml"));
-		
+
 		Scene cena = new Scene(root);
 		primaryStage.setScene(cena);
 		primaryStage.show();
 	}
-	
+
 	public static void telaCadastro() throws Exception {
 		Parent root = FXMLLoader.load(Telas.class.getResource("VE/TelaDeCadastro.fxml"));
-		
+
 		Scene cena = new Scene(root);
 		primaryStage.setScene(cena);
 		primaryStage.show();
 	}
-	
+
 	public static void telaDisciplinas() throws Exception {
 		Parent root = FXMLLoader.load(Telas.class.getResource("VE/telaDasDisciplinas.fxml"));
-		
+
 		Scene cena = new Scene(root);
 		primaryStage.setScene(cena);
 		primaryStage.show();
 	}
-	
+
 	public static void telaNovaDisciplina() throws Exception {
 		Parent root = FXMLLoader.load(Telas.class.getResource("VE/telaNovaDisciplina.fxml"));
-		
+
 		Scene cena = new Scene(root);
 		primaryStage.setScene(cena);
 		primaryStage.show();
 	}
-	
+
 	public static void telaAssuntos() throws Exception {
 		Parent root = FXMLLoader.load(Telas.class.getResource("VE/telaAssuntos.fxml"));
-		
+
 		Scene cena = new Scene(root);
 		primaryStage.setScene(cena);
 		primaryStage.show();
 	}
-	
-	public static void telaQuestoes() throws Exception{
+
+	public static void telaQuestoes() throws Exception {
 		Parent root = FXMLLoader.load(Telas.class.getResource("VE/telaDasQuestoes.fxml"));
-		
+
 		Scene cena = new Scene(root);
 		primaryStage.setScene(cena);
 		primaryStage.show();
 	}
-	
-	public static void telaCadastroQuestao() throws Exception{
+
+	public static void telaCadastroQuestao() throws Exception {
 		Parent root = FXMLLoader.load(Telas.class.getResource("VE/telaCadastroQuestao.fxml"));
-		
+
 		Scene cena = new Scene(root);
 		primaryStage.setScene(cena);
 		primaryStage.show();
 	}
-	
-	public static void telaEdicaoQuestao() throws Exception{
+
+	public static void telaEdicaoQuestao() throws Exception {
 		Parent root = FXMLLoader.load(Telas.class.getResource("VE/telaEdicaoQuestoes.fxml"));
-		
+
 		Scene cena = new Scene(root);
 		primaryStage.setScene(cena);
 		primaryStage.show();
 	}
-	
-	public static void telaEnunciado() throws Exception{
+
+	public static void telaEnunciado() throws Exception {
 		Parent root = FXMLLoader.load(Telas.class.getResource("VE/telaEnunciado.fxml"));
-		
+
 		Scene cena = new Scene(root);
 		primaryStage.setScene(cena);
 		primaryStage.show();
 	}
-	
+
+	public static void telaDasProvas() throws IOException {
+		Parent root = FXMLLoader.load(Telas.class.getResource("VE/telaDasProvas.fxml"));
+
+		Scene cena = new Scene(root);
+		primaryStage.setScene(cena);
+		primaryStage.show();
+	}
+
+	public static void telaQuestoesDaProva() throws IOException {
+		Parent root = FXMLLoader.load(Telas.class.getResource("VE/telaQuestoesDaProva.fxml"));
+
+		Scene cena = new Scene(root);
+		primaryStage.setScene(cena);
+		primaryStage.show();
+	}
+
+	public static void telaDeAdicaoQuestoesNaProva() throws IOException {
+		Parent root = FXMLLoader.load(Telas.class.getResource("VE/telaDeAdicaoQuestoesNaProva.fxml"));
+
+		Scene cena = new Scene(root);
+		primaryStage.setScene(cena);
+		primaryStage.show();
+	}
+
 	public static void main(String[] args) {
 		launch();
 	}
-	
+
 }
