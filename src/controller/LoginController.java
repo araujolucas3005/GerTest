@@ -1,6 +1,9 @@
 package controller;
 
+import java.sql.ResultSet;
+
 import exception.AutenticationException;
+import exception.UsuarioExistenteException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -12,7 +15,7 @@ import model.DAO.UsuarioDAO;
 import model.VO.UsuarioVO;
 import view.Telas;
 
-public class FrontController {
+public class LoginController {
 	@FXML private Label falhaAut;
 	@FXML private TextField login;
 	@FXML private PasswordField senha;
@@ -57,8 +60,15 @@ public class FrontController {
 		vo.setEmail(emailCadastro.getText());
 		vo.setCpf(cpfCadastro.getText());
 		vo.setNome(nomeCadastro.getText());
-		usuDAO.inserir(vo);
-		Telas.telaLogin();
+		ResultSet rs = usuDAO.listarPorLogin(vo);
+		if (rs.next()) {
+			throw new UsuarioExistenteException();
+		}
+		else {
+			usuDAO.inserir(vo);
+			Telas.telaLogin();
+		}
+		
 	}
 	
 }

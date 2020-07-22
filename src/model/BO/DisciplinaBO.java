@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import exception.InsertException;
+import exception.NomeMuitoLongException;
+
 import java.util.List;
 import model.DAO.DisciplinaDAO;
 import model.VO.BiologicaVO;
@@ -24,7 +26,11 @@ public class DisciplinaBO extends BaseBO<DisciplinaVO> {
 		if (rs2.next()) {
 			throw new Exception();
 		}
+		try {
 		dDao.inserir(disciplina);
+		} catch (NomeMuitoLongException e) {
+			throw new NomeMuitoLongException();
+		}
 	}
 
 	public DisciplinaVO buscarPorId(DisciplinaVO disciplina) {

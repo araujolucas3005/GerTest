@@ -1,16 +1,12 @@
 package model.VO;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public abstract class ObjetivaVO extends QuestaoVO {
-	private List<OpcaoVO> opcoes;
 	private Long idObjetiva;
 
 	public ObjetivaVO() {
 		super();
-		opcoes = new ArrayList<>();
 	}
 	
 	public ObjetivaVO(String codigo, int nivel, String tipo, String enunciado, String gabarito, String assunto) {
@@ -23,18 +19,6 @@ public abstract class ObjetivaVO extends QuestaoVO {
 
 	public void setIdObjetiva(Long idObjetiva) {
 		this.idObjetiva = idObjetiva;
-	}
-
-	public List<OpcaoVO> getOpcoes() {
-		return opcoes;
-	}
-
-	public void addOpcao(OpcaoVO opcao) {
-		this.opcoes.add(opcao);
-	}
-
-	public void removeOpcao(int posicao) {
-		this.opcoes.remove(posicao);
 	}
 
 	public void setGabarito(String gabarito) {
@@ -91,19 +75,4 @@ public abstract class ObjetivaVO extends QuestaoVO {
 		return codigoGerado;
 	}
 
-	public String toString() {
-		String saida = "----Questao Objetiva----";
-		saida += super.toString();
-
-		saida += "\nOpcoes:";
-		if (this.opcoes.size() == 0) {
-			saida += "Questao sem opcoes";
-		} else {
-			for (OpcaoVO opcao : opcoes) {
-				saida += "\n" + opcao;
-			}
-		}
-
-		return saida;
-	}
 }

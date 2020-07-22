@@ -1,0 +1,116 @@
+package controller;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.cell.PropertyValueFactory;
+import model.BO.ProvaBO;
+import model.BO.QuestaoBO;
+import model.VO.DiscursivaVO;
+import model.VO.QuestaoVO;
+import view.Telas;
+import javafx.fxml.Initializable;
+
+public class AdicionarQuestaoProvaController implements Initializable {
+
+	@FXML
+	private TableColumn<QuestaoVO, String> codigo;
+
+	@FXML
+	private TableColumn<QuestaoVO, String> tipo;
+
+	@FXML
+	private TableView<QuestaoVO> tabelaQuestoes;
+
+	@FXML
+	private TableColumn<QuestaoVO, String> gabarito;
+
+	@FXML
+	private TableColumn<QuestaoVO, Integer> nivel;
+	
+	@FXML
+	private TextArea enunciado;
+	
+	@FXML
+	private Label error;
+	
+	@FXML
+	private Label error2;
+	
+	private QuestaoBO<QuestaoVO> bo = new QuestaoBO<>();
+	private ProvaBO bo2 = new ProvaBO();
+
+	private ObservableList<QuestaoVO> list = FXCollections.observableArrayList();
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		QuestaoVO temp = new DiscursivaVO();
+		temp.setIdDisciplina(DisciplinasController.lastSelectedDisciplina().getId());
+		List<QuestaoVO> questoes = bo.listarPorDisciplina(temp);
+		List<QuestaoVO> questoesDaProva = bo2.listarQuestoes(ProvasController.lastSelectedProva());
+		for (int i = 0; i < questoes.size(); i++) {
+			for (int j = 0; j < questoesDaProva.size(); j++) {
+				if (questoes.get(i).getCodigo().equals(questoesDaProva.get(j).getCodigo())) {
+					questoes.remove(i);
+				}
+			}
+		}
+		list.addAll(questoes);
+		
+		nivel.setCellValueFactory(new PropertyValueFactory<QuestaoVO, Integer>("nivel"));
+		gabarito.setCellValueFactory(new PropertyValueFactory<QuestaoVO, String>("gabarito"));
+		codigo.setCellValueFactory(new PropertyValueFactory<QuestaoVO, String>("codigo"));
+		tipo.setCellValueFactory(new PropertyValueFactory<QuestaoVO, String>("tipo"));
+
+		tabelaQuestoes.setItems(list);
+	}
+	
+	public void retornar(ActionEvent event) {
+		try {
+			Telas.telaQuestoesDaProva();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void adicionarNaProva(ActionEvent event) {
+		try {
+			if (tabelaQuestoes.getSelectionModel().getSelectedItem() == null) {
+				throw new Exception();
+			} else {
+				bo2.cadastrarQuestaoAvulsa(ProvasController.lastSelectedProva(), tabelaQuestoes.getSelectionModel().getSelectedItem());
+				list.remove(tabelaQuestoes.getSelectionModel().getSelectedItem());
+			}
+		} catch (Exception e) {
+			error.setText("Questao nao selecionada!");
+			error.setVisible(true);
+		}
+	}
+	
+	public void verEnunciado(ActionEvent event) {
+		try {
+			if (tabelaQuestoes.getSelectionModel().getSelectedItem().getEnunciado() == null) {
+				throw new Exception();
+			} else {
+				enunciado.setWrapText(true);
+				enunciado.setText(tabelaQuestoes.getSelectionModel().getSelectedItem().getEnunciado());
+				enunciado.setVisible(true);
+			} 
+		} catch (Exception e) {
+			error2.setText("Questao nao selecionada!");
+			error2.setVisible(true);
+		}
+	}
+}

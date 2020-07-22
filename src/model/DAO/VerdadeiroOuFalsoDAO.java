@@ -12,7 +12,7 @@ public class VerdadeiroOuFalsoDAO extends ObjetivaDAO<VerdadeiroOuFalsoVO>{
 	
 	public void inserir(VerdadeiroOuFalsoVO vo) throws SQLException {
 		super.inserir(vo);
-		String sql = "insert into VeradeiroOuFalso (id_questao, id_objetiva) values (?)";
+		String sql = "insert into VerdadeiroOuFalso (id_questao, id_objetiva) values (?,?)";
 		PreparedStatement ptst;
 		
 		try {
@@ -81,7 +81,7 @@ public class VerdadeiroOuFalsoDAO extends ObjetivaDAO<VerdadeiroOuFalsoVO>{
 	}
 	
 	public ResultSet listarQuestaoProva() {
-		String sql = "select * from VerdadeiroOuFalso inner join Prova_Questao on VeradeiroOuFalso.id = Prova_Questao.id_questao";
+		String sql = "select * from Questao inner join Prova_Questao on Questao.id = Prova_Questao.id_questao inner join VerdadeiroOuFalso on Questao.id = VerdadeiroOuFalso.id_questao";
 		ResultSet rs = null;
 		Statement st;
 		

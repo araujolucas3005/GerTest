@@ -10,34 +10,41 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FrontController2">
+<Pane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DisciplinasController">
    <children>
-      <Text layoutX="180.0" layoutY="167.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Disciplinas">
+      <Text layoutX="71.0" layoutY="167.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Disciplinas">
          <font>
             <Font size="21.0" />
          </font></Text>
-      <TableView fx:id="tabelaDisciplinas" layoutX="180.0" layoutY="177.0" prefHeight="288.0" prefWidth="440.0" tableMenuButtonVisible="true">
+      <TableView fx:id="tabelaDisciplinas" layoutX="71.0" layoutY="177.0" prefHeight="288.0" prefWidth="641.0" tableMenuButtonVisible="true">
         <columns>
           <TableColumn fx:id="id" editable="false" prefWidth="64.0" style="-fx-alignment: CENTER;" text="ID" />
           <TableColumn fx:id="codigo" editable="false" minWidth="0.0" prefWidth="86.0" style="-fx-alignment: CENTER;" text="Codigo" />
-            <TableColumn fx:id="nome" editable="false" minWidth="0.0" prefWidth="289.0" text="Nome" />
+            <TableColumn fx:id="nome" editable="false" minWidth="0.0" prefWidth="601.0" text="Nome" />
         </columns>
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </TableView>
-      <Button layoutX="522.0" layoutY="471.0" mnemonicParsing="false" onAction="#novaDisciplina" text="Nova Disciplina" />
-      <Button layoutX="180.0" layoutY="471.0" mnemonicParsing="false" onAction="#removerDisciplina" text="Remover Disciplina Selecionada" />
+      <Button layoutX="614.0" layoutY="471.0" mnemonicParsing="false" onAction="#novaDisciplina" text="Nova Disciplina" />
+      <Button layoutX="71.0" layoutY="471.0" mnemonicParsing="false" onAction="#removerDisciplina" text="Remover Disciplina Selecionada" />
       <Box layoutX="213.0" layoutY="128.0" />
-      <Button layoutX="466.0" layoutY="146.0" mnemonicParsing="false" onAction="#assuntos" text="Ver assuntos da Disciplina" />
+      <Button layoutX="558.0" layoutY="146.0" mnemonicParsing="false" onAction="#assuntos" text="Ver assuntos da Disciplina" />
       <Accordion layoutX="173.0" layoutY="52.0" />
       <Accordion layoutX="-242.0" layoutY="74.0" />
-      <Label fx:id="error" layoutX="466.0" layoutY="127.0" prefHeight="17.0" prefWidth="154.0" text="Label" textFill="#bf0000" visible="false" />
-      <Label fx:id="error2" layoutX="180.0" layoutY="496.0" prefHeight="17.0" prefWidth="184.0" text="Label" textFill="#bf0000" visible="false" />
+      <Label fx:id="error" layoutX="558.0" layoutY="128.0" prefHeight="17.0" prefWidth="154.0" text="Label" textFill="#bf0000" visible="false" />
+      <Label fx:id="error2" layoutX="71.0" layoutY="501.0" prefHeight="17.0" prefWidth="184.0" text="Label" textFill="#bf0000" visible="false" />
       <ImageView fitHeight="63.0" fitWidth="200.0" layoutX="29.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@GerTestLogo.png" />
+            <Image url="@../../../../GerTest2/src/view/VE/GerTestLogo.png" />
          </image>
       </ImageView>
+      <TextField fx:id="editarCodigo" layoutX="317.0" layoutY="471.0" prefHeight="25.0" prefWidth="75.0" promptText="codigo" />
+      <TextField fx:id="editarNome" layoutX="398.0" layoutY="471.0" prefHeight="25.0" prefWidth="184.0" promptText="nome" />
+      <Button layoutX="416.0" layoutY="501.0" mnemonicParsing="false" onAction="#editarDisciplina" text="Editar disciplina Selecionada" />
+      <Label fx:id="errorDisciplina" layoutX="416.0" layoutY="526.0" prefHeight="17.0" prefWidth="296.0" text="Label" textFill="#bf0000" visible="false" />
+      <Button layoutX="407.0" layoutY="146.0" mnemonicParsing="false" onAction="#verProvas" text="Ver provas da disciplina" />
+      <Button layoutX="720.0" layoutY="15.0" mnemonicParsing="false" onAction="#verQuestoes" text="Questoes" />
+      <Label fx:id="errorProva" layoutX="407.0" layoutY="128.0" prefHeight="17.0" prefWidth="141.0" text="Label" textFill="#bf0000" visible="false" />
    </children>
 </Pane>

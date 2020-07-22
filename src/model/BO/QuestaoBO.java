@@ -36,12 +36,9 @@ public class QuestaoBO<VO extends QuestaoVO> extends BaseBO<VO> implements Quest
 				discursiva.setIdQuestao(discRs.getLong("id_questao"));
 				discursiva.setNivel(discRs.getInt("nivel"));
 				discursiva.setIdDisciplina(discRs.getLong("id_disciplina"));
+				discursiva.setTipo(discRs.getString("tipo"));
 				questoes.add(discursiva);
-				throw new InsertException("Sem questoes Discursivas!");
 			}
-		} catch (InsertException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -57,6 +54,8 @@ public class QuestaoBO<VO extends QuestaoVO> extends BaseBO<VO> implements Quest
 				multiplaEscolha.setGabarito(meRs.getString("gabarito"));
 				multiplaEscolha.setIdQuestao(meRs.getLong("id_questao"));
 				multiplaEscolha.setNivel(meRs.getInt("nivel"));
+				multiplaEscolha.setIdDisciplina(meRs.getLong("id_disciplina"));
+				multiplaEscolha.setTipo(meRs.getString("tipo"));
 				questoes.add(multiplaEscolha);
 			}
 		} catch (SQLException e) {
@@ -74,6 +73,8 @@ public class QuestaoBO<VO extends QuestaoVO> extends BaseBO<VO> implements Quest
 				vf.setGabarito(vfRs.getString("gabarito"));
 				vf.setIdQuestao(vfRs.getLong("id_questao"));
 				vf.setNivel(vfRs.getInt("nivel"));
+				vf.setIdDisciplina(vfRs.getLong("id_disciplina"));
+				vf.setTipo(vfRs.getString("tipo"));
 				questoes.add(vf);
 			}
 		} catch (SQLException e) {
@@ -83,7 +84,7 @@ public class QuestaoBO<VO extends QuestaoVO> extends BaseBO<VO> implements Quest
 		return questoes;
 	}
 
-	public void cadastrar(VO questao) throws InsertException {
+	public void cadastrar(VO questao) throws InsertException, SQLException {
 		ResultSet rs;
 
 		try {
@@ -114,17 +115,24 @@ public class QuestaoBO<VO extends QuestaoVO> extends BaseBO<VO> implements Quest
 	}
 
 	public void remover(VO questao) {
-		ResultSet rs;
 		try {
-			rs = questaoDAO.listarPorCodigo(questao);
-			if (!rs.next()) {
+			ResultSet rs = questaoDAO.listarPorId(questao);
+			if (rs.next()) {
+				questaoDAO.remover(questao);
+			}
+			else {
 				throw new InsertException("Essa questao nao existe!");
-			} else {
-				while (rs.next()) {
-					questaoDAO.remover(questao);
-				}
 			}
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void removerDaProva(VO questao) {
+		try {
+			questaoDAO.removerDaProva(questao);
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -148,5 +156,47 @@ public class QuestaoBO<VO extends QuestaoVO> extends BaseBO<VO> implements Quest
 			e.printStackTrace();
 		}
 		return questao;
+	}
+	
+	public List<QuestaoVO> listarPorDisciplina(VO vo) {
+		List<QuestaoVO> questoes = new ArrayList<>();
+		ResultSet rs;
+		try {
+			rs = questaoDAO.listarPorDisciplina(vo);
+			while (rs.next()) {
+				if (rs.getString("tipo").equals("Discursiva")) {
+					DiscursivaVO dVO = new DiscursivaVO();
+					dVO.setCodigo(rs.getString("codigo"));
+					dVO.setNivel(rs.getInt("nivel"));
+					dVO.setGabarito(rs.getString("gabarito"));
+					dVO.setEnunciado(rs.getString("enunciado"));
+					dVO.setIdQuestao(rs.getLong("id"));
+					dVO.setTipo(rs.getString("tipo"));
+					questoes.add(dVO);
+				} else if (rs.getString("tipo").equals("Multipla Escolha")) {
+					MultiplaEscolhaVO mVO = new MultiplaEscolhaVO();
+					mVO.setCodigo(rs.getString("codigo"));
+					mVO.setNivel(rs.getInt("nivel"));
+					mVO.setGabarito(rs.getString("gabarito"));
+					mVO.setEnunciado(rs.getString("id_questao"));
+					mVO.setIdQuestao(rs.getLong("id"));
+					mVO.setTipo(rs.getString("tipo"));
+					questoes.add(mVO);
+				} else {
+					VerdadeiroOuFalsoVO vfVO = new VerdadeiroOuFalsoVO();
+					vfVO.setCodigo(rs.getString("codigo"));
+					vfVO.setNivel(rs.getInt("nivel"));
+					vfVO.setGabarito(rs.getString("gabarito"));
+					vfVO.setEnunciado(rs.getString("id"));
+					vfVO.setIdQuestao(rs.getLong("id"));
+					vfVO.setTipo(rs.getString("tipo"));
+					questoes.add(vfVO);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return questoes;
 	}
 }

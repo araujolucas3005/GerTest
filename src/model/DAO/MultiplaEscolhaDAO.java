@@ -11,7 +11,7 @@ public class MultiplaEscolhaDAO extends ObjetivaDAO<MultiplaEscolhaVO> {
 	
 	public void inserir(MultiplaEscolhaVO vo) throws SQLException {
 		super.inserir(vo);
-		String sql = "insert into MultiplaEscolha (id_questao, id_objetiva) values (?)";
+		String sql = "insert into MultiplaEscolha (id_questao, id_objetiva) values (?,?)";
 		PreparedStatement ptst;
 		
 		try {
@@ -80,7 +80,7 @@ public class MultiplaEscolhaDAO extends ObjetivaDAO<MultiplaEscolhaVO> {
 	}
 	
 	public ResultSet listarQuestaoProva() {
-		String sql = "select * from MultiplaEscolha inner join Prova_Questao on VeradeiroOuFalso.id = Prova_Questao.id_questao";
+		String sql = "select * from Questao inner join Prova_Questao on Questao.id = Prova_Questao.id_questao inner join MultiplaEscolha on Questao.id = MultiplaEscolha.id_questao";
 		ResultSet rs = null;
 		Statement st;
 		

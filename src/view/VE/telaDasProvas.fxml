@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProvasController">
+   <children>
+      <Button layoutX="36.0" layoutY="472.0" mnemonicParsing="false" onAction="#removerProva" text="Remover prova selecionada" />
+      <Button layoutX="658.0" layoutY="472.0" mnemonicParsing="false" onAction="#gerarProva" text="Gerar nova Prova" />
+      <TableView fx:id="tabelaProvas" layoutX="36.0" layoutY="152.0" prefHeight="310.0" prefWidth="728.0">
+        <columns>
+          <TableColumn fx:id="id" prefWidth="75.0" style="-fx-alignment: CENTER;" text="ID" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <Button layoutX="677.0" layoutY="121.0" mnemonicParsing="false" onAction="#verQuestoes" text="Ver Questoes" />
+      <Label fx:id="provasDe" layoutX="36.0" layoutY="118.0" text="Provas de ">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <TextField fx:id="gerarNivel3" layoutX="548.0" layoutY="472.0" prefHeight="25.0" prefWidth="45.0" promptText="nivel3" />
+      <TextField fx:id="gerarNivel4" layoutX="601.0" layoutY="472.0" prefHeight="25.0" prefWidth="45.0" promptText="nivel4" />
+      <TextField fx:id="gerarNivel2" layoutX="494.0" layoutY="472.0" prefHeight="25.0" prefWidth="45.0" promptText="nivel2" />
+      <TextField fx:id="gerarNivel1" layoutX="441.0" layoutY="472.0" prefHeight="25.0" prefWidth="45.0" promptText="nivel1" />
+      <Label layoutX="367.0" layoutY="476.0" text="N° Questoes:" />
+      <Button layoutX="27.0" layoutY="25.0" mnemonicParsing="false" onAction="#retornar" text="&lt;" />
+      <Label fx:id="error" layoutX="441.0" layoutY="506.0" prefHeight="17.0" prefWidth="325.0" text="Label" textFill="#c30000" visible="false" />
+      <Label fx:id="verQuestoesErro" alignment="CENTER" layoutX="506.0" layoutY="125.0" prefHeight="17.0" prefWidth="162.0" text="Label" textFill="#bc0000" visible="false" />
+   </children>
+</Pane>
