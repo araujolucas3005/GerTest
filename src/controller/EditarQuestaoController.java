@@ -68,7 +68,7 @@ public class EditarQuestaoController implements Initializable {
 
 	public void editar() throws Exception {
 		if (lastSelected2.getTipo().equals("Discursiva")) {
-			if (!nivelEdicao.getText().equals("")) {
+			if (nivelEdicao.getText().equals("1") || nivelEdicao.getText().equals("2") || nivelEdicao.getText().equals("3") || nivelEdicao.getText().equals("4")) {
 				lastSelected2.setNivel(Integer.parseInt(nivelEdicao.getText()));
 			}
 			if (!enunciadoEdicao.getText().equals("")) {
