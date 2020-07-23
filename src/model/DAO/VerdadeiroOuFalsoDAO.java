@@ -5,12 +5,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import model.VO.MultiplaEscolhaVO;
 import model.VO.VerdadeiroOuFalsoVO;
 
-public class VerdadeiroOuFalsoDAO extends ObjetivaDAO<VerdadeiroOuFalsoVO>{
+public class VerdadeiroOuFalsoDAO<VO extends VerdadeiroOuFalsoVO> extends QuestaoDAO<VO> implements QuestaoInterDAO<VO>{
 	
-	public void inserir(VerdadeiroOuFalsoVO vo) throws SQLException {
+	public void inserir(VO vo) throws SQLException {
 		super.inserir(vo);
 		String sql = "insert into VerdadeiroOuFalso (id_questao, id_objetiva) values (?,?)";
 		PreparedStatement ptst;
@@ -31,7 +30,7 @@ public class VerdadeiroOuFalsoDAO extends ObjetivaDAO<VerdadeiroOuFalsoVO>{
 		}
 	}
 	
-	public void remover(VerdadeiroOuFalsoVO vo) throws SQLException {
+	public void remover(VO vo) throws SQLException {
 		// TODO Auto-generated method stub
 		String sql = "delete from VeradeiroOuFalso where id_questao = ?";
 		PreparedStatement ptst;
@@ -64,7 +63,7 @@ public class VerdadeiroOuFalsoDAO extends ObjetivaDAO<VerdadeiroOuFalsoVO>{
 		return rs;
 	}
 	
-	public ResultSet buscarPorId(MultiplaEscolhaVO vo) {
+	public ResultSet buscarPorId(VO vo) {
 		String sql = "select * from VerdadeiroOuFalso where id_questao = ?";
 		PreparedStatement ptst;
 		ResultSet rs = null;

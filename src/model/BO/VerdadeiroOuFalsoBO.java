@@ -4,14 +4,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import exception.InsertException;
-import model.DAO.VerdadeiroOuFalsoDAO;
+import model.DAO.QuestaoDAO;
+import model.DAO.QuestaoInterDAO;
 import model.VO.VerdadeiroOuFalsoVO;
 
-public class VerdadeiroOuFalsoBO extends ObjetivaBO<VerdadeiroOuFalsoVO> {
+public class VerdadeiroOuFalsoBO<VO extends VerdadeiroOuFalsoVO> extends QuestaoBO<VO> implements QuestaoInterBO<VO> {
 
-	VerdadeiroOuFalsoDAO dao = new VerdadeiroOuFalsoDAO();
+	QuestaoInterDAO<VerdadeiroOuFalsoVO> dao = new QuestaoDAO<>();
 	
-	public void cadastrar(VerdadeiroOuFalsoVO vo) {
+	public void cadastrar(VO vo) {
 		ResultSet rs;
 
 		try {
@@ -19,7 +20,12 @@ public class VerdadeiroOuFalsoBO extends ObjetivaBO<VerdadeiroOuFalsoVO> {
 			if (rs.next()) {
 				throw new InsertException("Ja existe essa questao!");
 			} else {
-				dao.inserir(vo);
+				try {
+					dao.inserir(vo);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -27,7 +33,7 @@ public class VerdadeiroOuFalsoBO extends ObjetivaBO<VerdadeiroOuFalsoVO> {
 		}
 	}
 	
-	public void remover(VerdadeiroOuFalsoVO vo) {
+	public void remover(VO vo) {
 		ResultSet rs;
 
 		try {
@@ -35,7 +41,12 @@ public class VerdadeiroOuFalsoBO extends ObjetivaBO<VerdadeiroOuFalsoVO> {
 			if (rs.next()) {
 				throw new InsertException("Ja existe essa questao!");
 			} else {
-				dao.inserir(vo);
+				try {
+					dao.inserir(vo);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import exception.CampoEmBrancoException;
+import exception.InsertException;
 import exception.TipoErradoExcepetion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +18,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.BO.ProvaBO;
+import model.BO.ProvaInterBO;
 import model.VO.ProvaVO;
 import view.Telas;
 
@@ -51,7 +53,7 @@ public class ProvasController implements Initializable {
     
     private static ProvaVO lastSelectedProva;
     
-    private ProvaBO bo = new ProvaBO();
+    private ProvaInterBO<ProvaVO> bo = new ProvaBO<>();
     
     ObservableList<ProvaVO> list = FXCollections.observableArrayList();
     
@@ -133,7 +135,12 @@ public class ProvasController implements Initializable {
     	} catch (Exception e) {
     		error.setText("Nao tem essa quantidade de questoes na disciplina!");
     		error.setVisible(true);
-    		bo.remover(prova);
+    		try {
+				bo.remover(prova);
+			} catch (InsertException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
     		list.remove(prova);
     	}
     }

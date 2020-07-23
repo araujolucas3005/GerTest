@@ -11,9 +11,9 @@ import model.VO.AssuntoVO;
 import model.VO.DisciplinaVO;
 import model.VO.QuestaoVO;
 
-public class AssuntoDAO extends BaseDAO<AssuntoVO> {
+public class AssuntoDAO<VO extends AssuntoVO> extends BaseDAO<VO> implements AssuntoInterDAO<VO>{
 	
-	public void inserir(AssuntoVO assunto) throws AssuntoMuitoLongoException {
+	public void inserir(VO assunto) throws AssuntoMuitoLongoException {
 		String sql = "insert into Assunto (conteudo, id_disciplina) values (?,?)";
 		PreparedStatement ptst;
 		
@@ -32,7 +32,7 @@ public class AssuntoDAO extends BaseDAO<AssuntoVO> {
 		}
 	}
 	
-	public void remover(AssuntoVO assunto) {
+	public void remover(VO assunto) {
 		String sql = "delete from Assunto where conteudo = ?";
 		PreparedStatement ptst;
 		
@@ -46,7 +46,7 @@ public class AssuntoDAO extends BaseDAO<AssuntoVO> {
 		}
 	}
 	
-	public void atualizar(AssuntoVO assunto) {
+	public void atualizar(VO assunto) {
 		String sql = "update Assunto set conteudo = ? where id = ?";
 		PreparedStatement ptst;
 		
@@ -76,7 +76,7 @@ public class AssuntoDAO extends BaseDAO<AssuntoVO> {
 		return rs;
 	}
 
-	public ResultSet listarPorId(AssuntoVO assunto) {
+	public ResultSet listarPorId(VO assunto) {
 		String sql = "select * from Assunto where id = ?";
 		PreparedStatement ptst;
 		ResultSet rs = null;
@@ -92,7 +92,7 @@ public class AssuntoDAO extends BaseDAO<AssuntoVO> {
 		return rs;
 	}
 	
-	public ResultSet listarPorConteudo(AssuntoVO assunto) {
+	public ResultSet listarPorConteudo(VO assunto) {
 		String sql = "select * from Assunto where conteudo = ?";
 		PreparedStatement ptst;
 		ResultSet rs = null;
@@ -108,7 +108,7 @@ public class AssuntoDAO extends BaseDAO<AssuntoVO> {
 		return rs;
 	}
 
-	public ResultSet listarPorDisciplina(AssuntoVO assunto) {
+	public ResultSet listarPorDisciplina(VO assunto) {
 		String sql = "select * from Assunto where id_disciplina = ?";
 		PreparedStatement ptst;
 		ResultSet rs = null;
@@ -124,7 +124,7 @@ public class AssuntoDAO extends BaseDAO<AssuntoVO> {
 		return rs;
 	}
 
-	public ResultSet listarPorDisciplina(DisciplinaVO disciplina) throws SQLException {
+	public ResultSet listarPorDisciplina(DisciplinaVO disciplina) {
 		String sql = "select * from Assunto where id_disciplina = ?";
 		PreparedStatement ptst;
 		ResultSet rs = null;
@@ -133,14 +133,14 @@ public class AssuntoDAO extends BaseDAO<AssuntoVO> {
 			ptst = getConnection().prepareStatement(sql);
 			ptst.setLong(1, disciplina.getId());
 			rs = ptst.executeQuery();
-		} catch (DisciplinaNaoSelecionadaException e) {
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return rs;
 	}
 
-	public ResultSet listarPorDisciplina(QuestaoVO questao) throws SQLException{
+	public ResultSet listarPorDisciplina(QuestaoVO questao) {
 		String sql = "select * from Assunto where id_disciplina = ?";
 		PreparedStatement ptst;
 		ResultSet rs = null;
@@ -149,7 +149,7 @@ public class AssuntoDAO extends BaseDAO<AssuntoVO> {
 			ptst = getConnection().prepareStatement(sql);
 			ptst.setLong(1, questao.getIdDisciplina());
 			rs = ptst.executeQuery();
-		} catch (DisciplinaNaoSelecionadaException e) {
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

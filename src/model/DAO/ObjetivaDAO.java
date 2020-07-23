@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 import model.VO.ObjetivaVO;
 
-public class ObjetivaDAO<VO extends ObjetivaVO> extends QuestaoDAO<VO>{
+public class ObjetivaDAO<VO extends ObjetivaVO> extends QuestaoDAO<VO> implements QuestaoInterDAO<VO>{
 	
 	public void inserir(VO vo) throws SQLException {
 		super.inserir(vo);

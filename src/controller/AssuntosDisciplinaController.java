@@ -1,6 +1,7 @@
 package controller;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -19,6 +20,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.BO.AssuntoBO;
+import model.BO.AssuntoInterBO;
 import model.VO.AssuntoVO;
 import view.Telas;
 
@@ -42,7 +44,7 @@ public class AssuntosDisciplinaController implements Initializable {
 	@FXML
 	private Label assuntosDaDisciplina;
 
-	AssuntoBO bo = new AssuntoBO();
+	AssuntoInterBO<AssuntoVO> bo = new AssuntoBO<>();
 	ObservableList<AssuntoVO> list = FXCollections.observableArrayList();
 
 	@Override
@@ -55,7 +57,13 @@ public class AssuntosDisciplinaController implements Initializable {
 		assuntosDaDisciplina.setText("Assuntos de " + DisciplinasController.lastSelectedDisciplina().getNome());
 		AssuntoVO assunto = new AssuntoVO();
 		assunto.setIdDisciplina(DisciplinasController.lastSelectedDisciplina().getId());
-		List<AssuntoVO> assuntos = bo.listarPorDisciplina(assunto);
+		List<AssuntoVO> assuntos = null;
+		try {
+			assuntos = bo.listarPorDisciplina(assunto);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		list.addAll(assuntos);
 
 		conteudo.setCellValueFactory(new PropertyValueFactory<AssuntoVO, String>("conteudo"));

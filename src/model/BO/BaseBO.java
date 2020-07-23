@@ -37,4 +37,7 @@ public class BaseBO<VO> implements BaseInterBO<VO>{
 		// TODO Auto-generated method stub
 		
   }
+	public void testar() {
+		
+	}
 }

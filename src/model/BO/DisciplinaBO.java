@@ -8,16 +8,14 @@ import exception.NomeMuitoLongException;
 
 import java.util.List;
 import model.DAO.DisciplinaDAO;
-import model.VO.BiologicaVO;
+import model.DAO.DisciplinaInterDAO;
 import model.VO.DisciplinaVO;
-import model.VO.ExataVO;
-import model.VO.HumanaVO;
 
-public class DisciplinaBO extends BaseBO<DisciplinaVO> {
+public class DisciplinaBO<VO extends DisciplinaVO> extends BaseBO<VO> implements BaseInterBO<VO>{
 
-	private static DisciplinaDAO dDao = new DisciplinaDAO();
+	private static DisciplinaInterDAO<DisciplinaVO> dDao = new DisciplinaDAO<>();
 
-	public void cadastrar(DisciplinaVO disciplina) throws Exception {
+	public void cadastrar(VO disciplina) throws Exception {
 		ResultSet rs = dDao.listarPorCodigo(disciplina);
 		ResultSet rs2 = dDao.listarPorNome(disciplina);
 		if (rs.next()) {
@@ -33,29 +31,16 @@ public class DisciplinaBO extends BaseBO<DisciplinaVO> {
 		}
 	}
 
-	public DisciplinaVO buscarPorId(DisciplinaVO disciplina) {
-		ResultSet rs = dDao.listarPorId(disciplina);
-		DisciplinaVO disc = null;
+	public VO buscarPorId(VO disciplina) {
 
 		try {
+			ResultSet rs = dDao.listarPorId(disciplina);
 			if (rs.next()) {
 				if (rs.getString("Codigo").substring(0, 3).equals("EXA")) {
-					disc = new ExataVO();
-					disc.setId(rs.getLong("id"));
-					disc.setCodigo(rs.getString("codigo"));
-					disc.setNome(rs.getString("nome"));
-				} else if (rs.getString("Codigo").substring(0, 3).equals("BIO")) {
-					disc = new BiologicaVO();
-					disc.setId(rs.getLong("id"));
-					disc.setCodigo(rs.getString("codigo"));
-					disc.setNome(rs.getString("nome"));
-				} else {
-					disc = new HumanaVO();
-					disc.setId(rs.getLong("id"));
-					disc.setCodigo(rs.getString("codigo"));
-					disc.setNome(rs.getString("nome"));
-				}
-			} else {
+					disciplina.setId(rs.getLong("id"));
+					disciplina.setCodigo(rs.getString("codigo"));
+					disciplina.setNome(rs.getString("nome"));
+				} 
 				throw new InsertException("Não existe disciplina com esse ID!");
 			}
 		} catch (InsertException e) {
@@ -65,33 +50,21 @@ public class DisciplinaBO extends BaseBO<DisciplinaVO> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return disc;
+		return disciplina;
 	}
 
-	public List<DisciplinaVO> listar() {
-		ResultSet rs = dDao.listar();
-		List<DisciplinaVO> disciplinas = new ArrayList<>();
-		DisciplinaVO disciplina = null;
+	@SuppressWarnings("unchecked")
+	public List<VO> listar() {
+		List<VO> disciplinas = new ArrayList<>();
 
 		try {
+			ResultSet rs = dDao.listar();
 			while (rs.next()) {
-				if (rs.getString("Codigo").substring(0, 3).equals("EXA")) {
-					disciplina = new ExataVO();
-					disciplina.setId(rs.getLong("id"));
-					disciplina.setCodigo(rs.getString("codigo"));
-					disciplina.setNome(rs.getString("nome"));
-				} else if (rs.getString("Codigo").substring(0, 3).equals("BIO")) {
-					disciplina = new BiologicaVO();
-					disciplina.setId(rs.getLong("id"));
-					disciplina.setCodigo(rs.getString("codigo"));
-					disciplina.setNome(rs.getString("nome"));
-				} else {
-					disciplina = new HumanaVO();
-					disciplina.setId(rs.getLong("id"));
-					disciplina.setCodigo(rs.getString("codigo"));
-					disciplina.setNome(rs.getString("nome"));
-				}
-				disciplinas.add(disciplina);
+				DisciplinaVO disciplina = new DisciplinaVO();
+				disciplina.setNome(rs.getString("nome"));
+				disciplina.setCodigo(rs.getString("codigo"));
+				disciplina.setId(rs.getLong("id"));
+				disciplinas.add((VO)disciplina);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

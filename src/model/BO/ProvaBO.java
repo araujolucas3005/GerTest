@@ -7,17 +7,18 @@ import java.util.List;
 
 import exception.InsertException;
 import model.DAO.ProvaDAO;
+import model.DAO.ProvaInterDAO;
 import model.VO.DiscursivaVO;
 import model.VO.MultiplaEscolhaVO;
 import model.VO.ProvaVO;
 import model.VO.QuestaoVO;
 import model.VO.VerdadeiroOuFalsoVO;
 
-public class ProvaBO extends BaseBO<ProvaVO> {
+public class ProvaBO<VO extends ProvaVO> extends BaseBO<VO> implements ProvaInterBO<VO>{
 
-	ProvaDAO dao = new ProvaDAO();
+	ProvaInterDAO<ProvaVO> dao = new ProvaDAO<>();
 
-	public void cadastrar(ProvaVO prova) throws Exception {
+	public void cadastrar(VO prova) throws Exception {
 		try {
 			dao.inserir(prova);
 		} catch (Exception e) {
@@ -26,14 +27,13 @@ public class ProvaBO extends BaseBO<ProvaVO> {
 		}
 	}
 	
-	public void cadastrarQuestaoAvulsa(ProvaVO prova, QuestaoVO questao) {
+	public void cadastrarQuestaoAvulsa(VO prova, QuestaoVO questao) {
 		dao.inserirQuestaoAvulsa(prova, questao);
 	}
 
 	public void remover(ProvaVO prova) {
-		ResultSet rs = dao.listarPorId(prova);
-
 		try {
+			ResultSet rs = dao.listarPorId(prova);
 			if (rs.next()) {
 				dao.remover(prova);
 			} else {
@@ -49,9 +49,8 @@ public class ProvaBO extends BaseBO<ProvaVO> {
 	}
 
 	public void editar(ProvaVO prova) {
-		ResultSet rs = dao.listarPorId(prova);
-
 		try {
+			ResultSet rs = dao.listarPorId(prova);
 			if (rs.next()) {
 				dao.atualizar(prova);
 			} else {
@@ -66,11 +65,12 @@ public class ProvaBO extends BaseBO<ProvaVO> {
 		}
 	}
 
-	public List<ProvaVO> listar(ProvaVO prova) {
-		ResultSet rs = dao.listar();
-		List<ProvaVO> provas = new ArrayList<>();
+	@SuppressWarnings("unchecked")
+	public List<VO> listar(VO prova) {
+		List<VO> provas = new ArrayList<>();
 
 		try {
+			ResultSet rs = dao.listar();
 			while (rs.next()) {
 				ProvaVO prov = new ProvaVO();
 				prov.setId(rs.getLong("id"));
@@ -78,7 +78,7 @@ public class ProvaBO extends BaseBO<ProvaVO> {
 				prov.setNivel2(rs.getInt("nivel2"));
 				prov.setNivel3(rs.getInt("nivel3"));
 				prov.setNivel4(rs.getInt("nivel4"));
-				provas.add(prov);
+				provas.add((VO)prov);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -88,9 +88,10 @@ public class ProvaBO extends BaseBO<ProvaVO> {
 		return provas;
 	}
 
-	public List<ProvaVO> listarPorDisciplina(ProvaVO prova) {
+	@SuppressWarnings("unchecked")
+	public List<VO> listarPorDisciplina(ProvaVO prova) {
 		ResultSet rs = dao.listarPorDisciplina(prova);
-		List<ProvaVO> provas = new ArrayList<>();
+		List<VO> provas = new ArrayList<>();
 
 		try {
 			while (rs.next()) {
@@ -100,7 +101,7 @@ public class ProvaBO extends BaseBO<ProvaVO> {
 				prov.setNivel2(rs.getInt("nivel2"));
 				prov.setNivel3(rs.getInt("nivel3"));
 				prov.setNivel4(rs.getInt("nivel4"));
-				provas.add(prov);
+				provas.add((VO)prov);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -110,10 +111,9 @@ public class ProvaBO extends BaseBO<ProvaVO> {
 		return provas;
 	}
 
-	public ProvaVO buscarPorId(ProvaVO prova) {
-		ResultSet rs = dao.listarPorId(prova);
-
+	public VO buscarPorId(VO prova) {
 		try {
+			ResultSet rs = dao.listarPorId(prova);
 			while (rs.next()) {
 				prova.setNivel1(rs.getInt("nivel1"));
 				prova.setNivel2(rs.getInt("nivel2"));
@@ -128,10 +128,9 @@ public class ProvaBO extends BaseBO<ProvaVO> {
 		return prova;
 	}
 
-	public List<QuestaoVO> listarQuestoes(ProvaVO prova) {
+	public List<QuestaoVO> listarQuestoes(VO prova) {
 		List<QuestaoVO> questoes = new ArrayList<>();
-		ProvaDAO pDAO = new ProvaDAO();
-		ResultSet rs = pDAO.listarQuestoes(prova);
+		ResultSet rs = dao.listarQuestoes(prova);
 		
 		try {
 			while (rs.next()) {

@@ -21,6 +21,7 @@ import view.Telas;
 
 public class QuestoesController implements Initializable{
 	QuestaoBO<QuestaoVO> boQ = new QuestaoBO<QuestaoVO>();
+	AssuntoInterBO<AssuntoVO> boA = new AssuntoBO<>();
 	AssuntoBO boA = new AssuntoBO();
 	
 	@FXML private TableView<QuestaoVO> tabelaQuestoes;

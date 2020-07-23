@@ -7,9 +7,9 @@ import java.sql.Statement;
 
 import model.VO.DiscursivaVO;
 
-public class DiscursivaDAO extends QuestaoDAO<DiscursivaVO> {
+public class DiscursivaDAO<VO extends DiscursivaVO> extends QuestaoDAO<VO> implements QuestaoInterDAO<VO> {
 	@Override
-	public void inserir(DiscursivaVO vo) throws SQLException{
+	public void inserir(VO vo) throws SQLException{
 		try {
 			super.inserir(vo);
 			String sql = "insert into Discursiva (id_questao) values (?)";
@@ -26,7 +26,7 @@ public class DiscursivaDAO extends QuestaoDAO<DiscursivaVO> {
 		}
 	}
 	
-	public void remover(DiscursivaVO vo) throws SQLException {
+	public void remover(VO vo) throws SQLException {
 		// TODO Auto-generated method stub
 		String sql = "delete from Discursiva where id_questao = ?";
 		PreparedStatement ptst;
@@ -58,7 +58,7 @@ public class DiscursivaDAO extends QuestaoDAO<DiscursivaVO> {
 		return rs;
 	}
 	
-	public ResultSet buscarPorIdQuestao(DiscursivaVO vo) {
+	public ResultSet buscarPorIdQuestao(VO vo) {
 		String sql = "select * from Discursiva where id_questao = ?";
 		PreparedStatement ptst;
 		ResultSet rs = null;

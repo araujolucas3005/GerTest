@@ -3,7 +3,7 @@ package model.VO;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class DisciplinaVO {
+public class DisciplinaVO {
 	private Long id;
 	private String nome;
 	private String codigo;

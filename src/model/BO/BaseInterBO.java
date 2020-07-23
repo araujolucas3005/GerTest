@@ -11,5 +11,6 @@ public interface BaseInterBO<VO> {
 	public List<VO> listar() throws InsertException;
 	public void alterar(VO vo) throws Exception;
 	public void remover(VO vo) throws InsertException;
+	public void testar();
 }
 

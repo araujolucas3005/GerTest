@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 import model.VO.UsuarioVO;
 
-public class UsuarioDAO <VO extends UsuarioVO> extends BaseDAO<VO> {
+public class UsuarioDAO <VO extends UsuarioVO> extends BaseDAO<VO> implements UsuarioInterDAO<VO> {
 	
 	public void inserir(VO usuario) {
 		
