@@ -19,7 +19,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.BO.AssuntoBO;
-import model.BO.BaseInterBO;
 import model.VO.AssuntoVO;
 import view.Telas;
 
@@ -43,7 +42,7 @@ public class AssuntosDisciplinaController implements Initializable {
 	@FXML
 	private Label assuntosDaDisciplina;
 
-	BaseInterBO<AssuntoVO> bo = new AssuntoBO();
+	AssuntoBO bo = new AssuntoBO();
 	ObservableList<AssuntoVO> list = FXCollections.observableArrayList();
 
 	@Override
@@ -63,7 +62,7 @@ public class AssuntosDisciplinaController implements Initializable {
 		tabelaAssuntos.setItems(list);
 	}
 
-	public void removerAssunto(ActionEvent event) throws Exception {
+	public void removerAssunto(ActionEvent event) {
 		try {
 			if (tabelaAssuntos.getSelectionModel().getSelectedItem() == null) {
 				throw new AssuntoNaoSelecionadoExcepetion();

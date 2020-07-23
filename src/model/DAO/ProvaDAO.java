@@ -8,7 +8,7 @@ import java.sql.Statement;
 import model.VO.ProvaVO;
 import model.VO.QuestaoVO;
 
-public class ProvaDAO extends BaseInterDAO<ProvaVO> {
+public class ProvaDAO extends BaseDAO<ProvaVO> {
 
 	public void inserir(ProvaVO prova) throws Exception {
 		String sql = "insert into prova (nivel1,nivel2,nivel3,nivel4, id_disciplina) values (?,?,?,?,?)";

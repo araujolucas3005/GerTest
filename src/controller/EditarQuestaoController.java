@@ -15,7 +15,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.BO.AssuntoBO;
-import model.DAO.BaseInterDAO;
 import model.DAO.QuestaoDAO;
 import model.VO.AssuntoVO;
 import model.VO.QuestaoVO;
@@ -31,7 +30,7 @@ public class EditarQuestaoController implements Initializable {
 	
 	ObservableList<AssuntoVO> list = FXCollections.observableArrayList();
 	AssuntoBO boA = new AssuntoBO();
-	BaseInterDAO<QuestaoVO> qDAO = new QuestaoDAO<QuestaoVO>();
+	QuestaoDAO<QuestaoVO> qDAO = new QuestaoDAO<QuestaoVO>();
 	private static AssuntoVO lastSelected;
 	private static QuestaoVO lastSelected2;
 

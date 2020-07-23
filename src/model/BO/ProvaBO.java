@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import exception.InsertException;
-import model.DAO.BaseInterDAO;
 import model.DAO.ProvaDAO;
 import model.VO.DiscursivaVO;
 import model.VO.MultiplaEscolhaVO;
@@ -14,9 +13,9 @@ import model.VO.ProvaVO;
 import model.VO.QuestaoVO;
 import model.VO.VerdadeiroOuFalsoVO;
 
-public class ProvaBO extends BaseInterBO<ProvaVO> {
+public class ProvaBO extends BaseBO<ProvaVO> {
 
-	BaseInterDAO<ProvaVO> dao = new ProvaDAO();
+	ProvaDAO dao = new ProvaDAO();
 
 	public void cadastrar(ProvaVO prova) throws Exception {
 		try {
@@ -31,7 +30,7 @@ public class ProvaBO extends BaseInterBO<ProvaVO> {
 		dao.inserirQuestaoAvulsa(prova, questao);
 	}
 
-	public void remover(ProvaVO prova) throws SQLException {
+	public void remover(ProvaVO prova) {
 		ResultSet rs = dao.listarPorId(prova);
 
 		try {
@@ -49,7 +48,7 @@ public class ProvaBO extends BaseInterBO<ProvaVO> {
 		}
 	}
 
-	public void editar(ProvaVO prova) throws SQLException {
+	public void editar(ProvaVO prova) {
 		ResultSet rs = dao.listarPorId(prova);
 
 		try {
@@ -67,7 +66,7 @@ public class ProvaBO extends BaseInterBO<ProvaVO> {
 		}
 	}
 
-	public List<ProvaVO> listar(ProvaVO prova) throws SQLException {
+	public List<ProvaVO> listar(ProvaVO prova) {
 		ResultSet rs = dao.listar();
 		List<ProvaVO> provas = new ArrayList<>();
 
@@ -111,7 +110,7 @@ public class ProvaBO extends BaseInterBO<ProvaVO> {
 		return provas;
 	}
 
-	public ProvaVO buscarPorId(ProvaVO prova) throws SQLException {
+	public ProvaVO buscarPorId(ProvaVO prova) {
 		ResultSet rs = dao.listarPorId(prova);
 
 		try {
