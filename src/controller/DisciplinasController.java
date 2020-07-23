@@ -157,6 +157,7 @@ public class DisciplinasController implements Initializable {
 						posicao = i;
 					}
 				}
+				lastSelectedDisciplina = tabelaDisciplinas.getSelectionModel().getSelectedItem();
 				list.set(posicao, disciplina);
 			}
 		} catch (InsertException e) {

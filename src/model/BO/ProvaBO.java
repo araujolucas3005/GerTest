@@ -14,7 +14,7 @@ import model.VO.ProvaVO;
 import model.VO.QuestaoVO;
 import model.VO.VerdadeiroOuFalsoVO;
 
-public class ProvaBO extends BaseBO<ProvaVO> implements ProvaInterBO<ProvaVO>{
+public class ProvaBO extends BaseBO<ProvaVO> implements ProvaInterBO<ProvaVO> {
 
 	ProvaInterDAO<ProvaVO> dao = new ProvaDAO<>();
 
@@ -26,7 +26,7 @@ public class ProvaBO extends BaseBO<ProvaVO> implements ProvaInterBO<ProvaVO>{
 			throw new Exception();
 		}
 	}
-	
+
 	public void cadastrarQuestaoAvulsa(ProvaVO prova, QuestaoVO questao) {
 		dao.inserirQuestaoAvulsa(prova, questao);
 	}
@@ -129,36 +129,40 @@ public class ProvaBO extends BaseBO<ProvaVO> implements ProvaInterBO<ProvaVO>{
 	public List<QuestaoVO> listarQuestoes(ProvaVO prova) {
 		List<QuestaoVO> questoes = new ArrayList<>();
 		ResultSet rs = dao.listarQuestoes(prova);
-		
+
 		try {
 			while (rs.next()) {
-				if (rs.getString("tipo").equals("Discursiva")) {
-					DiscursivaVO dVO = new DiscursivaVO();
-					dVO.setCodigo(rs.getString("codigo"));
-					dVO.setNivel(rs.getInt("nivel"));
-					dVO.setGabarito(rs.getString("gabarito"));
-					dVO.setEnunciado(rs.getString("enunciado"));
-					dVO.setIdQuestao(rs.getLong("id_questao"));
-					dVO.setTipo(rs.getString("tipo"));
-					questoes.add(dVO);
-				} else if (rs.getString("tipo").equals("Multipla Escolha")) {
-					MultiplaEscolhaVO mVO = new MultiplaEscolhaVO();
-					mVO.setCodigo(rs.getString("codigo"));
-					mVO.setNivel(rs.getInt("nivel"));
-					mVO.setGabarito(rs.getString("gabarito"));
-					mVO.setEnunciado(rs.getString("id_questao"));
-					mVO.setIdQuestao(rs.getLong("id"));
-					mVO.setTipo(rs.getString("tipo"));
-					questoes.add(mVO);
-				} else {
-					VerdadeiroOuFalsoVO vfVO = new VerdadeiroOuFalsoVO();
-					vfVO.setCodigo(rs.getString("codigo"));
-					vfVO.setNivel(rs.getInt("nivel"));
-					vfVO.setGabarito(rs.getString("gabarito"));
-					vfVO.setEnunciado(rs.getString("id_questao"));
-					vfVO.setIdQuestao(rs.getLong("id"));
-					vfVO.setTipo(rs.getString("tipo"));
-					questoes.add(vfVO);
+				if (rs.getLong("id_disciplina") == prova.getIdDisciplina()) {
+					if (rs.getString("tipo").equals("Discursiva")
+							&& rs.getLong("id_disciplina") == prova.getIdDisciplina()) {
+						DiscursivaVO dVO = new DiscursivaVO();
+						dVO.setCodigo(rs.getString("codigo"));
+						dVO.setNivel(rs.getInt("nivel"));
+						dVO.setGabarito(rs.getString("gabarito"));
+						dVO.setEnunciado(rs.getString("enunciado"));
+						dVO.setIdQuestao(rs.getLong("id_questao"));
+						dVO.setTipo(rs.getString("tipo"));
+						dVO.setIdDisciplina(rs.getLong("id_disciplina"));
+						questoes.add(dVO);
+					} else if (rs.getString("tipo").equals("Multipla Escolha")) {
+						MultiplaEscolhaVO mVO = new MultiplaEscolhaVO();
+						mVO.setCodigo(rs.getString("codigo"));
+						mVO.setNivel(rs.getInt("nivel"));
+						mVO.setGabarito(rs.getString("gabarito"));
+						mVO.setEnunciado(rs.getString("enunciado"));
+						mVO.setIdQuestao(rs.getLong("id_questao"));
+						mVO.setTipo(rs.getString("tipo"));
+						questoes.add(mVO);
+					} else {
+						VerdadeiroOuFalsoVO vfVO = new VerdadeiroOuFalsoVO();
+						vfVO.setCodigo(rs.getString("codigo"));
+						vfVO.setNivel(rs.getInt("nivel"));
+						vfVO.setGabarito(rs.getString("gabarito"));
+						vfVO.setEnunciado(rs.getString("enunciado"));
+						vfVO.setIdQuestao(rs.getLong("id_questao"));
+						vfVO.setTipo(rs.getString("tipo"));
+						questoes.add(vfVO);
+					}
 				}
 			}
 		} catch (SQLException e) {
