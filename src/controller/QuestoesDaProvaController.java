@@ -17,10 +17,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
-import model.BO.BaseInterBO;
 import model.BO.ProvaBO;
 import model.BO.QuestaoBO;
-import model.VO.ProvaVO;
 import model.VO.QuestaoVO;
 import view.Telas;
 
@@ -64,8 +62,8 @@ public class QuestoesDaProvaController implements Initializable {
 
 	ObservableList<QuestaoVO> list = FXCollections.observableArrayList();
 
-	private BaseInterBO<ProvaVO> bo = new ProvaBO();
-	private BaseInterBO<QuestaoVO> boQ = new QuestaoBO<>();
+	private ProvaBO bo = new ProvaBO();
+	private QuestaoBO<QuestaoVO> boQ = new QuestaoBO<>();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -83,7 +81,7 @@ public class QuestoesDaProvaController implements Initializable {
 		tabelaDasQuestoes.setItems(list);
 	}
 
-	public void removerQuestao(ActionEvent event) throws Exception {
+	public void removerQuestao(ActionEvent event) {
 		try {
 			if (tabelaDasQuestoes.getSelectionModel().getSelectedItem().getEnunciado() != null) {
 				boQ.removerDaProva(tabelaDasQuestoes.getSelectionModel().getSelectedItem());

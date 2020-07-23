@@ -3,7 +3,6 @@ package controller;
 import java.util.List;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import exception.CampoEmBrancoException;
@@ -18,7 +17,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import model.BO.BaseInterBO;
 import model.BO.DisciplinaBO;
 import model.BO.QuestaoBO;
 import model.VO.DisciplinaVO;
@@ -26,7 +24,7 @@ import model.VO.QuestaoVO;
 import view.Telas;
 
 public class DisciplinasController implements Initializable {
-	BaseInterBO<DisciplinaVO> bo = new DisciplinaBO();
+	DisciplinaBO bo = new DisciplinaBO();
 
 	@FXML
 	private Label error2;
@@ -65,15 +63,10 @@ public class DisciplinasController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		try {
-			loadData();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		loadData();
 	}
 
-	public void loadData() throws SQLException {
+	public void loadData() {
 		List<DisciplinaVO> disciplinas = bo.listar();
 		list.addAll(disciplinas);
 
@@ -89,6 +82,7 @@ public class DisciplinasController implements Initializable {
 	}
 
 	public void removerDisciplina(ActionEvent event) {
+		DisciplinaBO bo = new DisciplinaBO();
 		QuestaoBO<QuestaoVO> bo2 = new QuestaoBO<>();
 		try {
 			if (tabelaDisciplinas.getSelectionModel().getSelectedItem() == null) {

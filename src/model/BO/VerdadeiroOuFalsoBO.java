@@ -4,15 +4,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import exception.InsertException;
-import model.DAO.BaseInterDAO;
 import model.DAO.VerdadeiroOuFalsoDAO;
 import model.VO.VerdadeiroOuFalsoVO;
 
 public class VerdadeiroOuFalsoBO extends ObjetivaBO<VerdadeiroOuFalsoVO> {
 
-	BaseInterDAO<VerdadeiroOuFalsoVO> dao = new VerdadeiroOuFalsoDAO();
+	VerdadeiroOuFalsoDAO dao = new VerdadeiroOuFalsoDAO();
 	
-	public void cadastrar(VerdadeiroOuFalsoVO vo) throws Exception {
+	public void cadastrar(VerdadeiroOuFalsoVO vo) {
 		ResultSet rs;
 
 		try {
@@ -28,7 +27,7 @@ public class VerdadeiroOuFalsoBO extends ObjetivaBO<VerdadeiroOuFalsoVO> {
 		}
 	}
 	
-	public void remover(VerdadeiroOuFalsoVO vo) throws Exception {
+	public void remover(VerdadeiroOuFalsoVO vo) {
 		ResultSet rs;
 
 		try {

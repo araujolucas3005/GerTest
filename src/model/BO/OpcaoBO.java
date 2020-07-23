@@ -6,16 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import exception.InsertException;
-import model.DAO.BaseInterDAO;
 import model.DAO.OpcaoDAO;
 import model.VO.OpcaoVO;
 
-public class OpcaoBO extends BaseInterBO<OpcaoVO>{
+public class OpcaoBO extends BaseBO<OpcaoVO>{
 	
-	BaseInterDAO<OpcaoVO> dao = new OpcaoDAO();
+	OpcaoDAO dao = new OpcaoDAO();
 	
 	@Override
-	public void cadastrar(OpcaoVO opcao) throws Exception {
+	public void cadastrar(OpcaoVO opcao) throws InsertException {
 		ResultSet rs = dao.listarPorConteudo(opcao);
 
 		try {
@@ -48,7 +47,7 @@ public class OpcaoBO extends BaseInterBO<OpcaoVO>{
 	}
 
 	@Override
-	public OpcaoVO buscarPorId(OpcaoVO opcao) throws SQLException {
+	public OpcaoVO buscarPorId(OpcaoVO opcao) {
 		ResultSet rs = dao.listarPorId(opcao);
 		OpcaoVO op = null;
 		
@@ -72,7 +71,7 @@ public class OpcaoBO extends BaseInterBO<OpcaoVO>{
 	}
 
 	@Override
-	public List<OpcaoVO> listar() throws SQLException {
+	public List<OpcaoVO> listar() throws InsertException {
 		ResultSet rs = dao.listar();
 		OpcaoVO opcao = null;
 		List<OpcaoVO> opcoes = new ArrayList<>();

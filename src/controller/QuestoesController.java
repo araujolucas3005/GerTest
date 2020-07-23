@@ -1,7 +1,6 @@
 package controller;
 
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -15,14 +14,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.BO.AssuntoBO;
-import model.BO.BaseInterBO;
 import model.BO.QuestaoBO;
 import model.VO.AssuntoVO;
 import model.VO.QuestaoVO;
 import view.Telas;
 
 public class QuestoesController implements Initializable{
-	BaseInterBO<QuestaoVO> boQ = new QuestaoBO<QuestaoVO>();
+	QuestaoBO<QuestaoVO> boQ = new QuestaoBO<QuestaoVO>();
 	AssuntoBO boA = new AssuntoBO();
 	
 	@FXML private TableView<QuestaoVO> tabelaQuestoes;
@@ -43,15 +41,10 @@ public class QuestoesController implements Initializable{
 	@Override
 	public void initialize(URL local, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-				try {
-					loadData();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				loadData();
 	}
 	
-	public void loadData() throws SQLException {
+	public void loadData() {
 		List<QuestaoVO> questoes =  boQ.listarTodos();
 		list.addAll(questoes);
 		

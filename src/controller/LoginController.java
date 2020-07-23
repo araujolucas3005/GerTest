@@ -9,9 +9,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import model.BO.BaseInterBO;
 import model.BO.UsuarioBO;
-import model.DAO.BaseInterDAO;
+import model.BO.UsuarioInterBO;
 import model.DAO.UsuarioDAO;
 import model.VO.UsuarioVO;
 import view.Telas;
@@ -26,8 +25,8 @@ public class LoginController {
 	@FXML private TextField nomeCadastro;
 	@FXML private TextField cpfCadastro;
 	
-	private static BaseInterBO<UsuarioVO> usuBO = new UsuarioBO<UsuarioVO>();
-	private static BaseInterDAO<UsuarioVO> usuDAO = new UsuarioDAO<UsuarioVO>();
+	private static UsuarioInterBO<UsuarioVO> usuBO = new UsuarioBO<UsuarioVO>();
+	private static UsuarioDAO<UsuarioVO> usuDAO = new UsuarioDAO<UsuarioVO>();
 	
 	public void autenticar(ActionEvent event) throws Exception{
 		UsuarioVO vo = new UsuarioVO();

@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 import exception.AssuntoNaoPertenceException;
 import exception.CampoEmBrancoException;
 import exception.DisciplinaNaoSelecionadaException;
-import exception.NivelFormatoIncorretoException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,7 +20,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.BO.AssuntoBO;
-import model.BO.BaseInterBO;
 import model.BO.DisciplinaBO;
 import model.BO.DiscursivaBO;
 import model.BO.MultiplaEscolhaBO;
@@ -48,24 +46,19 @@ public class CadastroQuestaoController implements Initializable{
 	@FXML private Label error2;
 	
 	ObservableList<DisciplinaVO> list2 = FXCollections.observableArrayList();
-	BaseInterBO<AssuntoVO> boA = new AssuntoBO();
-	BaseInterBO<DisciplinaVO> boD = new DisciplinaBO();
-	BaseInterBO<DiscursivaVO> discBO = new DiscursivaBO();
-	BaseInterBO<MultiplaEscolhaVO> meBO = new MultiplaEscolhaBO();
-	BaseInterBO<VerdadeiroOuFalsoVO> vofBO = new VerdadeiroOuFalsoBO();
+	AssuntoBO boA = new AssuntoBO();
+	DisciplinaBO boD = new DisciplinaBO();
+	DiscursivaBO discBO = new DiscursivaBO();
+	MultiplaEscolhaBO meBO = new MultiplaEscolhaBO();
+	VerdadeiroOuFalsoBO vofBO = new VerdadeiroOuFalsoBO();
 	private static DisciplinaVO lastSelected;
 	
 	@Override
 	public void initialize(URL local, ResourceBundle resources) {
-		try {
-			loadData();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		loadData();
 	}
 	
-	public void loadData() throws SQLException {
+	public void loadData() {
 		if (discursiva.isSelected()) {
 			gabaritoQuestao.setText("Subjetivo");
 			gabaritoQuestao.setEditable(false);
@@ -104,11 +97,11 @@ public class CadastroQuestaoController implements Initializable{
 				throw new CampoEmBrancoException();
 			}
 			
-			if (nivelQuestao.getText().equals("1") || nivelQuestao.getText().equals("2") || nivelQuestao.getText().equals("3") || nivelQuestao.getText().equals("4")) {
+			if (nivelQuestao.getText().length() >= 1) {
 				discVO.setNivel(Integer.parseInt(nivelQuestao.getText()));			
 			}			
 			else {
-				throw new NivelFormatoIncorretoException();
+				throw new CampoEmBrancoException();
 			}
 
 			if (enunciadoQuestao.getText().length() > 1) {
@@ -173,10 +166,6 @@ public class CadastroQuestaoController implements Initializable{
 			error2.setText("Disciplina nao selecionada!");
 			error2.setVisible(true);
 			}		
-		catch (NivelFormatoIncorretoException e) {
-			error2.setText("Valor para Nível inválido!");
-			error2.setVisible(true);
-			}
 		}
 		
 		//Cadastro de ME;
@@ -192,11 +181,11 @@ public class CadastroQuestaoController implements Initializable{
 				throw new CampoEmBrancoException();
 			}
 			
-			if (nivelQuestao.getText().equals("1") || nivelQuestao.getText().equals("2") || nivelQuestao.getText().equals("3") || nivelQuestao.getText().equals("4")) {
+			if (nivelQuestao.getText().length() >= 1) {
 				meVO.setNivel(Integer.parseInt(nivelQuestao.getText()));			
 			}			
 			else {
-				throw new NivelFormatoIncorretoException();
+				throw new CampoEmBrancoException();
 			}
 
 			if (enunciadoQuestao.getText().length() > 1) {
@@ -260,11 +249,7 @@ public class CadastroQuestaoController implements Initializable{
 		catch (DisciplinaNaoSelecionadaException e) {
 			error2.setText("Disciplina nao selecionada!");
 			error2.setVisible(true);
-			}	
-		catch (NivelFormatoIncorretoException e) {
-			error2.setText("Valor para Nível inválido!");
-			error2.setVisible(true);
-			}
+			}		
 		}
 		
 		//Cadastro VoF;
@@ -280,11 +265,11 @@ public class CadastroQuestaoController implements Initializable{
 				throw new CampoEmBrancoException();
 			}
 			
-			if (nivelQuestao.getText().equals("1") || nivelQuestao.getText().equals("2") || nivelQuestao.getText().equals("3") || nivelQuestao.getText().equals("4")) {
+			if (nivelQuestao.getText().length() >= 1) {
 				vofVO.setNivel(Integer.parseInt(nivelQuestao.getText()));			
 			}			
 			else {
-				throw new NivelFormatoIncorretoException();
+				throw new CampoEmBrancoException();
 			}
 
 			if (enunciadoQuestao.getText().length() > 1) {
@@ -348,11 +333,7 @@ public class CadastroQuestaoController implements Initializable{
 		catch (DisciplinaNaoSelecionadaException e) {
 			error2.setText("Disciplina nao selecionada!");
 			error2.setVisible(true);
-			}
-		catch (NivelFormatoIncorretoException e) {
-			error2.setText("Valor para Nível inválido!");
-			error2.setVisible(true);
-			}	
+			}		
 		}
 	}
 	
