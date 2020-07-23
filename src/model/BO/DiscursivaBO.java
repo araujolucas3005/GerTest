@@ -4,14 +4,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import exception.InsertException;
+import model.DAO.BaseInterDAO;
 import model.DAO.DiscursivaDAO;
 import model.VO.DiscursivaVO;
 
 public class DiscursivaBO extends QuestaoBO<DiscursivaVO> {
 	
-	DiscursivaDAO dao = new DiscursivaDAO();
+	BaseInterDAO<DiscursivaVO> dao = new DiscursivaDAO();
 	
-	public void cadastrar(DiscursivaVO vo) throws SQLException {
+	public void cadastrar(DiscursivaVO vo) throws Exception {
 		ResultSet rs;
 
 		try {
@@ -27,7 +28,7 @@ public class DiscursivaBO extends QuestaoBO<DiscursivaVO> {
 		}
 	}
 	
-	public void remover(DiscursivaVO vo) {
+	public void remover(DiscursivaVO vo) throws Exception {
 		ResultSet rs;
 
 		try {

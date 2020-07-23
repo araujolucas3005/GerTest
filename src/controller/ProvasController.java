@@ -16,6 +16,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.BO.BaseInterBO;
 import model.BO.ProvaBO;
 import model.VO.ProvaVO;
 import view.Telas;
@@ -51,7 +52,7 @@ public class ProvasController implements Initializable {
     
     private static ProvaVO lastSelectedProva;
     
-    private ProvaBO bo = new ProvaBO();
+    private BaseInterBO<ProvaVO> bo = new ProvaBO();
     
     ObservableList<ProvaVO> list = FXCollections.observableArrayList();
     
@@ -85,7 +86,7 @@ public class ProvasController implements Initializable {
     }
 
     @FXML
-    void gerarProva(ActionEvent event) {
+    void gerarProva(ActionEvent event) throws Exception {
     	ProvaVO prova = new ProvaVO();
     	try {
     		if (gerarNivel1.getText().length() == 0 ) {

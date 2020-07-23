@@ -14,9 +14,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.BO.BaseInterBO;
 import model.BO.ProvaBO;
 import model.BO.QuestaoBO;
 import model.VO.DiscursivaVO;
+import model.VO.ProvaVO;
 import model.VO.QuestaoVO;
 import view.Telas;
 import javafx.fxml.Initializable;
@@ -48,7 +50,7 @@ public class AdicionarQuestaoProvaController implements Initializable {
 	private Label error2;
 	
 	private QuestaoBO<QuestaoVO> bo = new QuestaoBO<>();
-	private ProvaBO bo2 = new ProvaBO();
+	private BaseInterBO<ProvaVO> bo2 = new ProvaBO();
 
 	private ObservableList<QuestaoVO> list = FXCollections.observableArrayList();
 
