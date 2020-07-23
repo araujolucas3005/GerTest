@@ -9,7 +9,6 @@ import java.util.ResourceBundle;
 import exception.CampoEmBrancoException;
 import exception.DisciplinaJaExisteException;
 import exception.InsertException;
-import exception.NomeMuitoLongException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -162,10 +161,7 @@ public class DisciplinasController implements Initializable {
 				lastSelectedDisciplina = tabelaDisciplinas.getSelectionModel().getSelectedItem();
 				list.set(posicao, disciplina);
 			}
-		} catch (NomeMuitoLongException e ) {
-			errorDisciplina.setText("Nome ou codigo muito longo!");
-			errorDisciplina.setVisible(true);
-		}catch (DisciplinaJaExisteException e) {
+		} catch (DisciplinaJaExisteException e) {
 			errorDisciplina.setText("Ja existe disciplina com esse nome ou codigo!");
 			errorDisciplina.setVisible(true);
 		} catch (CampoEmBrancoException f) {

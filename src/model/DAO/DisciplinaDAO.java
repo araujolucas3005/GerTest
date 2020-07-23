@@ -89,13 +89,14 @@ public class DisciplinaDAO<VO extends DisciplinaVO> extends BaseDAO<VO> implemen
 	}
 
 	public void atualizar(DisciplinaVO disciplina) throws SQLException {
-		String sql = "update Disciplina set nome = ?, codigo = ?";
+		String sql = "update Disciplina set nome = ?, codigo = ? where id = ?";
 		PreparedStatement ptst;
 
 		try {
 			ptst = getConnection().prepareStatement(sql);
 			ptst.setNString(1, disciplina.getNome());
 			ptst.setNString(2, disciplina.getCodigo());
+			ptst.setLong(3, disciplina.getId());
 			ptst.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
