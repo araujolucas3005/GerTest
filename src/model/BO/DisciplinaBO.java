@@ -3,6 +3,8 @@ package model.BO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import exception.DisciplinaJaExisteException;
 import exception.InsertException;
 import exception.NomeMuitoLongException;
 
@@ -73,7 +75,7 @@ public class DisciplinaBO extends BaseBO<DisciplinaVO> implements BaseInterBO<Di
 		return disciplinas;
 	}
 
-	public void alterar(DisciplinaVO disciplina) {
+	public void alterar(DisciplinaVO disciplina) throws NomeMuitoLongException, DisciplinaJaExisteException {
 		ResultSet rs = dDao.listarPorCodigo(disciplina);
 		try {
 			if (rs.next()) {
@@ -82,11 +84,10 @@ public class DisciplinaBO extends BaseBO<DisciplinaVO> implements BaseInterBO<Di
 				dDao.atualizar(disciplina);
 			}
 		} catch (InsertException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new DisciplinaJaExisteException();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new NomeMuitoLongException();
 		}
 	}
 
