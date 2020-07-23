@@ -95,6 +95,7 @@ public class ProvaBO extends BaseBO<ProvaVO> implements ProvaInterBO<ProvaVO> {
 			while (rs.next()) {
 				ProvaVO prov = new ProvaVO();
 				prov.setId(rs.getLong("id"));
+				prov.setIdDisciplina(rs.getLong("id_disciplina"));
 				prov.setNivel1(rs.getInt("nivel1"));
 				prov.setNivel2(rs.getInt("nivel2"));
 				prov.setNivel3(rs.getInt("nivel3"));
@@ -129,12 +130,10 @@ public class ProvaBO extends BaseBO<ProvaVO> implements ProvaInterBO<ProvaVO> {
 	public List<QuestaoVO> listarQuestoes(ProvaVO prova) {
 		List<QuestaoVO> questoes = new ArrayList<>();
 		ResultSet rs = dao.listarQuestoes(prova);
-
 		try {
 			while (rs.next()) {
 				if (rs.getLong("id_disciplina") == prova.getIdDisciplina()) {
-					if (rs.getString("tipo").equals("Discursiva")
-							&& rs.getLong("id_disciplina") == prova.getIdDisciplina()) {
+					if (rs.getString("tipo").equals("Discursiva")) {
 						DiscursivaVO dVO = new DiscursivaVO();
 						dVO.setCodigo(rs.getString("codigo"));
 						dVO.setNivel(rs.getInt("nivel"));
