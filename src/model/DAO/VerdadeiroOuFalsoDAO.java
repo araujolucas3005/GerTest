@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 import model.VO.VerdadeiroOuFalsoVO;
 
-public class VerdadeiroOuFalsoDAO<VO extends VerdadeiroOuFalsoVO> extends QuestaoDAO<VO> implements QuestaoInterDAO<VO>{
+public class VerdadeiroOuFalsoDAO<VO extends VerdadeiroOuFalsoVO> extends ObjetivaDAO<VO> implements QuestaoInterDAO<VO>{
 	
 	public void inserir(VO vo) throws SQLException {
 		super.inserir(vo);
@@ -87,6 +87,23 @@ public class VerdadeiroOuFalsoDAO<VO extends VerdadeiroOuFalsoVO> extends Questa
 		try {
 			st = getConnection().createStatement();
 			rs = st.executeQuery(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
+	public ResultSet listarPorDisciplina(VO vo) {
+		// TODO Auto-generated method stub
+		String sql = "select * from Questao inner join VerdadeiroOuFalso on Questao.id = VeradeiroOuFalso.id_questao where id_disciplina = ?";
+		PreparedStatement ptst;
+		ResultSet rs = null;
+
+		try {
+			ptst = getConnection().prepareStatement(sql);
+			ptst.setLong(1, vo.getIdDisciplina());
+			rs = ptst.executeQuery();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -2,11 +2,15 @@ package view;
 
 import java.io.IOException;
 
+import exception.InsertException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.BO.QuestaoBO;
+import model.BO.QuestaoInterBO;
+import model.VO.QuestaoVO;
 
 public class Telas extends Application {
 	private static Stage primaryStage;
@@ -123,6 +127,15 @@ public class Telas extends Application {
 
 	public static void main(String[] args) {
 		launch();
+		QuestaoInterBO<QuestaoVO> bo = new QuestaoBO<>();
+		try {
+			for (QuestaoVO questao : bo.listar()) {
+				System.out.println(questao.getIdQuestao());
+			}
+		} catch (InsertException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

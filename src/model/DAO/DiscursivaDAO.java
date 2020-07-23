@@ -74,19 +74,20 @@ public class DiscursivaDAO<VO extends DiscursivaVO> extends QuestaoDAO<VO> imple
 		return rs;
 	}
 	
-	public ResultSet listarQuestaoProva() {
-		String sql = "select * from Questao inner join Prova_Questao on Questao.id = Prova_Questao.id_questao inner join Discursiva on Questao.id = Discursiva.id_questao";
+	public ResultSet listarPorDisciplina(VO vo) {
+		// TODO Auto-generated method stub
+		String sql = "select * from Questao inner join Discursiva on Questao.id = Discursiva.id_questao where id_disciplina = ?";
+		PreparedStatement ptst;
 		ResultSet rs = null;
-		Statement st;
-		
+
 		try {
-			st = getConnection().createStatement();
-			rs = st.executeQuery(sql);
+			ptst = getConnection().prepareStatement(sql);
+			ptst.setLong(1, vo.getIdDisciplina());
+			rs = ptst.executeQuery();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		return rs;
 	}
 }

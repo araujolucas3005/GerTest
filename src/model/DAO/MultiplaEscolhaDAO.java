@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 import model.VO.MultiplaEscolhaVO;
 
-public class MultiplaEscolhaDAO<VO extends MultiplaEscolhaVO> extends QuestaoDAO<VO> implements QuestaoInterDAO<VO>{
+public class MultiplaEscolhaDAO<VO extends MultiplaEscolhaVO> extends ObjetivaDAO<VO> implements QuestaoInterDAO<VO>{
 	
 	public void inserir(VO vo) throws SQLException {
 		super.inserir(vo);
@@ -92,6 +92,23 @@ public class MultiplaEscolhaDAO<VO extends MultiplaEscolhaVO> extends QuestaoDAO
 			e.printStackTrace();
 		}
 		
+		return rs;
+	}
+	
+	public ResultSet listarPorDisciplina(VO vo) {
+		// TODO Auto-generated method stub
+		String sql = "select * from Questao inner join MultiplaEscolha on Questao.id = MultiplaEscolha.id_questao where id_disciplina = ?";
+		PreparedStatement ptst;
+		ResultSet rs = null;
+
+		try {
+			ptst = getConnection().prepareStatement(sql);
+			ptst.setLong(1, vo.getIdDisciplina());
+			rs = ptst.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return rs;
 	}
 }

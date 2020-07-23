@@ -99,7 +99,7 @@ public class DisciplinasController implements Initializable {
 				throw new Exception();
 			}
 			bo.remover(tabelaDisciplinas.getSelectionModel().getSelectedItem());
-			List<QuestaoVO> questoes = bo2.listarTodos();
+			List<QuestaoVO> questoes = bo2.listar();
 			for (QuestaoVO questao : questoes) {
 				if (questao.getIdDisciplina() == tabelaDisciplinas.getSelectionModel().getSelectedItem().getId()) {
 					bo2.remover(questao);

@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import exception.InsertException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,7 +19,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import model.BO.ProvaBO;
+import model.BO.ProvaInterBO;
 import model.BO.QuestaoBO;
+import model.VO.ProvaVO;
 import model.VO.QuestaoVO;
 import view.Telas;
 
@@ -62,7 +65,7 @@ public class QuestoesDaProvaController implements Initializable {
 
 	ObservableList<QuestaoVO> list = FXCollections.observableArrayList();
 
-	private ProvaBO bo = new ProvaBO();
+	private ProvaInterBO<ProvaVO> bo = new ProvaBO<>();
 	private QuestaoBO<QuestaoVO> boQ = new QuestaoBO<>();
 
 	@Override
@@ -94,7 +97,12 @@ public class QuestoesDaProvaController implements Initializable {
 			errorRemover.setVisible(true);
 		}
 		if (list.size() == 0) {
-			bo.remover(ProvasController.getLastSelectedProva());
+			try {
+				bo.remover(ProvasController.getLastSelectedProva());
+			} catch (InsertException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			try {
 				Telas.telaDasProvas();
 			} catch (IOException e) {

@@ -4,13 +4,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import exception.InsertException;
-import model.DAO.QuestaoDAO;
+import model.DAO.ObjetivaDAO;
 import model.DAO.QuestaoInterDAO;
 import model.VO.ObjetivaVO;
 
 public class ObjetivaBO<VO extends ObjetivaVO> extends QuestaoBO<VO> implements QuestaoInterBO<VO> {
 	
-	static private QuestaoInterDAO<ObjetivaVO> dao = new QuestaoDAO<ObjetivaVO>();
+	static private QuestaoInterDAO<ObjetivaVO> dao = new ObjetivaDAO<>();
 	
 	public void cadastrar(VO vo) {
 		ResultSet rs;

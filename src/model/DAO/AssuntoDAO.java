@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import exception.AssuntoMuitoLongoException;
-import exception.DisciplinaNaoSelecionadaException;
 import model.VO.AssuntoVO;
 import model.VO.DisciplinaVO;
 import model.VO.QuestaoVO;
