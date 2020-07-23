@@ -5,11 +5,12 @@ import java.sql.SQLException;
 
 import exception.InsertException;
 import model.DAO.MultiplaEscolhaDAO;
+import model.DAO.QuestaoInterDAO;
 import model.VO.MultiplaEscolhaVO;
 
-public class MultiplaEscolhaBO extends ObjetivaBO<MultiplaEscolhaVO> {
+public class MultiplaEscolhaBO extends ObjetivaBO<MultiplaEscolhaVO> implements BaseInterBO<MultiplaEscolhaVO> {
 	
-	MultiplaEscolhaDAO dao = new MultiplaEscolhaDAO();
+	QuestaoInterDAO<MultiplaEscolhaVO> dao = new MultiplaEscolhaDAO<>();
 	
 	public void cadastrar(MultiplaEscolhaVO vo) {
 		ResultSet rs;
@@ -19,7 +20,12 @@ public class MultiplaEscolhaBO extends ObjetivaBO<MultiplaEscolhaVO> {
 			if (rs.next()) {
 				throw new InsertException("Ja existe essa questao!");
 			} else {
-				dao.inserir(vo);
+				try {
+					dao.inserir(vo);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -35,7 +41,12 @@ public class MultiplaEscolhaBO extends ObjetivaBO<MultiplaEscolhaVO> {
 			if (rs.next()) {
 				throw new InsertException("Ja existe essa questao!");
 			} else {
-				dao.inserir(vo);
+				try {
+					dao.inserir(vo);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

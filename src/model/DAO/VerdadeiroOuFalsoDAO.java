@@ -5,10 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import model.VO.MultiplaEscolhaVO;
 import model.VO.VerdadeiroOuFalsoVO;
 
-public class VerdadeiroOuFalsoDAO extends ObjetivaDAO<VerdadeiroOuFalsoVO>{
+public class VerdadeiroOuFalsoDAO extends ObjetivaDAO<VerdadeiroOuFalsoVO> implements QuestaoInterDAO<VerdadeiroOuFalsoVO>{
 	
 	public void inserir(VerdadeiroOuFalsoVO vo) throws SQLException {
 		super.inserir(vo);
@@ -64,7 +63,7 @@ public class VerdadeiroOuFalsoDAO extends ObjetivaDAO<VerdadeiroOuFalsoVO>{
 		return rs;
 	}
 	
-	public ResultSet buscarPorId(MultiplaEscolhaVO vo) {
+	public ResultSet buscarPorId(VerdadeiroOuFalsoVO vo) {
 		String sql = "select * from VerdadeiroOuFalso where id_questao = ?";
 		PreparedStatement ptst;
 		ResultSet rs = null;
@@ -88,6 +87,23 @@ public class VerdadeiroOuFalsoDAO extends ObjetivaDAO<VerdadeiroOuFalsoVO>{
 		try {
 			st = getConnection().createStatement();
 			rs = st.executeQuery(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
+	public ResultSet listarPorDisciplina(VerdadeiroOuFalsoVO vo) {
+		// TODO Auto-generated method stub
+		String sql = "select * from Questao inner join VerdadeiroOuFalso on Questao.id = VerdadeiroOuFalso.id_questao where id_disciplina = ?";
+		PreparedStatement ptst;
+		ResultSet rs = null;
+
+		try {
+			ptst = getConnection().prepareStatement(sql);
+			ptst.setLong(1, vo.getIdDisciplina());
+			rs = ptst.executeQuery();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

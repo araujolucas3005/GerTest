@@ -9,31 +9,33 @@ import exception.AssuntoMuitoLongoException;
 import exception.DisciplinaNaoSelecionadaException;
 import exception.InsertException;
 import model.DAO.AssuntoDAO;
+import model.DAO.AssuntoInterDAO;
 import model.VO.AssuntoVO;
 import model.VO.DisciplinaVO;
 import model.VO.QuestaoVO;
 
-public class AssuntoBO extends BaseBO<AssuntoVO> {
+public class AssuntoBO extends BaseBO<AssuntoVO> implements AssuntoInterBO<AssuntoVO> {
 
-	private static AssuntoDAO dao = new AssuntoDAO();
+	private static AssuntoInterDAO<AssuntoVO> dao = new AssuntoDAO<>();
 
 	@Override
-	public void cadastrar(AssuntoVO assunto) throws AssuntoMuitoLongoException, Exception {
-		ResultSet rs = dao.listarPorConteudo(assunto);
+	public void cadastrar(AssuntoVO vo) throws AssuntoMuitoLongoException, Exception {
+		ResultSet rs = dao.listarPorConteudo(vo);
 
 		if (rs.next()) {
 			throw new Exception();
 		} else {
 			try {
-			dao.inserir(assunto);
+			dao.inserir(vo);
 			} catch (AssuntoMuitoLongoException e) {
 				throw new AssuntoMuitoLongoException();
 			}
 		}
 	}
 
-	public List<AssuntoVO> listarPorDisciplina(AssuntoVO assunto) {
-		ResultSet rs = dao.listarPorDisciplina(assunto);
+	public List<AssuntoVO> listarPorDisciplina(AssuntoVO vo) {
+		
+		ResultSet rs = dao.listarPorDisciplina(vo);
 		List<AssuntoVO> assuntos = new ArrayList<>();
 
 		try {
@@ -52,16 +54,13 @@ public class AssuntoBO extends BaseBO<AssuntoVO> {
 	}
 
 	@Override
-	public AssuntoVO buscarPorId(AssuntoVO assunto) {
-		ResultSet rs = dao.listarPorId(assunto);
-		AssuntoVO assunt = null;
-
+	public AssuntoVO buscarPorId(AssuntoVO vo) {
 		try {
+			ResultSet rs = dao.listarPorId(vo);
 			if (rs.next()) {
-				assunt = new AssuntoVO();
-				assunt.setConteudo(rs.getString("conteudo"));
-				assunt.setId(rs.getLong("id"));
-				assunto.setIdDisciplina(rs.getLong("id_disciplina"));
+				vo.setConteudo(rs.getString("conteudo"));
+				vo.setId(rs.getLong("id"));
+				vo.setIdDisciplina(rs.getLong("id_disciplina"));
 			} else {
 				throw new InsertException("Não existe esse assunto!");
 			}
@@ -72,16 +71,16 @@ public class AssuntoBO extends BaseBO<AssuntoVO> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return assunt;
+		return vo;
 	}
 
 	@Override
 	public List<AssuntoVO> listar() throws InsertException {
-		ResultSet rs = dao.listar();
 		AssuntoVO assunto = null;
 		List<AssuntoVO> assuntos = new ArrayList<>();
 
 		try {
+			ResultSet rs = dao.listar();
 			while (rs.next()) {
 				assunto = new AssuntoVO();
 				assunto.setConteudo(rs.getString("conteudo"));
@@ -97,24 +96,24 @@ public class AssuntoBO extends BaseBO<AssuntoVO> {
 	}
 
 	@Override
-	public void alterar(AssuntoVO assunto) throws Exception {
-		ResultSet rs = dao.listarPorConteudo(assunto);
+	public void alterar(AssuntoVO vo) throws Exception {
+		ResultSet rs = dao.listarPorConteudo(vo);
 
 		if (rs.next()) {
 			throw new Exception();
 		} else {
-			dao.atualizar(assunto);
+			dao.atualizar(vo);
 		}
 	}
 
 	@Override
-	public void remover(AssuntoVO assunto) throws InsertException {
+	public void remover(AssuntoVO vo) throws InsertException {
 		// TODO Auto-generated method stub
-		ResultSet rs = dao.listarPorConteudo(assunto);
+		ResultSet rs = dao.listarPorConteudo(vo);
 
 		try {
 			if (rs.next()) {
-				dao.remover(assunto);
+				dao.remover(vo);
 			} else {
 				throw new InsertException("Esse assunto nao existe!");
 			}
@@ -146,7 +145,7 @@ public class AssuntoBO extends BaseBO<AssuntoVO> {
 		return assuntos;		
 	}
 
-	public List<AssuntoVO> listarPorDisciplina(QuestaoVO questao) throws SQLException {
+	public List<AssuntoVO> listarPorDisciplina(QuestaoVO questao) {
 		ResultSet rs = dao.listarPorDisciplina(questao);
 		List<AssuntoVO> assuntos = new ArrayList<>();
 		try {

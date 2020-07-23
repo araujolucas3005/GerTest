@@ -2,9 +2,11 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import exception.InsertException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,9 +16,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.BO.BaseInterBO;
 import model.BO.ProvaBO;
+import model.BO.ProvaInterBO;
 import model.BO.QuestaoBO;
-import model.VO.DiscursivaVO;
+import model.VO.ProvaVO;
 import model.VO.QuestaoVO;
 import view.Telas;
 import javafx.fxml.Initializable;
@@ -47,24 +51,36 @@ public class AdicionarQuestaoProvaController implements Initializable {
 	@FXML
 	private Label error2;
 	
-	private QuestaoBO<QuestaoVO> bo = new QuestaoBO<>();
-	private ProvaBO bo2 = new ProvaBO();
+	private BaseInterBO<QuestaoVO> bo = new QuestaoBO<>();
+	private ProvaInterBO<ProvaVO> bo2 = new ProvaBO();
 
 	private ObservableList<QuestaoVO> list = FXCollections.observableArrayList();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+
 		// TODO Auto-generated method stub
-		QuestaoVO temp = new DiscursivaVO();
-		temp.setIdDisciplina(DisciplinasController.lastSelectedDisciplina().getId());
-		List<QuestaoVO> questoes = bo.listarPorDisciplina(temp);
+		List<QuestaoVO> questoes = null;
+		try {
+			questoes = bo.listar();
+		} catch (InsertException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		List<QuestaoVO> questoesDaDisciplina = new ArrayList<>();
+		for (int i = 0; i < questoes.size(); i++) {
+			if (questoes.get(i).getIdDisciplina() == DisciplinasController.getLastSelectedDisciplina().getId()) {
+				questoesDaDisciplina.add(questoes.get(i));
+			}
+		}
+		
 		List<QuestaoVO> questoesDaProva = bo2.listarQuestoes(ProvasController.getLastSelectedProva());
 		for (QuestaoVO questao : questoesDaProva) {
-			
 			// se os codigos forem iguais, a questao ja esta na prova
-			questoes.removeIf(q -> q.getCodigo().equals(questao.getCodigo()));
+			questoesDaDisciplina.removeIf(q -> q.getCodigo().equals(questao.getCodigo()));
 		}
-		list.addAll(questoes);
+		list.addAll(questoesDaDisciplina);
 		
 		nivel.setCellValueFactory(new PropertyValueFactory<QuestaoVO, Integer>("nivel"));
 		gabarito.setCellValueFactory(new PropertyValueFactory<QuestaoVO, String>("gabarito"));

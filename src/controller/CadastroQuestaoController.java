@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import exception.AssuntoNaoPertenceException;
 import exception.CampoEmBrancoException;
 import exception.DisciplinaNaoSelecionadaException;
+import exception.InsertException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -20,6 +21,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.BO.AssuntoBO;
+import model.BO.AssuntoInterBO;
+import model.BO.BaseInterBO;
 import model.BO.DisciplinaBO;
 import model.BO.DiscursivaBO;
 import model.BO.MultiplaEscolhaBO;
@@ -46,11 +49,11 @@ public class CadastroQuestaoController implements Initializable{
 	@FXML private Label error2;
 	
 	ObservableList<DisciplinaVO> list2 = FXCollections.observableArrayList();
-	AssuntoBO boA = new AssuntoBO();
-	DisciplinaBO boD = new DisciplinaBO();
-	DiscursivaBO discBO = new DiscursivaBO();
-	MultiplaEscolhaBO meBO = new MultiplaEscolhaBO();
-	VerdadeiroOuFalsoBO vofBO = new VerdadeiroOuFalsoBO();
+	AssuntoInterBO<AssuntoVO> boA = new AssuntoBO();
+	BaseInterBO<DisciplinaVO> boD = new DisciplinaBO();
+	BaseInterBO<DiscursivaVO> discBO = new DiscursivaBO();
+	BaseInterBO<MultiplaEscolhaVO> meBO = new MultiplaEscolhaBO();
+	BaseInterBO<VerdadeiroOuFalsoVO> vofBO = new VerdadeiroOuFalsoBO();
 	private static DisciplinaVO lastSelected;
 	
 	@Override
@@ -63,7 +66,13 @@ public class CadastroQuestaoController implements Initializable{
 			gabaritoQuestao.setText("Subjetivo");
 			gabaritoQuestao.setEditable(false);
 		}
-		List<DisciplinaVO> disciplinas = boD.listar();
+		List<DisciplinaVO> disciplinas = null;
+		try {
+			disciplinas = boD.listar();
+		} catch (InsertException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		list2.addAll(disciplinas);
 		
 		disciplinaColuna.setCellValueFactory(new PropertyValueFactory<DisciplinaVO, String>("nome"));

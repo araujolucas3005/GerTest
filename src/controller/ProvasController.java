@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import exception.CampoEmBrancoException;
+import exception.InsertException;
 import exception.TipoErradoExcepetion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +18,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.BO.ProvaBO;
+import model.BO.ProvaInterBO;
 import model.VO.ProvaVO;
 import view.Telas;
 
@@ -51,16 +53,16 @@ public class ProvasController implements Initializable {
     
     private static ProvaVO lastSelectedProva;
     
-    private ProvaBO bo = new ProvaBO();
+    private ProvaInterBO<ProvaVO> bo = new ProvaBO();
     
     ObservableList<ProvaVO> list = FXCollections.observableArrayList();
     
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-    	provasDe.setText(provasDe.getText() + DisciplinasController.lastSelectedDisciplina().getNome());
+    	provasDe.setText(provasDe.getText() + DisciplinasController.getLastSelectedDisciplina().getNome());
 		ProvaVO prova = new ProvaVO();
-		prova.setIdDisciplina(DisciplinasController.lastSelectedDisciplina().getId());
+		prova.setIdDisciplina(DisciplinasController.getLastSelectedDisciplina().getId());
 		List<ProvaVO> provas = bo.listarPorDisciplina(prova);
 		list.addAll(provas);
 
@@ -117,7 +119,7 @@ public class ProvasController implements Initializable {
     				throw new TipoErradoExcepetion();
     			}
     		}
-    		prova.setIdDisciplina(DisciplinasController.lastSelectedDisciplina().getId());
+    		prova.setIdDisciplina(DisciplinasController.getLastSelectedDisciplina().getId());
     		prova.setNivel1(Integer.parseInt(gerarNivel1.getText()));
     		prova.setNivel2(Integer.parseInt(gerarNivel2.getText()));
     		prova.setNivel3(Integer.parseInt(gerarNivel3.getText()));
@@ -133,7 +135,12 @@ public class ProvasController implements Initializable {
     	} catch (Exception e) {
     		error.setText("Nao tem essa quantidade de questoes na disciplina!");
     		error.setVisible(true);
-    		bo.remover(prova);
+    		try {
+				bo.remover(prova);
+			} catch (InsertException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
     		list.remove(prova);
     	}
     }

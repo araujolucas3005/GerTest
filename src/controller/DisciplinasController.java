@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
 import java.net.URL;
@@ -17,15 +18,16 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.BO.AssuntoBO;
+import model.BO.BaseInterBO;
 import model.BO.DisciplinaBO;
 import model.BO.QuestaoBO;
+import model.VO.AssuntoVO;
 import model.VO.DisciplinaVO;
 import model.VO.QuestaoVO;
 import view.Telas;
 
 public class DisciplinasController implements Initializable {
-	DisciplinaBO bo = new DisciplinaBO();
-
 	@FXML
 	private Label error2;
 
@@ -59,6 +61,7 @@ public class DisciplinasController implements Initializable {
 	private static DisciplinaVO lastSelectedDisciplina;
 
 	ObservableList<DisciplinaVO> list = FXCollections.observableArrayList();
+	BaseInterBO<DisciplinaVO> bo = new DisciplinaBO();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -67,7 +70,13 @@ public class DisciplinasController implements Initializable {
 	}
 
 	public void loadData() {
-		List<DisciplinaVO> disciplinas = bo.listar();
+		List<DisciplinaVO> disciplinas = new ArrayList<>();
+		try {
+			disciplinas = bo.listar();
+		} catch (InsertException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		list.addAll(disciplinas);
 
 		id.setCellValueFactory(new PropertyValueFactory<DisciplinaVO, Long>("id"));
@@ -82,17 +91,23 @@ public class DisciplinasController implements Initializable {
 	}
 
 	public void removerDisciplina(ActionEvent event) {
-		DisciplinaBO bo = new DisciplinaBO();
-		QuestaoBO<QuestaoVO> bo2 = new QuestaoBO<>();
+		BaseInterBO<QuestaoVO> bo2 = new QuestaoBO<>();
+		BaseInterBO<AssuntoVO> bo3 = new AssuntoBO();
 		try {
 			if (tabelaDisciplinas.getSelectionModel().getSelectedItem() == null) {
 				throw new Exception();
 			}
 			bo.remover(tabelaDisciplinas.getSelectionModel().getSelectedItem());
-			List<QuestaoVO> questoes = bo2.listarTodos();
+			List<QuestaoVO> questoes = bo2.listar();
 			for (QuestaoVO questao : questoes) {
 				if (questao.getIdDisciplina() == tabelaDisciplinas.getSelectionModel().getSelectedItem().getId()) {
 					bo2.remover(questao);
+				}
+			}
+			for (AssuntoVO assunto : bo3.listar()) {
+				if (assunto.getIdDisciplina() == tabelaDisciplinas.getSelectionModel().getSelectedItem().getId()) {
+					System.out.println(assunto.getConteudo());
+					bo3.remover(assunto);
 				}
 			}
 			tabelaDisciplinas.getItems().removeAll(tabelaDisciplinas.getSelectionModel().getSelectedItem());
@@ -102,11 +117,11 @@ public class DisciplinasController implements Initializable {
 		}
 	}
 
-	public static DisciplinaVO lastSelectedDisciplina() {
+	public static DisciplinaVO getLastSelectedDisciplina() {
 		return lastSelectedDisciplina;
 	}
 
-	public static void lastSelectedDisciplina(DisciplinaVO lastSelected) {
+	public static void setLastSelectedDisciplina(DisciplinaVO lastSelected) {
 		DisciplinasController.lastSelectedDisciplina = lastSelected;
 	}
 
@@ -142,6 +157,7 @@ public class DisciplinasController implements Initializable {
 						posicao = i;
 					}
 				}
+				lastSelectedDisciplina = tabelaDisciplinas.getSelectionModel().getSelectedItem();
 				list.set(posicao, disciplina);
 			}
 		} catch (InsertException e) {

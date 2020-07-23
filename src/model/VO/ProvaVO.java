@@ -61,7 +61,7 @@ public class ProvaVO {
 	}
 
 	public void setNivel1(int nivel1) {
-		if (nivel1 <= 0)
+		if (nivel1 < 0)
 			this.nivel1 = 1;
 		else
 			this.nivel1 = nivel1;
@@ -72,7 +72,7 @@ public class ProvaVO {
 	}
 
 	public void setNivel2(int nivel2) {
-		if (nivel2 <= 0)
+		if (nivel2 < 0)
 			this.nivel2 = 1;
 		else
 			this.nivel2 = nivel2;
@@ -83,7 +83,7 @@ public class ProvaVO {
 	}
 
 	public void setNivel3(int nivel3) {
-		if (nivel3 <= 0)
+		if (nivel3 < 0)
 			this.nivel3 = 1;
 		else
 			this.nivel3 = nivel3;
@@ -94,7 +94,7 @@ public class ProvaVO {
 	}
 
 	public void setNivel4(int nivel4) {
-		if (nivel4 <= 0)
+		if (nivel4 < 0)
 			this.nivel4 = 1;
 		else
 			this.nivel4 = nivel4;

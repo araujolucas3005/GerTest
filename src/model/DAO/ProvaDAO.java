@@ -8,9 +8,9 @@ import java.sql.Statement;
 import model.VO.ProvaVO;
 import model.VO.QuestaoVO;
 
-public class ProvaDAO extends BaseDAO<ProvaVO> {
+public class ProvaDAO<VO extends ProvaVO> extends BaseDAO<VO> implements ProvaInterDAO<VO> {
 
-	public void inserir(ProvaVO prova) throws Exception {
+	public void inserir(VO prova) throws Exception {
 		String sql = "insert into prova (nivel1,nivel2,nivel3,nivel4, id_disciplina) values (?,?,?,?,?)";
 		PreparedStatement ptst = null;
 
@@ -50,14 +50,15 @@ public class ProvaDAO extends BaseDAO<ProvaVO> {
 		PreparedStatement ptst2;
 		ResultSet rs;
 
+		int rowsAffected = 0;
 		try {
 			ptst = getConnection().prepareStatement(sql);
 			ptst2 = getConnection().prepareStatement(sql2);
+
 			ptst.setLong(1, prova.getIdDisciplina());
 			ptst.setInt(2, 1);
 			ptst.setInt(3, prova.getNivel1());
 			rs = ptst.executeQuery();
-			int rowsAffected = 0;
 			while (rs.next()) {
 				rowsAffected++;
 			}
@@ -76,6 +77,7 @@ public class ProvaDAO extends BaseDAO<ProvaVO> {
 			ptst.setInt(2, 2);
 			ptst.setInt(3, prova.getNivel2());
 			rs = ptst.executeQuery();
+
 			while (rs.next()) {
 				ptst2.setLong(1, rs.getLong("id"));
 				ptst2.setLong(2, prova.getId());
@@ -132,7 +134,7 @@ public class ProvaDAO extends BaseDAO<ProvaVO> {
 	}
 
 	// nao consegui pensar em outro jeito de fazer
-	public void inserirQuestaoAvulsa(ProvaVO prova, QuestaoVO questao) {
+	public void inserirQuestaoAvulsa(VO prova, QuestaoVO questao) {
 		String sql = "insert into Prova_Questao (id_questao,id_prova) values (?,?)";
 		try {
 			PreparedStatement ptst = getConnection().prepareStatement(sql);
@@ -146,7 +148,7 @@ public class ProvaDAO extends BaseDAO<ProvaVO> {
 
 	}
 
-	public void remover(ProvaVO prova) {
+	public void remover(VO prova) {
 		String sql = "delete from Prova_Questao where id_prova = ?";
 		PreparedStatement ptst;
 
@@ -171,7 +173,7 @@ public class ProvaDAO extends BaseDAO<ProvaVO> {
 		}
 	}
 
-	public void atualizar(ProvaVO prova) {
+	public void atualizar(VO prova) {
 		String sql = "update prova set nivel1 = ?, nivel2 = ?, nivel3 = ?, nivel4 = ?";
 		PreparedStatement ptst;
 
@@ -203,7 +205,7 @@ public class ProvaDAO extends BaseDAO<ProvaVO> {
 		return rs;
 	}
 
-	public ResultSet listarQuestoes(ProvaVO prova) {
+	public ResultSet listarQuestoes(VO prova) {
 		String sql = "select * from Questao inner join Prova_Questao on Questao.id = Prova_Questao.id_questao and Prova_Questao.id_prova = ?";
 		PreparedStatement ptst;
 		ResultSet rs = null;
@@ -218,7 +220,7 @@ public class ProvaDAO extends BaseDAO<ProvaVO> {
 		return rs;
 	}
 
-	public ResultSet listarPorDisciplina(ProvaVO prova) {
+	public ResultSet listarPorDisciplina(VO prova) {
 		String sql = "select * from Prova where id_disciplina = ?";
 		PreparedStatement ptst;
 		ResultSet rs = null;
@@ -234,7 +236,7 @@ public class ProvaDAO extends BaseDAO<ProvaVO> {
 		return rs;
 	}
 
-	public ResultSet listarPorId(ProvaVO prova) {
+	public ResultSet listarPorId(VO prova) {
 		String sql = "select * from Prova where id = ?";
 		PreparedStatement ptst;
 		ResultSet rs = null;

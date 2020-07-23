@@ -7,9 +7,9 @@ import java.sql.Statement;
 
 import model.VO.DiscursivaVO;
 
-public class DiscursivaDAO extends QuestaoDAO<DiscursivaVO> {
+public class DiscursivaDAO<VO extends DiscursivaVO> extends QuestaoDAO<VO> implements QuestaoInterDAO<VO> {
 	@Override
-	public void inserir(DiscursivaVO vo) throws SQLException{
+	public void inserir(VO vo) throws SQLException{
 		try {
 			super.inserir(vo);
 			String sql = "insert into Discursiva (id_questao) values (?)";
@@ -26,7 +26,7 @@ public class DiscursivaDAO extends QuestaoDAO<DiscursivaVO> {
 		}
 	}
 	
-	public void remover(DiscursivaVO vo) throws SQLException {
+	public void remover(VO vo) throws SQLException {
 		// TODO Auto-generated method stub
 		String sql = "delete from Discursiva where id_questao = ?";
 		PreparedStatement ptst;
@@ -58,7 +58,7 @@ public class DiscursivaDAO extends QuestaoDAO<DiscursivaVO> {
 		return rs;
 	}
 	
-	public ResultSet buscarPorIdQuestao(DiscursivaVO vo) {
+	public ResultSet buscarPorIdQuestao(VO vo) {
 		String sql = "select * from Discursiva where id_questao = ?";
 		PreparedStatement ptst;
 		ResultSet rs = null;
@@ -74,19 +74,20 @@ public class DiscursivaDAO extends QuestaoDAO<DiscursivaVO> {
 		return rs;
 	}
 	
-	public ResultSet listarQuestaoProva() {
-		String sql = "select * from Questao inner join Prova_Questao on Questao.id = Prova_Questao.id_questao inner join Discursiva on Questao.id = Discursiva.id_questao";
+	public ResultSet listarPorDisciplina(VO vo) {
+		// TODO Auto-generated method stub
+		String sql = "select * from Questao inner join Discursiva on Questao.id = Discursiva.id_questao where id_disciplina = ?";
+		PreparedStatement ptst;
 		ResultSet rs = null;
-		Statement st;
-		
+
 		try {
-			st = getConnection().createStatement();
-			rs = st.executeQuery(sql);
+			ptst = getConnection().prepareStatement(sql);
+			ptst.setLong(1, vo.getIdDisciplina());
+			rs = ptst.executeQuery();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		return rs;
 	}
 }

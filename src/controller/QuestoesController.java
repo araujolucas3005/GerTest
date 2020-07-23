@@ -14,14 +14,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.BO.AssuntoBO;
+import model.BO.AssuntoInterBO;
 import model.BO.QuestaoBO;
 import model.VO.AssuntoVO;
 import model.VO.QuestaoVO;
 import view.Telas;
 
-public class QuestoesController implements Initializable{
+public class QuestoesController implements Initializable {
 	QuestaoBO<QuestaoVO> boQ = new QuestaoBO<QuestaoVO>();
-	AssuntoBO boA = new AssuntoBO();
+	AssuntoInterBO<AssuntoVO> boA = new AssuntoBO();
 	
 	@FXML private TableView<QuestaoVO> tabelaQuestoes;
 	@FXML private TableColumn<QuestaoVO, Long> idQuestao;
@@ -41,11 +42,11 @@ public class QuestoesController implements Initializable{
 	@Override
 	public void initialize(URL local, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-				loadData();
+		loadData();
 	}
 	
 	public void loadData() {
-		List<QuestaoVO> questoes =  boQ.listarTodos();
+		List<QuestaoVO> questoes = boQ.listar();
 		list.addAll(questoes);
 		
 		idQuestao.setCellValueFactory(new PropertyValueFactory<QuestaoVO, Long>("idQuestao"));

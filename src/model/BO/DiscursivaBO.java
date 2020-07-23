@@ -5,11 +5,12 @@ import java.sql.SQLException;
 
 import exception.InsertException;
 import model.DAO.DiscursivaDAO;
+import model.DAO.QuestaoInterDAO;
 import model.VO.DiscursivaVO;
 
-public class DiscursivaBO extends QuestaoBO<DiscursivaVO> {
+public class DiscursivaBO extends QuestaoBO<DiscursivaVO> implements BaseInterBO<DiscursivaVO> {
 	
-	DiscursivaDAO dao = new DiscursivaDAO();
+	QuestaoInterDAO<DiscursivaVO> dao = new DiscursivaDAO<>();
 	
 	public void cadastrar(DiscursivaVO vo) throws SQLException {
 		ResultSet rs;
@@ -19,7 +20,12 @@ public class DiscursivaBO extends QuestaoBO<DiscursivaVO> {
 			if (rs.next()) {
 				throw new InsertException("Ja existe essa questao!");
 			} else {
-				dao.inserir(vo);
+				try {
+					dao.inserir(vo);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -35,7 +41,12 @@ public class DiscursivaBO extends QuestaoBO<DiscursivaVO> {
 			if (rs.next()) {
 				throw new InsertException("Ja existe essa questao!");
 			} else {
-				dao.inserir(vo);
+				try {
+					dao.inserir(vo);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

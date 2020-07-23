@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -7,25 +8,13 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="298.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CriarDisciplinaController">
    <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="329.0" layoutX="180.0" layoutY="-10.0" stroke="TRANSPARENT" strokeType="INSIDE" width="438.0" />
       <TextField fx:id="nomeDisciplina" layoutX="306.0" layoutY="103.0" prefHeight="25.0" prefWidth="196.0" />
-      <TextField fx:id="codigoDisciplina" layoutX="305.0" layoutY="145.0" prefHeight="25.0" prefWidth="196.0" promptText="EXA, BIO ou HUM " />
-      <TextField fx:id="tipoDisciplina" layoutX="305.0" layoutY="187.0" prefHeight="25.0" prefWidth="196.0" promptText="Exata, Biologica ou Humana" />
-      <Button layoutX="355.0" layoutY="247.0" mnemonicParsing="false" onAction="#cadastrarDisciplina" prefHeight="25.0" prefWidth="99.0" text="Criar" />
+      <TextField fx:id="codigoDisciplina" layoutX="305.0" layoutY="145.0" prefHeight="25.0" prefWidth="196.0" />
+      <Button layoutX="355.0" layoutY="208.0" mnemonicParsing="false" onAction="#cadastrarDisciplina" prefHeight="25.0" prefWidth="99.0" text="Criar" />
       <Label layoutX="384.0" layoutY="86.0" text="Nome" />
       <Label layoutX="380.0" layoutY="128.0" text="Codigo" />
-      <Label layoutX="388.0" layoutY="170.0" text="Tipo" />
-      <Label fx:id="error" alignment="CENTER" layoutX="173.0" layoutY="222.0" prefHeight="17.0" prefWidth="460.0" text="Label" textAlignment="CENTER" textFill="#bf0000" visible="false" />
+      <Label fx:id="error" alignment="CENTER" layoutX="169.0" layoutY="180.0" prefHeight="17.0" prefWidth="460.0" text="Label" textAlignment="CENTER" textFill="#bf0000" visible="false" />
       <Button layoutX="19.0" layoutY="14.0" mnemonicParsing="false" onAction="#retornar" text="&lt;" />
-      <Label layoutX="209.0" layoutY="31.0" text="O codigo deve obecer o formato EXA, BIO ou HUM seguido de 4 digitos (ex: EXA3391)">
-         <font>
-            <Font size="10.0" />
-         </font>
-      </Label>
-      <Label layoutX="234.0" layoutY="50.0" text="Se o codigo estiver com formato errrado, um novo aleatorio sera gerado">
-         <font>
-            <Font size="10.0" />
-         </font>
-      </Label>
-      <Label layoutX="375.0" layoutY="13.0" text="Atencão:" textFill="#c30000" />
    </children>
 </Pane>

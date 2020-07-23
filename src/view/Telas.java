@@ -124,5 +124,4 @@ public class Telas extends Application {
 	public static void main(String[] args) {
 		launch();
 	}
-
 }
