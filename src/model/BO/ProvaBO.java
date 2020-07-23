@@ -14,20 +14,20 @@ import model.VO.ProvaVO;
 import model.VO.QuestaoVO;
 import model.VO.VerdadeiroOuFalsoVO;
 
-public class ProvaBO<VO extends ProvaVO> extends BaseBO<VO> implements ProvaInterBO<VO>{
+public class ProvaBO extends BaseBO<ProvaVO> implements ProvaInterBO<ProvaVO>{
 
 	ProvaInterDAO<ProvaVO> dao = new ProvaDAO<>();
 
-	public void cadastrar(VO prova) throws Exception {
+	public void cadastrar(ProvaVO vo) throws Exception {
 		try {
-			dao.inserir(prova);
+			dao.inserir(vo);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw new Exception();
 		}
 	}
 	
-	public void cadastrarQuestaoAvulsa(VO prova, QuestaoVO questao) {
+	public void cadastrarQuestaoAvulsa(ProvaVO prova, QuestaoVO questao) {
 		dao.inserirQuestaoAvulsa(prova, questao);
 	}
 
@@ -65,9 +65,8 @@ public class ProvaBO<VO extends ProvaVO> extends BaseBO<VO> implements ProvaInte
 		}
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<VO> listar(VO prova) {
-		List<VO> provas = new ArrayList<>();
+	public List<ProvaVO> listar(ProvaVO prova) {
+		List<ProvaVO> provas = new ArrayList<>();
 
 		try {
 			ResultSet rs = dao.listar();
@@ -78,7 +77,7 @@ public class ProvaBO<VO extends ProvaVO> extends BaseBO<VO> implements ProvaInte
 				prov.setNivel2(rs.getInt("nivel2"));
 				prov.setNivel3(rs.getInt("nivel3"));
 				prov.setNivel4(rs.getInt("nivel4"));
-				provas.add((VO)prov);
+				provas.add(prov);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -88,10 +87,9 @@ public class ProvaBO<VO extends ProvaVO> extends BaseBO<VO> implements ProvaInte
 		return provas;
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<VO> listarPorDisciplina(ProvaVO prova) {
+	public List<ProvaVO> listarPorDisciplina(ProvaVO prova) {
 		ResultSet rs = dao.listarPorDisciplina(prova);
-		List<VO> provas = new ArrayList<>();
+		List<ProvaVO> provas = new ArrayList<>();
 
 		try {
 			while (rs.next()) {
@@ -101,7 +99,7 @@ public class ProvaBO<VO extends ProvaVO> extends BaseBO<VO> implements ProvaInte
 				prov.setNivel2(rs.getInt("nivel2"));
 				prov.setNivel3(rs.getInt("nivel3"));
 				prov.setNivel4(rs.getInt("nivel4"));
-				provas.add((VO)prov);
+				provas.add(prov);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -111,7 +109,7 @@ public class ProvaBO<VO extends ProvaVO> extends BaseBO<VO> implements ProvaInte
 		return provas;
 	}
 
-	public VO buscarPorId(VO prova) {
+	public ProvaVO buscarPorId(ProvaVO prova) {
 		try {
 			ResultSet rs = dao.listarPorId(prova);
 			while (rs.next()) {
@@ -128,7 +126,7 @@ public class ProvaBO<VO extends ProvaVO> extends BaseBO<VO> implements ProvaInte
 		return prova;
 	}
 
-	public List<QuestaoVO> listarQuestoes(VO prova) {
+	public List<QuestaoVO> listarQuestoes(ProvaVO prova) {
 		List<QuestaoVO> questoes = new ArrayList<>();
 		ResultSet rs = dao.listarQuestoes(prova);
 		

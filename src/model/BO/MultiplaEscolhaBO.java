@@ -2,20 +2,17 @@ package model.BO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import exception.InsertException;
 import model.DAO.MultiplaEscolhaDAO;
 import model.DAO.QuestaoInterDAO;
 import model.VO.MultiplaEscolhaVO;
-import model.VO.QuestaoVO;
 
-public class MultiplaEscolhaBO<VO extends MultiplaEscolhaVO> extends ObjetivaBO<VO> implements QuestaoInterBO<VO>{
+public class MultiplaEscolhaBO extends ObjetivaBO<MultiplaEscolhaVO> implements BaseInterBO<MultiplaEscolhaVO> {
 	
 	QuestaoInterDAO<MultiplaEscolhaVO> dao = new MultiplaEscolhaDAO<>();
 	
-	public void cadastrar(VO vo) {
+	public void cadastrar(MultiplaEscolhaVO vo) {
 		ResultSet rs;
 
 		try {
@@ -36,7 +33,7 @@ public class MultiplaEscolhaBO<VO extends MultiplaEscolhaVO> extends ObjetivaBO<
 		}
 	}
 	
-	public void remover(VO vo) {
+	public void remover(MultiplaEscolhaVO vo) {
 		ResultSet rs;
 
 		try {
@@ -55,29 +52,5 @@ public class MultiplaEscolhaBO<VO extends MultiplaEscolhaVO> extends ObjetivaBO<
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
-	@SuppressWarnings("unchecked")
-	public List<VO> listarPorDisciplina(VO vo) {
-		ResultSet rs = dao.listarPorDisciplina(vo);
-		List<VO> assuntos = new ArrayList<>();
-
-		try {
-			while (rs.next()) {
-				QuestaoVO questao = new MultiplaEscolhaVO();
-				questao.setIdQuestao(rs.getLong("id_questao"));
-				questao.setNivel(rs.getInt("nivel"));
-				questao.setEnunciado(rs.getString("enunciado"));
-				questao.setGabarito(rs.getString("gabarito"));
-				questao.setIdDisciplina(rs.getLong("id_disciplina"));
-				questao.setIdAssunto(rs.getLong("id_assunto"));
-				questao.setTipo(rs.getString("tipo"));
-				assuntos.add((VO) questao);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return assuntos;
 	}
 }

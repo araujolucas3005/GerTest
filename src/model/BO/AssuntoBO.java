@@ -14,12 +14,12 @@ import model.VO.AssuntoVO;
 import model.VO.DisciplinaVO;
 import model.VO.QuestaoVO;
 
-public class AssuntoBO<VO extends AssuntoVO> extends BaseBO<VO> implements AssuntoInterBO<VO> {
+public class AssuntoBO extends BaseBO<AssuntoVO> implements AssuntoInterBO<AssuntoVO> {
 
 	private static AssuntoInterDAO<AssuntoVO> dao = new AssuntoDAO<>();
 
 	@Override
-	public void cadastrar(VO vo) throws AssuntoMuitoLongoException, Exception {
+	public void cadastrar(AssuntoVO vo) throws AssuntoMuitoLongoException, Exception {
 		ResultSet rs = dao.listarPorConteudo(vo);
 
 		if (rs.next()) {
@@ -33,11 +33,10 @@ public class AssuntoBO<VO extends AssuntoVO> extends BaseBO<VO> implements Assun
 		}
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<VO> listarPorDisciplina(VO vo) {
+	public List<AssuntoVO> listarPorDisciplina(AssuntoVO vo) {
 		
 		ResultSet rs = dao.listarPorDisciplina(vo);
-		List<VO> assuntos = new ArrayList<>();
+		List<AssuntoVO> assuntos = new ArrayList<>();
 
 		try {
 			while (rs.next()) {
@@ -45,7 +44,7 @@ public class AssuntoBO<VO extends AssuntoVO> extends BaseBO<VO> implements Assun
 				newAssunto.setId(rs.getLong("id"));
 				newAssunto.setConteudo(rs.getString("conteudo"));
 				newAssunto.setIdDisciplina(rs.getLong("id_disciplina"));
-				assuntos.add((VO)newAssunto);
+				assuntos.add(newAssunto);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -55,7 +54,7 @@ public class AssuntoBO<VO extends AssuntoVO> extends BaseBO<VO> implements Assun
 	}
 
 	@Override
-	public VO buscarPorId(VO vo) {
+	public AssuntoVO buscarPorId(AssuntoVO vo) {
 		try {
 			ResultSet rs = dao.listarPorId(vo);
 			if (rs.next()) {
@@ -75,11 +74,10 @@ public class AssuntoBO<VO extends AssuntoVO> extends BaseBO<VO> implements Assun
 		return vo;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<VO> listar() throws InsertException {
+	public List<AssuntoVO> listar() throws InsertException {
 		AssuntoVO assunto = null;
-		List<VO> assuntos = new ArrayList<>();
+		List<AssuntoVO> assuntos = new ArrayList<>();
 
 		try {
 			ResultSet rs = dao.listar();
@@ -88,7 +86,7 @@ public class AssuntoBO<VO extends AssuntoVO> extends BaseBO<VO> implements Assun
 				assunto.setConteudo(rs.getString("conteudo"));
 				assunto.setId(rs.getLong("id"));
 				assunto.setIdDisciplina(rs.getLong("id_disciplina"));
-				assuntos.add((VO)assunto);
+				assuntos.add(assunto);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -98,7 +96,7 @@ public class AssuntoBO<VO extends AssuntoVO> extends BaseBO<VO> implements Assun
 	}
 
 	@Override
-	public void alterar(VO vo) throws Exception {
+	public void alterar(AssuntoVO vo) throws Exception {
 		ResultSet rs = dao.listarPorConteudo(vo);
 
 		if (rs.next()) {
@@ -109,7 +107,7 @@ public class AssuntoBO<VO extends AssuntoVO> extends BaseBO<VO> implements Assun
 	}
 
 	@Override
-	public void remover(VO vo) throws InsertException {
+	public void remover(AssuntoVO vo) throws InsertException {
 		// TODO Auto-generated method stub
 		ResultSet rs = dao.listarPorConteudo(vo);
 
@@ -128,10 +126,9 @@ public class AssuntoBO<VO extends AssuntoVO> extends BaseBO<VO> implements Assun
 		}
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<VO> listarPorDisciplina(DisciplinaVO disciplina) throws SQLException {
+	public List<AssuntoVO> listarPorDisciplina(DisciplinaVO disciplina) throws SQLException {
 		ResultSet rs = dao.listarPorDisciplina(disciplina);
-		List<VO> assuntos = new ArrayList<>();
+		List<AssuntoVO> assuntos = new ArrayList<>();
 
 		try {
 			while (rs.next()) {
@@ -139,7 +136,7 @@ public class AssuntoBO<VO extends AssuntoVO> extends BaseBO<VO> implements Assun
 				newAssunto.setId(rs.getLong("id"));
 				newAssunto.setConteudo(rs.getString("conteudo"));
 				newAssunto.setIdDisciplina(rs.getLong("id_disciplina"));
-				assuntos.add((VO)newAssunto);
+				assuntos.add(newAssunto);
 			}
 		} catch (DisciplinaNaoSelecionadaException e) {
 			// TODO Auto-generated catch block
@@ -148,17 +145,16 @@ public class AssuntoBO<VO extends AssuntoVO> extends BaseBO<VO> implements Assun
 		return assuntos;		
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<VO> listarPorDisciplina(QuestaoVO questao) {
+	public List<AssuntoVO> listarPorDisciplina(QuestaoVO questao) {
 		ResultSet rs = dao.listarPorDisciplina(questao);
-		List<VO> assuntos = new ArrayList<>();
+		List<AssuntoVO> assuntos = new ArrayList<>();
 		try {
 			while (rs.next()) {
 				AssuntoVO newAssunto = new AssuntoVO();
 				newAssunto.setId(rs.getLong("id"));
 				newAssunto.setConteudo(rs.getString("conteudo"));
 				newAssunto.setIdDisciplina(rs.getLong("id_disciplina"));
-				assuntos.add((VO)newAssunto);
+				assuntos.add(newAssunto);
 			}			
 		}
 		catch(SQLException e) {

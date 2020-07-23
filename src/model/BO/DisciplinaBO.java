@@ -11,11 +11,11 @@ import model.DAO.DisciplinaDAO;
 import model.DAO.DisciplinaInterDAO;
 import model.VO.DisciplinaVO;
 
-public class DisciplinaBO<VO extends DisciplinaVO> extends BaseBO<VO> implements BaseInterBO<VO>{
+public class DisciplinaBO extends BaseBO<DisciplinaVO> implements BaseInterBO<DisciplinaVO> {
 
 	private static DisciplinaInterDAO<DisciplinaVO> dDao = new DisciplinaDAO<>();
 
-	public void cadastrar(VO disciplina) throws Exception {
+	public void cadastrar(DisciplinaVO disciplina) throws Exception {
 		ResultSet rs = dDao.listarPorCodigo(disciplina);
 		ResultSet rs2 = dDao.listarPorNome(disciplina);
 		if (rs.next()) {
@@ -25,13 +25,13 @@ public class DisciplinaBO<VO extends DisciplinaVO> extends BaseBO<VO> implements
 			throw new Exception();
 		}
 		try {
-		dDao.inserir(disciplina);
+			dDao.inserir(disciplina);
 		} catch (NomeMuitoLongException e) {
 			throw new NomeMuitoLongException();
 		}
 	}
 
-	public VO buscarPorId(VO disciplina) {
+	public DisciplinaVO buscarPorId(DisciplinaVO disciplina) {
 
 		try {
 			ResultSet rs = dDao.listarPorId(disciplina);
@@ -40,7 +40,7 @@ public class DisciplinaBO<VO extends DisciplinaVO> extends BaseBO<VO> implements
 					disciplina.setId(rs.getLong("id"));
 					disciplina.setCodigo(rs.getString("codigo"));
 					disciplina.setNome(rs.getString("nome"));
-				} 
+				}
 				throw new InsertException("Não existe disciplina com esse ID!");
 			}
 		} catch (InsertException e) {
@@ -53,9 +53,8 @@ public class DisciplinaBO<VO extends DisciplinaVO> extends BaseBO<VO> implements
 		return disciplina;
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<VO> listar() {
-		List<VO> disciplinas = new ArrayList<>();
+	public List<DisciplinaVO> listar() {
+		List<DisciplinaVO> disciplinas = new ArrayList<>();
 
 		try {
 			ResultSet rs = dDao.listar();
@@ -64,7 +63,7 @@ public class DisciplinaBO<VO extends DisciplinaVO> extends BaseBO<VO> implements
 				disciplina.setNome(rs.getString("nome"));
 				disciplina.setCodigo(rs.getString("codigo"));
 				disciplina.setId(rs.getLong("id"));
-				disciplinas.add((VO)disciplina);
+				disciplinas.add(disciplina);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

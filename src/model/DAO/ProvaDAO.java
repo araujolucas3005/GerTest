@@ -50,79 +50,89 @@ public class ProvaDAO<VO extends ProvaVO> extends BaseDAO<VO> implements ProvaIn
 		PreparedStatement ptst2;
 		ResultSet rs;
 
+		int rowsAffected = 0;
 		try {
 			ptst = getConnection().prepareStatement(sql);
 			ptst2 = getConnection().prepareStatement(sql2);
-			ptst.setLong(1, prova.getIdDisciplina());
-			ptst.setInt(2, 1);
-			ptst.setInt(3, prova.getNivel1());
-			rs = ptst.executeQuery();
-			int rowsAffected = 0;
-			while (rs.next()) {
-				rowsAffected++;
-			}
-			if (rowsAffected < prova.getNivel1()) {
-				throw new Exception("Passou do limite de questoes nivel 1!");
-			} else {
+
+			if (prova.getNivel1() > 0) {
+				ptst.setLong(1, prova.getIdDisciplina());
+				ptst.setInt(2, 1);
+				ptst.setInt(3, prova.getNivel1());
 				rs = ptst.executeQuery();
 				while (rs.next()) {
-					ptst2.setLong(1, rs.getLong("id"));
-					ptst2.setLong(2, prova.getId());
-					ptst2.executeUpdate();
+					rowsAffected++;
+				}
+				if (rowsAffected < prova.getNivel1()) {
+					throw new Exception("Passou do limite de questoes nivel 1!");
+				} else {
+					rs = ptst.executeQuery();
+					while (rs.next()) {
+						ptst2.setLong(1, rs.getLong("id"));
+						ptst2.setLong(2, prova.getId());
+						ptst2.executeUpdate();
+					}
 				}
 			}
 
 			rowsAffected = 0;
-			ptst.setInt(2, 2);
-			ptst.setInt(3, prova.getNivel2());
-			rs = ptst.executeQuery();
-			while (rs.next()) {
-				ptst2.setLong(1, rs.getLong("id"));
-				ptst2.setLong(2, prova.getId());
-				rowsAffected++;
-			}
-			if (rowsAffected < prova.getNivel2()) {
-				throw new Exception("Passou do limite de questoes nivel 1!");
-			} else {
+			if (prova.getNivel2() > 0) {
+				ptst.setInt(2, 2);
+				ptst.setInt(3, prova.getNivel2());
 				rs = ptst.executeQuery();
+
 				while (rs.next()) {
-					ptst2.executeUpdate();
+					ptst2.setLong(1, rs.getLong("id"));
+					ptst2.setLong(2, prova.getId());
+					rowsAffected++;
+				}
+				if (rowsAffected < prova.getNivel2()) {
+					throw new Exception("Passou do limite de questoes nivel 1!");
+				} else {
+					rs = ptst.executeQuery();
+					while (rs.next()) {
+						ptst2.executeUpdate();
+					}
 				}
 			}
 
 			rowsAffected = 0;
-			ptst.setInt(2, 3);
-			ptst.setInt(3, prova.getNivel3());
-			rs = ptst.executeQuery();
-			while (rs.next()) {
-				rowsAffected++;
-			}
-			if (rowsAffected < prova.getNivel3()) {
-				throw new Exception("Passou do limite de questoes nivel 1!");
-			} else {
+			if (prova.getNivel3() > 0) {
+				ptst.setInt(2, 3);
+				ptst.setInt(3, prova.getNivel3());
 				rs = ptst.executeQuery();
 				while (rs.next()) {
-					ptst2.setLong(1, rs.getLong("id"));
-					ptst2.setLong(2, prova.getId());
-					ptst2.executeUpdate();
+					rowsAffected++;
+				}
+				if (rowsAffected < prova.getNivel3()) {
+					throw new Exception("Passou do limite de questoes nivel 1!");
+				} else {
+					rs = ptst.executeQuery();
+					while (rs.next()) {
+						ptst2.setLong(1, rs.getLong("id"));
+						ptst2.setLong(2, prova.getId());
+						ptst2.executeUpdate();
+					}
 				}
 			}
 
-			rowsAffected = 0;
-			ptst.setInt(2, 4);
-			ptst.setInt(3, prova.getNivel4());
-			rs = ptst.executeQuery();
-			while (rs.next()) {
-				rowsAffected++;
-			}
-			if (rowsAffected < prova.getNivel4()) {
-				throw new Exception("Passou do limite de questoes nivel 1!");
-			} else {
+			if (prova.getNivel4() > 0) {
+				rowsAffected = 0;
+				ptst.setInt(2, 4);
+				ptst.setInt(3, prova.getNivel4());
 				rs = ptst.executeQuery();
 				while (rs.next()) {
-					ptst2.setLong(1, rs.getLong("id"));
-					ptst2.setLong(2, prova.getId());
-					ptst2.executeUpdate();
+					rowsAffected++;
+				}
+				if (rowsAffected < prova.getNivel4()) {
+					throw new Exception("Passou do limite de questoes nivel 1!");
+				} else {
+					rs = ptst.executeQuery();
+					while (rs.next()) {
+						ptst2.setLong(1, rs.getLong("id"));
+						ptst2.setLong(2, prova.getId());
+						ptst2.executeUpdate();
+					}
 				}
 			}
 		} catch (Exception e) {

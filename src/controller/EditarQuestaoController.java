@@ -30,7 +30,7 @@ public class EditarQuestaoController implements Initializable {
 	@FXML private TextArea enunciadoEdicao;
 	
 	ObservableList<AssuntoVO> list = FXCollections.observableArrayList();
-	AssuntoInterBO<AssuntoVO> boA = new AssuntoBO<>();
+	AssuntoInterBO<AssuntoVO> boA = new AssuntoBO();
 	QuestaoDAO<QuestaoVO> qDAO = new QuestaoDAO<QuestaoVO>();
 	private static AssuntoVO lastSelected;
 	private static QuestaoVO lastSelected2;

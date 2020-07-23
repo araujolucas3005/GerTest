@@ -65,7 +65,7 @@ public class QuestoesDaProvaController implements Initializable {
 
 	ObservableList<QuestaoVO> list = FXCollections.observableArrayList();
 
-	private ProvaInterBO<ProvaVO> bo = new ProvaBO<>();
+	private ProvaInterBO<ProvaVO> bo = new ProvaBO();
 	private QuestaoBO<QuestaoVO> boQ = new QuestaoBO<>();
 
 	@Override

@@ -22,7 +22,7 @@ import view.Telas;
 
 public class QuestoesController implements Initializable {
 	QuestaoBO<QuestaoVO> boQ = new QuestaoBO<QuestaoVO>();
-	AssuntoInterBO<AssuntoVO> boA = new AssuntoBO<>();
+	AssuntoInterBO<AssuntoVO> boA = new AssuntoBO();
 	
 	@FXML private TableView<QuestaoVO> tabelaQuestoes;
 	@FXML private TableColumn<QuestaoVO, Long> idQuestao;

@@ -22,7 +22,6 @@ import model.BO.AssuntoBO;
 import model.BO.BaseInterBO;
 import model.BO.DisciplinaBO;
 import model.BO.QuestaoBO;
-import model.BO.QuestaoInterBO;
 import model.VO.AssuntoVO;
 import model.VO.DisciplinaVO;
 import model.VO.QuestaoVO;
@@ -62,7 +61,7 @@ public class DisciplinasController implements Initializable {
 	private static DisciplinaVO lastSelectedDisciplina;
 
 	ObservableList<DisciplinaVO> list = FXCollections.observableArrayList();
-	BaseInterBO<DisciplinaVO> bo = new DisciplinaBO<>();
+	BaseInterBO<DisciplinaVO> bo = new DisciplinaBO();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -92,8 +91,8 @@ public class DisciplinasController implements Initializable {
 	}
 
 	public void removerDisciplina(ActionEvent event) {
-		QuestaoInterBO<QuestaoVO> bo2 = new QuestaoBO<>();
-		BaseInterBO<AssuntoVO> bo3 = new AssuntoBO<>();
+		BaseInterBO<QuestaoVO> bo2 = new QuestaoBO<>();
+		BaseInterBO<AssuntoVO> bo3 = new AssuntoBO();
 		try {
 			if (tabelaDisciplinas.getSelectionModel().getSelectedItem() == null) {
 				throw new Exception();
@@ -118,11 +117,11 @@ public class DisciplinasController implements Initializable {
 		}
 	}
 
-	public static DisciplinaVO lastSelectedDisciplina() {
+	public static DisciplinaVO getLastSelectedDisciplina() {
 		return lastSelectedDisciplina;
 	}
 
-	public static void lastSelectedDisciplina(DisciplinaVO lastSelected) {
+	public static void setLastSelectedDisciplina(DisciplinaVO lastSelected) {
 		DisciplinasController.lastSelectedDisciplina = lastSelected;
 	}
 

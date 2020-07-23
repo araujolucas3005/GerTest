@@ -7,9 +7,9 @@ import java.sql.Statement;
 
 import model.VO.VerdadeiroOuFalsoVO;
 
-public class VerdadeiroOuFalsoDAO<VO extends VerdadeiroOuFalsoVO> extends ObjetivaDAO<VO> implements QuestaoInterDAO<VO>{
+public class VerdadeiroOuFalsoDAO extends ObjetivaDAO<VerdadeiroOuFalsoVO> implements QuestaoInterDAO<VerdadeiroOuFalsoVO>{
 	
-	public void inserir(VO vo) throws SQLException {
+	public void inserir(VerdadeiroOuFalsoVO vo) throws SQLException {
 		super.inserir(vo);
 		String sql = "insert into VerdadeiroOuFalso (id_questao, id_objetiva) values (?,?)";
 		PreparedStatement ptst;
@@ -30,7 +30,7 @@ public class VerdadeiroOuFalsoDAO<VO extends VerdadeiroOuFalsoVO> extends Objeti
 		}
 	}
 	
-	public void remover(VO vo) throws SQLException {
+	public void remover(VerdadeiroOuFalsoVO vo) throws SQLException {
 		// TODO Auto-generated method stub
 		String sql = "delete from VeradeiroOuFalso where id_questao = ?";
 		PreparedStatement ptst;
@@ -63,7 +63,7 @@ public class VerdadeiroOuFalsoDAO<VO extends VerdadeiroOuFalsoVO> extends Objeti
 		return rs;
 	}
 	
-	public ResultSet buscarPorId(VO vo) {
+	public ResultSet buscarPorId(VerdadeiroOuFalsoVO vo) {
 		String sql = "select * from VerdadeiroOuFalso where id_questao = ?";
 		PreparedStatement ptst;
 		ResultSet rs = null;
@@ -94,9 +94,9 @@ public class VerdadeiroOuFalsoDAO<VO extends VerdadeiroOuFalsoVO> extends Objeti
 		return rs;
 	}
 	
-	public ResultSet listarPorDisciplina(VO vo) {
+	public ResultSet listarPorDisciplina(VerdadeiroOuFalsoVO vo) {
 		// TODO Auto-generated method stub
-		String sql = "select * from Questao inner join VerdadeiroOuFalso on Questao.id = VeradeiroOuFalso.id_questao where id_disciplina = ?";
+		String sql = "select * from Questao inner join VerdadeiroOuFalso on Questao.id = VerdadeiroOuFalso.id_questao where id_disciplina = ?";
 		PreparedStatement ptst;
 		ResultSet rs = null;
 

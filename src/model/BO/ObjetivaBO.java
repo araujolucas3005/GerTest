@@ -8,7 +8,7 @@ import model.DAO.ObjetivaDAO;
 import model.DAO.QuestaoInterDAO;
 import model.VO.ObjetivaVO;
 
-public class ObjetivaBO<VO extends ObjetivaVO> extends QuestaoBO<VO> implements QuestaoInterBO<VO> {
+public class ObjetivaBO<VO extends ObjetivaVO> extends QuestaoBO<VO> implements BaseInterBO<VO> {
 	
 	static private QuestaoInterDAO<ObjetivaVO> dao = new ObjetivaDAO<>();
 	

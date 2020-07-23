@@ -26,7 +26,6 @@ import model.BO.BaseInterBO;
 import model.BO.DisciplinaBO;
 import model.BO.DiscursivaBO;
 import model.BO.MultiplaEscolhaBO;
-import model.BO.QuestaoInterBO;
 import model.BO.VerdadeiroOuFalsoBO;
 import model.VO.AssuntoVO;
 import model.VO.DisciplinaVO;
@@ -50,11 +49,11 @@ public class CadastroQuestaoController implements Initializable{
 	@FXML private Label error2;
 	
 	ObservableList<DisciplinaVO> list2 = FXCollections.observableArrayList();
-	AssuntoInterBO<AssuntoVO> boA = new AssuntoBO<>();
-	BaseInterBO<DisciplinaVO> boD = new DisciplinaBO<>();
-	QuestaoInterBO<DiscursivaVO> discBO = new DiscursivaBO<>();
-	QuestaoInterBO<MultiplaEscolhaVO> meBO = new MultiplaEscolhaBO<>();
-	QuestaoInterBO<VerdadeiroOuFalsoVO> vofBO = new VerdadeiroOuFalsoBO<>();
+	AssuntoInterBO<AssuntoVO> boA = new AssuntoBO();
+	BaseInterBO<DisciplinaVO> boD = new DisciplinaBO();
+	BaseInterBO<DiscursivaVO> discBO = new DiscursivaBO();
+	BaseInterBO<MultiplaEscolhaVO> meBO = new MultiplaEscolhaBO();
+	BaseInterBO<VerdadeiroOuFalsoVO> vofBO = new VerdadeiroOuFalsoBO();
 	private static DisciplinaVO lastSelected;
 	
 	@Override

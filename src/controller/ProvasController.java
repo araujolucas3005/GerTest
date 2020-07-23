@@ -53,16 +53,16 @@ public class ProvasController implements Initializable {
     
     private static ProvaVO lastSelectedProva;
     
-    private ProvaInterBO<ProvaVO> bo = new ProvaBO<>();
+    private ProvaInterBO<ProvaVO> bo = new ProvaBO();
     
     ObservableList<ProvaVO> list = FXCollections.observableArrayList();
     
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-    	provasDe.setText(provasDe.getText() + DisciplinasController.lastSelectedDisciplina().getNome());
+    	provasDe.setText(provasDe.getText() + DisciplinasController.getLastSelectedDisciplina().getNome());
 		ProvaVO prova = new ProvaVO();
-		prova.setIdDisciplina(DisciplinasController.lastSelectedDisciplina().getId());
+		prova.setIdDisciplina(DisciplinasController.getLastSelectedDisciplina().getId());
 		List<ProvaVO> provas = bo.listarPorDisciplina(prova);
 		list.addAll(provas);
 
@@ -119,7 +119,7 @@ public class ProvasController implements Initializable {
     				throw new TipoErradoExcepetion();
     			}
     		}
-    		prova.setIdDisciplina(DisciplinasController.lastSelectedDisciplina().getId());
+    		prova.setIdDisciplina(DisciplinasController.getLastSelectedDisciplina().getId());
     		prova.setNivel1(Integer.parseInt(gerarNivel1.getText()));
     		prova.setNivel2(Integer.parseInt(gerarNivel2.getText()));
     		prova.setNivel3(Integer.parseInt(gerarNivel3.getText()));

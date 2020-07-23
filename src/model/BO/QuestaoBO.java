@@ -16,12 +16,12 @@ import model.VO.MultiplaEscolhaVO;
 import model.VO.QuestaoVO;
 import model.VO.VerdadeiroOuFalsoVO;
 
-public class QuestaoBO<VO extends QuestaoVO> extends BaseBO<VO> implements QuestaoInterBO<VO> {
+public class QuestaoBO<VO extends QuestaoVO> extends BaseBO<VO> implements BaseInterBO<VO> {
 
 	static private QuestaoInterDAO<QuestaoVO> questaoDAO = new QuestaoDAO<>();
 	static private QuestaoInterDAO<DiscursivaVO> discDAO = new DiscursivaDAO<>();
 	static private QuestaoInterDAO<MultiplaEscolhaVO> meDAO = new MultiplaEscolhaDAO<>();
-	static private QuestaoInterDAO<VerdadeiroOuFalsoVO> vfDAO = new VerdadeiroOuFalsoDAO<>();
+	static private QuestaoInterDAO<VerdadeiroOuFalsoVO> vfDAO = new VerdadeiroOuFalsoDAO();
 
 	@SuppressWarnings("unchecked")
 	public List<VO> listar() {
@@ -39,7 +39,7 @@ public class QuestaoBO<VO extends QuestaoVO> extends BaseBO<VO> implements Quest
 				discursiva.setNivel(discRs.getInt("nivel"));
 				discursiva.setIdDisciplina(discRs.getLong("id_disciplina"));
 				discursiva.setTipo(discRs.getString("tipo"));
-				questoes.add((VO) discursiva);
+				questoes.add((VO)discursiva);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -58,7 +58,7 @@ public class QuestaoBO<VO extends QuestaoVO> extends BaseBO<VO> implements Quest
 				multiplaEscolha.setNivel(meRs.getInt("nivel"));
 				multiplaEscolha.setIdDisciplina(meRs.getLong("id_disciplina"));
 				multiplaEscolha.setTipo(meRs.getString("tipo"));
-				questoes.add((VO) multiplaEscolha);
+				questoes.add((VO)multiplaEscolha);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -77,7 +77,7 @@ public class QuestaoBO<VO extends QuestaoVO> extends BaseBO<VO> implements Quest
 				vf.setNivel(vfRs.getInt("nivel"));
 				vf.setIdDisciplina(vfRs.getLong("id_disciplina"));
 				vf.setTipo(vfRs.getString("tipo"));
-				questoes.add((VO) vf);
+				questoes.add((VO)vf);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -162,68 +162,5 @@ public class QuestaoBO<VO extends QuestaoVO> extends BaseBO<VO> implements Quest
 			e.printStackTrace();
 		}
 		return questao;
-	}
-
-	@SuppressWarnings("unchecked")
-	public List<VO> listarPorDisciplina(VO vo) {
-		List<VO> questoes = new ArrayList<>();
-
-		try {
-			ResultSet discRs = discDAO.listarPorDisciplina(vo);
-			while (discRs.next()) {
-				QuestaoVO discursiva = new DiscursivaVO();
-				discursiva.setCodigo(discRs.getString("codigo"));
-				discursiva.setIdAssunto(discRs.getLong("id_assunto"));
-				discursiva.setEnunciado(discRs.getString("enunciado"));
-				discursiva.setGabarito(discRs.getString("gabarito"));
-				discursiva.setIdQuestao(discRs.getLong("id_questao"));
-				discursiva.setNivel(discRs.getInt("nivel"));
-				discursiva.setIdDisciplina(discRs.getLong("id_disciplina"));
-				discursiva.setTipo(discRs.getString("tipo"));
-				questoes.add((VO) discursiva);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		try {
-			ResultSet meRs = meDAO.listarPorDisciplina();
-			while (meRs.next()) {
-				QuestaoVO multiplaEscolha = new MultiplaEscolhaVO();
-				multiplaEscolha.setCodigo(meRs.getString("codigo"));
-				multiplaEscolha.setIdAssunto(meRs.getLong("id_assunto"));
-				multiplaEscolha.setEnunciado(meRs.getString("enunciado"));
-				multiplaEscolha.setGabarito(meRs.getString("gabarito"));
-				multiplaEscolha.setIdQuestao(meRs.getLong("id_questao"));
-				multiplaEscolha.setNivel(meRs.getInt("nivel"));
-				multiplaEscolha.setIdDisciplina(meRs.getLong("id_disciplina"));
-				multiplaEscolha.setTipo(meRs.getString("tipo"));
-				questoes.add((VO) multiplaEscolha);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		try {
-			ResultSet vfRs = vfDAO.listarPorDisciplina();
-			while (vfRs.next()) {
-				QuestaoVO vf = new VerdadeiroOuFalsoVO();
-				vf.setCodigo(vfRs.getString("codigo"));
-				vf.setIdAssunto(vfRs.getLong("id_assunto"));
-				vf.setEnunciado(vfRs.getString("enunciado"));
-				vf.setGabarito(vfRs.getString("gabarito"));
-				vf.setIdQuestao(vfRs.getLong("id_questao"));
-				vf.setNivel(vfRs.getInt("nivel"));
-				vf.setIdDisciplina(vfRs.getLong("id_disciplina"));
-				vf.setTipo(vfRs.getString("tipo"));
-				questoes.add((VO) vf);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return questoes;
 	}
 }

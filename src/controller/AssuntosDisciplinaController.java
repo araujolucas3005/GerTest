@@ -44,7 +44,7 @@ public class AssuntosDisciplinaController implements Initializable {
 	@FXML
 	private Label assuntosDaDisciplina;
 
-	AssuntoInterBO<AssuntoVO> bo = new AssuntoBO<>();
+	AssuntoInterBO<AssuntoVO> bo = new AssuntoBO();
 	ObservableList<AssuntoVO> list = FXCollections.observableArrayList();
 
 	@Override
@@ -54,9 +54,9 @@ public class AssuntosDisciplinaController implements Initializable {
 	}
 
 	public void loadData() {
-		assuntosDaDisciplina.setText("Assuntos de " + DisciplinasController.lastSelectedDisciplina().getNome());
+		assuntosDaDisciplina.setText("Assuntos de " + DisciplinasController.getLastSelectedDisciplina().getNome());
 		AssuntoVO assunto = new AssuntoVO();
-		assunto.setIdDisciplina(DisciplinasController.lastSelectedDisciplina().getId());
+		assunto.setIdDisciplina(DisciplinasController.getLastSelectedDisciplina().getId());
 		List<AssuntoVO> assuntos = null;
 		try {
 			assuntos = bo.listarPorDisciplina(assunto);
@@ -103,7 +103,7 @@ public class AssuntosDisciplinaController implements Initializable {
 					}
 				}
 			}
-			assunto.setIdDisciplina(DisciplinasController.lastSelectedDisciplina().getId());
+			assunto.setIdDisciplina(DisciplinasController.getLastSelectedDisciplina().getId());
 			try {
 				bo.cadastrar(assunto);
 			} catch (AssuntoMuitoLongoException e) {
