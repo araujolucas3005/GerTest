@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 import model.VO.QuestaoVO;
 
-public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> {
+public class QuestaoDAO<VO extends QuestaoVO> extends BaseInterDAO<VO> {
 
 	@Override
 	public void inserir(VO vo) throws SQLException {
@@ -170,7 +170,7 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> {
 		return rs;
 	}
 
-	public ResultSet listarPorCodigo(VO vo) throws SQLException {
+	public ResultSet listarPorCodigo(QuestaoVO vo) throws SQLException {
 		// TODO Auto-generated method stub
 		String sql = "select * from Questao where codigo = ?";
 		PreparedStatement ptst;
@@ -187,7 +187,7 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> {
 		return rs;
 	}
 	
-	public ResultSet listarPorDisciplina(VO vo) throws SQLException {
+	public ResultSet listarPorDisciplina(QuestaoVO questao) throws SQLException {
 		// TODO Auto-generated method stub
 		String sql = "select * from Questao where id_disciplina = ?";
 		PreparedStatement ptst;
@@ -195,7 +195,7 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> {
 
 		try {
 			ptst = getConnection().prepareStatement(sql);
-			ptst.setLong(1, vo.getIdDisciplina());
+			ptst.setLong(1, questao.getIdDisciplina());
 			rs = ptst.executeQuery();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

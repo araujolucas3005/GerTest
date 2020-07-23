@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.TextAlignment;
+import model.BO.BaseInterBO;
 import model.BO.DisciplinaBO;
 import model.VO.BiologicaVO;
 import model.VO.DisciplinaVO;
@@ -34,7 +35,7 @@ public class CriarDisciplinaController {
 	public void cadastrarDisciplina(ActionEvent event) {
 
 		DisciplinaVO disciplina = null;
-		DisciplinaBO bo = new DisciplinaBO();
+		BaseInterBO<DisciplinaVO> bo = new DisciplinaBO();
 
 		try {
 			if (nomeDisciplina.getText().length() < 1) {

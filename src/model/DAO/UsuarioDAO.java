@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 import model.VO.UsuarioVO;
 
-public class UsuarioDAO <VO extends UsuarioVO> extends BaseDAO<VO> {
+public class UsuarioDAO <VO extends UsuarioVO> extends BaseInterDAO<VO> {
 	
 	public void inserir(VO usuario) {
 		
@@ -79,7 +79,7 @@ public class UsuarioDAO <VO extends UsuarioVO> extends BaseDAO<VO> {
 		return rs;
 	}
 	
-	public ResultSet listarPorLogin(VO usuario) {
+	public ResultSet listarPorLogin(UsuarioVO usuario) {
 		String sql = "select * from Usuario where login = ?";
 		PreparedStatement ptst;
 		ResultSet rs = null;
@@ -129,5 +129,4 @@ public class UsuarioDAO <VO extends UsuarioVO> extends BaseDAO<VO> {
 		}
 		return rs;
 	}
-	
 }

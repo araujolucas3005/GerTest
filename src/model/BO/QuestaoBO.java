@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import exception.InsertException;
+import model.DAO.BaseInterDAO;
 import model.DAO.DiscursivaDAO;
 import model.DAO.MultiplaEscolhaDAO;
 import model.DAO.QuestaoDAO;
@@ -15,14 +16,14 @@ import model.VO.MultiplaEscolhaVO;
 import model.VO.QuestaoVO;
 import model.VO.VerdadeiroOuFalsoVO;
 
-public class QuestaoBO<VO extends QuestaoVO> extends BaseBO<VO> implements QuestaoInterBO<VO> {
+public class QuestaoBO<VO extends QuestaoVO> extends BaseInterBO<VO> {
 
-	static private QuestaoDAO<QuestaoVO> questaoDAO = new QuestaoDAO<QuestaoVO>();
-	static private QuestaoDAO<DiscursivaVO> discDAO = new DiscursivaDAO();
-	static private QuestaoDAO<MultiplaEscolhaVO> meDAO = new MultiplaEscolhaDAO();
-	static private QuestaoDAO<VerdadeiroOuFalsoVO> vfDAO = new VerdadeiroOuFalsoDAO();
+	static private BaseInterDAO<QuestaoVO> questaoDAO = new QuestaoDAO<QuestaoVO>();
+	static private BaseInterDAO<DiscursivaVO> discDAO = new DiscursivaDAO();
+	static private BaseInterDAO<MultiplaEscolhaVO> meDAO = new MultiplaEscolhaDAO();
+	static private BaseInterDAO<VerdadeiroOuFalsoVO> vfDAO = new VerdadeiroOuFalsoDAO();
 
-	public List<QuestaoVO> listarTodos() {
+	public List<QuestaoVO> listarTodos() throws SQLException {
 		List<QuestaoVO> questoes = new ArrayList<>();
 
 		ResultSet discRs = discDAO.listar();
@@ -84,7 +85,7 @@ public class QuestaoBO<VO extends QuestaoVO> extends BaseBO<VO> implements Quest
 		return questoes;
 	}
 
-	public void cadastrar(VO questao) throws InsertException, SQLException {
+	public void cadastrar(VO questao) throws InsertException, SQLException, Exception {
 		ResultSet rs;
 
 		try {
@@ -114,7 +115,7 @@ public class QuestaoBO<VO extends QuestaoVO> extends BaseBO<VO> implements Quest
 		}
 	}
 
-	public void remover(VO questao) {
+	public void remover(VO questao) throws Exception {
 		try {
 			ResultSet rs = questaoDAO.listarPorId(questao);
 			if (rs.next()) {
@@ -129,7 +130,7 @@ public class QuestaoBO<VO extends QuestaoVO> extends BaseBO<VO> implements Quest
 		}
 	}
 	
-	public void removerDaProva(VO questao) {
+	public void removerDaProva(QuestaoVO questao) {
 		try {
 			questaoDAO.removerDaProva(questao);
 		} catch (Exception e) {
@@ -198,5 +199,5 @@ public class QuestaoBO<VO extends QuestaoVO> extends BaseBO<VO> implements Quest
 			e.printStackTrace();
 		}
 		return questoes;
-	}
+	}	
 }

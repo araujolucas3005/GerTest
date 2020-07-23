@@ -8,7 +8,7 @@ import java.sql.Statement;
 import exception.NomeMuitoLongException;
 import model.VO.DisciplinaVO;
 
-public class DisciplinaDAO extends BaseDAO<DisciplinaVO> {
+public class DisciplinaDAO extends BaseInterDAO<DisciplinaVO> {
 
 	public void inserir(DisciplinaVO disciplina) throws NomeMuitoLongException {
 
